@@ -1,7 +1,7 @@
-#include<cstdio>
-#include<cstdlib>
-//为什么不能写stdio.h???
+#include<stdio.h>
+#include<stdlib.h>
 
+/*枚举类型*/
 enum Vehicle{car, train, airplane};
 enum Status{ERROR, OK};
 
@@ -18,10 +18,10 @@ typedef struct transport_table{
 	struct transport_table *nextPtr;
 }TransTable, *PtrTransTable;
 
-/*图-邻接矩阵 结构*/
+/*图（城市）-邻接矩阵 结构*/
 typedef struct graph{
-	PtrTransTable **pp_G;//指向邻接矩阵的指针，(二维动态数组）
-	int Graph_size;
+	PtrTransTable **pp_G;//指向邻接矩阵(二维动态数组）的指针
+	int Graph_size;//城市数量
 }GRAPH;//定义了结构体方便后期扩展
 
 
