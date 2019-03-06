@@ -1,36 +1,36 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-/*Ã¶¾ÙÀàĞÍ*/
+/*æšä¸¾ç±»å‹*/
 enum Vehicle{car, train, airplane};
 enum Status{ERROR, OK};
 
-/*½á¹¹Ìå*/
+/*ç»“æ„ä½“*/
 
-/*º½°à±í½á¹¹*/
+/*èˆªç­è¡¨ç»“æ„*/
 typedef struct transport_table{
-	int src, dest;//ÆğµãºÍÖÕµã//Ö®ºóÊ¹ÓÃÊı×é´æ´¢µØµã¾ßÌåÃû×Ö£¬Ê¹ÓÃÊı×éÏÂ±ê·ÃÎÊ
-	Vehicle transport;//³µĞÍ//Ã¶¾ÙÀàĞÍ
-	int number;//³µ´Î //»òĞíÀàĞÍĞèÒª¸ÄÎª×Ö·û´®£¿
-	int time_departure;//·¢³µÊ±¼ä //ÏµÍ³Ê±¼ä¾«È·µ½Ğ¡Ê±
-	int time_consumed;//ºÄÊ±
-	int cost;//Ç®
+	int src, dest;//èµ·ç‚¹å’Œç»ˆç‚¹//ä¹‹åä½¿ç”¨æ•°ç»„å­˜å‚¨åœ°ç‚¹å…·ä½“åå­—ï¼Œä½¿ç”¨æ•°ç»„ä¸‹æ ‡è®¿é—®
+	Vehicle transport;//è½¦å‹//æšä¸¾ç±»å‹
+	int number;//è½¦æ¬¡ //æˆ–è®¸ç±»å‹éœ€è¦æ”¹ä¸ºå­—ç¬¦ä¸²ï¼Ÿ
+	int time_departure;//å‘è½¦æ—¶é—´ //ç³»ç»Ÿæ—¶é—´ç²¾ç¡®åˆ°å°æ—¶
+	int time_consumed;//è€—æ—¶
+	int cost;//é’±
 	struct transport_table *nextPtr;
 }TransTable, *PtrTransTable;
 
-/*±ß ½á¹¹*/
+/*è¾¹ ç»“æ„*/
 typedef struct Edge {
-	TransTable *p_TransTable;
-	int weight;//±ßµÄÈ¨ÖØ//ÊÇ¿ÉÒÔÎ¨Ò»È·¶¨µÄ
-}EDGE;
+	PtrTransTable p_TransTable;
+	int weight;//è¾¹çš„æƒé‡//æ˜¯å¯ä»¥å”¯ä¸€ç¡®å®šçš„
+}EDGE, *P_EDGE;
 
-/*Í¼£¨³ÇÊĞ£©-ÁÚ½Ó¾ØÕó ½á¹¹*/
+/*å›¾ï¼ˆåŸå¸‚ï¼‰-é‚»æ¥çŸ©é˜µ ç»“æ„*/
 typedef struct graph{
-	EDGE **pp_G;//Ö¸ÏòÁÚ½Ó¾ØÕó(¶şÎ¬¶¯Ì¬Êı×é£©µÄÖ¸Õë
-	int Graph_size;//³ÇÊĞÊıÁ¿
-}GRAPH;//¶¨ÒåÁË½á¹¹Ìå·½±ãºóÆÚÀ©Õ¹
+	EDGE **pp_G;//æŒ‡å‘é‚»æ¥çŸ©é˜µ(äºŒç»´åŠ¨æ€æ•°ç»„ï¼‰çš„æŒ‡é’ˆ
+	int Graph_size;//åŸå¸‚æ•°é‡
+}GRAPH;//å®šä¹‰äº†ç»“æ„ä½“æ–¹ä¾¿åæœŸæ‰©å±•
 
 
-/*³£Á¿¶¨Òå*/
+/*å¸¸é‡å®šä¹‰*/
 
-//º¯Êı·ÅÔÚ.hÀï¹Ö¹ÖµÄ£¿£¿ÒòÎªÓĞextern
+//å‡½æ•°æ”¾åœ¨.hé‡Œæ€ªæ€ªçš„ï¼Ÿï¼Ÿå› ä¸ºæœ‰extern
