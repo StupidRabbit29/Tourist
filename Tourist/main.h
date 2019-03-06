@@ -18,9 +18,15 @@ typedef struct transport_table{
 	struct transport_table *nextPtr;
 }TransTable, *PtrTransTable;
 
+/*边 结构*/
+typedef struct Edge {
+	TransTable *p_TransTable;
+	int weight;//边的权重//是可以唯一确定的
+}EDGE;
+
 /*图（城市）-邻接矩阵 结构*/
 typedef struct graph{
-	PtrTransTable **pp_G;//指向邻接矩阵(二维动态数组）的指针
+	EDGE **pp_G;//指向邻接矩阵(二维动态数组）的指针
 	int Graph_size;//城市数量
 }GRAPH;//定义了结构体方便后期扩展
 
