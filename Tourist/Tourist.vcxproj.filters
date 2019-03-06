@@ -24,6 +24,9 @@
     <ClCompile Include="Min_Cost.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Min_Time.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">
