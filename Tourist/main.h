@@ -1,6 +1,10 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include<cstdio>
+#include<cstdlib>
 
+/*常量定义*/
+#define INFINITE 2147483647 //最大int
+#define NOT_EXIST -1
+#define MAX_NODE_NUM 200 //最大城市数量
 /*枚举类型*/
 enum Vehicle{car, train, airplane};
 enum Status{ERROR, OK};
@@ -16,21 +20,21 @@ typedef struct transport_table{
 	int time_consumed;//耗时
 	int cost;//钱
 	struct transport_table *nextPtr;
-}TransTable, *PtrTransTable;
+}TransTable_NODE, *Ptr_TransTable_NODE;
 
 /*边 结构*/
 typedef struct Edge {
-	PtrTransTable p_TransTable;
+	Ptr_TransTable_NODE p_TransTable;
 	int weight;//边的权重//是可以唯一确定的
+	int num_OfTheEgde;//权重最小的边的编号
 }EDGE, *P_EDGE;
 
 /*图（城市）-邻接矩阵 结构*/
 typedef struct graph{
-	EDGE **pp_G;//指向邻接矩阵(二维动态数组）的指针
+	EDGE **pp_G;//指向邻接矩阵(二维动态数组）的指针//大小为Graph_size*Graph_size
 	int Graph_size;//城市数量
 }GRAPH;//定义了结构体方便后期扩展
 
 
-/*常量定义*/
 
 //函数放在.h里怪怪的？？因为有extern

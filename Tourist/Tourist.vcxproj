@@ -112,6 +112,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Min_Cost.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h" />
