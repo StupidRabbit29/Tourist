@@ -1,5 +1,5 @@
-#include<cstdio>
-#include<cstdlib>
+#include<stdio.h>
+#include<stdlib.h>
 
 /*常量定义*/
 #define INFINITE 2147483647 //最大int
@@ -35,6 +35,12 @@ typedef struct graph{
 	int Graph_size;//城市数量
 }GRAPH;//定义了结构体方便后期扩展
 
+/*栈 结构*/
+typedef struct {
+	int *base, *top, stack_size;
+}SqStack;
+
 
 
 //函数放在.h里怪怪的？？因为有extern
+//可以写函数声明

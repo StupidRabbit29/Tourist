@@ -114,9 +114,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Min_Cost.cpp" />
     <ClCompile Include="Min_Time.cpp" />
+    <ClCompile Include="Output.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
