@@ -1,11 +1,12 @@
 //使用引用 访问path数组？？
 #include"main.h"
 
+SqStack *s;
 Status Init_Stack(SqStack *s)
 {
-	s->base = (int*)malloc(sizeof(int)*MAXSIZE);
+	s->base = (int*)malloc(sizeof(int)*MAX_NODE_NUM);
 	if (s->base == NULL) exit(1);
-	s->stack_size = MAXSIZE;
+	s->stack_size = MAX_NODE_NUM;
 	s->top = s->base;
 	return OK;
 }
@@ -24,9 +25,24 @@ Status Pop(SqStack *s, int &data)
 	return OK;
 }
 
-Status Output(MAZE maze, int path[], int dist[], int src, int dest)
+
+/*												警告！
+输出之前图的边的唯一确定的权重不能被改变
+即city_graph.pp_G[v1][v2].num_OfTheEgde不能有改动
+即不能在同一个线程内再次调用min cost或min time文件*/
+
+extern GRAPH city_graph;
+Status Output(int path[], int dist[], int src, int dest,int travel_strategy/*传入枚举类型。*/)//传参？？？？？
 {
-	printf("从 %s到 %s的最短路径长度为：%d米\n\n", maze.landmark[src], maze.landmark[dest], dist[dest]);
+	if(travel_strategy==STRA_minCOST)
+		printf("从 %s到 %s的最少花费为：%d元\n\n", city_graph.City_Name[src], city_graph.City_Name[dest], dist[dest]);
+	else if (travel_strategy == STRA_minTIME)
+		printf("从 %s到 %s最短耗时为：%d小时\n\n", city_graph.City_Name[src], city_graph.City_Name[dest], dist[dest]);
+	else if (travel_strategy == STRA_limTIME_minCOST)
+		printf("从 %s到 %s的限制时间最少费用为：\n\n", city_graph.City_Name[src], city_graph.City_Name[dest], dist[dest]);
+	/*最后这条else还有问题，稍后改*/
+	
+	
 	/*打印路径（栈）*/
 	int V = dest;
 	SqStack stack;
@@ -37,31 +53,24 @@ Status Output(MAZE maze, int path[], int dist[], int src, int dest)
 		Push(&stack, path[V]);
 		V = path[V];
 	}
-	printf("最短路径是：\n");
+	printf("路径是：\n");
 
 	int v1, v2;
-	char *direction;
-	direction = (char*)malloc(sizeof(char)*MAXSIZE);
 	Pop(&stack, v1);
 	while (stack.base != stack.top)//栈非空
 	{
-		Pop(&stack, v2);
-		switch (maze.G[v1][v2].direction)
-		{
-		case 'N':
-			direction = "北";
-			break;
-		case 'S':
-			direction = "南";
-			break;
-		case 'W':
-			direction = "西";
-			break;
-		case 'E':
-			direction = "东";
-			break;
-		}
-		printf("从 %s向%s走%d米\n到达 %s\n", maze.landmark[v1], direction, maze.G[v1][v2].edge_len, maze.landmark[v2]);
+		//遍历一条链表以找到车型，起点，终点
+		TransTable_NODE *currentPtr = NULL;
+		int vehicle_num = city_graph.pp_G[v1][v2].num_OfTheEgde;
+		for (currentPtr = city_graph.pp_G[v1][v2].p_TransTable;
+			currentPtr != NULL || currentPtr->number != vehicle_num;//??????
+			currentPtr = city_graph.pp_G[v1][v2].p_TransTable->nextPtr);
+		/*循环退出后currentPtr应指向该航班。*/
+
+		/*出发到达时间还没加上*/
+		if (currentPtr->number == vehicle_num)
+			printf("乘坐%d号%s\t从%s出发\t到达%s\n", vehicle_num, currentPtr->transport, currentPtr->src, currentPtr->dest);
+		else return ERROR;
 		v1 = v2;
 	}
 

@@ -32,7 +32,7 @@ void Init_Graph_Min_Time()//遍历整个图，将其边初的权重始化
 }
 
 
-Status Dijkstra_Mintime_consumed(int src, int dest)
+Status Dijkstra_Mintime_consumed(int src, int dest)//参数由旅客信息获得。
 {
 	/*初始化*/
 	bool collected[MAX_NODE_NUM] = { false };
