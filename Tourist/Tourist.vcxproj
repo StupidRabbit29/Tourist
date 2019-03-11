@@ -115,11 +115,13 @@
     <ClCompile Include="Min_Cost.cpp" />
     <ClCompile Include="Min_Time.cpp" />
     <ClCompile Include="Output.cpp" />
+    <ClCompile Include="Prepare.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="..\Document\map.txt" />
     <Text Include="input.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
