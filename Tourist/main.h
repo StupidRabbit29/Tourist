@@ -32,6 +32,7 @@ typedef struct Edge {
 	Ptr_TransTable_NODE p_TransTable;
 	int weight;//边的权重//是可以唯一确定的
 	int num_OfTheEgde;//权重最小的边的编号
+	int distance;//城市之间的距离，0代表本市到本市，-1代表不连通
 }EDGE, *P_EDGE;
 
 /*图（城市）-邻接矩阵 结构*/
