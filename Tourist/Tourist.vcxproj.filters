@@ -40,9 +40,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="input.txt">
-      <Filter>Document</Filter>
-    </Text>
     <Text Include="..\Document\map.txt">
       <Filter>Document</Filter>
     </Text>

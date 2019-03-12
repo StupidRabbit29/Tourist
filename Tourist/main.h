@@ -5,13 +5,17 @@
 #define INFINITE 2147483647 //最大int
 #define NOT_EXIST -1
 #define MAX_NODE_NUM 200 //最大城市数量
+#define MIN_NODE_NUM 10 //最小城市数量
+
 /*枚举类型*/
 enum Vehicle { CAR, TRAIN, AIRPLANE };
 enum Status { ERROR, OK, STACK_FULL, STACK_EMPTY };
 enum Travel_Strategy { STRA_minCOST, STRA_minTIME, STRA_limTIME_minCOST };
 
-/*结构体*/
+/*全局变量*/
 
+
+/*结构体*/
 /*航班表结构*/
 typedef struct transport_table{
 	int src, dest;//起点和终点//之后使用数组存储地点具体名字，使用数组下标访问
@@ -34,7 +38,7 @@ typedef struct Edge {
 typedef struct graph{
 	EDGE **pp_G;//指向邻接矩阵(二维动态数组）的指针//大小为Graph_size*Graph_size
 	int Graph_size;//城市数量
-	char City_Name[][];//数组名字是二维数组还是指针数组？？？？
+	char **City_Name;//数组名字是二维数组还是指针数组？？？？
 }GRAPH;//定义了结构体方便后期扩展
 
 /*栈 结构*/

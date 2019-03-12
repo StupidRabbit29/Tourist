@@ -122,7 +122,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Document\map.txt" />
-    <Text Include="input.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
