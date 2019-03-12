@@ -47,8 +47,9 @@ typedef struct {
 	int *base, *top, stack_size;
 }SqStack;
 
-/*乘客 结构*/
-typedef struct {
+/*乘客 结构 链表形式存储*/
+typedef struct passenger{
+	char ID[20];//旅客名称
 	int src, dest;//起点终点
 	int strategy;//旅行策略//时间or费用最少or限制时间最少费用
 	int pass_by[MAX_NODE_NUM];//要求途经的城市 //虽然很浪费空间但是我不想malloc了
@@ -58,6 +59,8 @@ typedef struct {
 	FILE *fptr_user;//用户文档//什么鬼 存用户id的吗
 	FILE *fptr_route;//路线 若用户中途修改策略，路线会被全部覆盖重写
 	//或许还应该有一个记录用户状态的文档？
+
+	struct passenger *next_passenger;//指向下一个旅客
 }PASSENGER;
 
 
