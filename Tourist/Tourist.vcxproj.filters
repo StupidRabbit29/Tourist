@@ -30,6 +30,9 @@
     <ClCompile Include="Output.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Prepare.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -37,7 +40,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="input.txt">
+    <Text Include="..\Document\map.txt">
       <Filter>Document</Filter>
     </Text>
   </ItemGroup>

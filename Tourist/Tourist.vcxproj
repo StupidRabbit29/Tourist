@@ -115,12 +115,14 @@
     <ClCompile Include="Min_Cost.cpp" />
     <ClCompile Include="Min_Time.cpp" />
     <ClCompile Include="Output.cpp" />
+    <ClCompile Include="Prepare.cpp" />
+    <ClCompile Include="Sign_in.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="input.txt" />
+    <Text Include="..\Document\map.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
