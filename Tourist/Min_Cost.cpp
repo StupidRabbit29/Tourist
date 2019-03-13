@@ -1,7 +1,7 @@
 #include"main.h"
 
 /*全局变量定义  暂时放在这个文件里*/
-GRAPH city_graph;//想不出名字
+extern GRAPH city_graph;
 int path_c[MAX_NODE_NUM], dist_c[MAX_NODE_NUM];//dist即为weight，或者说是cost
 
 void Init_Graph_MinCost()//遍历整个图，将其边初的权重始化
