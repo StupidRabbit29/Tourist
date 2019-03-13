@@ -10,6 +10,7 @@ Status Read_Map(FILE *fptr)
 {
 	//读取城市数目
 	fscanf(fptr, "%d", &city_graph.Graph_size);
+	fgetc(fptr);
 	if (city_graph.Graph_size == 0 || city_graph.Graph_size < MIN_NODE_NUM)
 		return ERROR;
 
@@ -23,6 +24,7 @@ Status Read_Map(FILE *fptr)
 	for (i = 0; i < city_graph.Graph_size; i++)
 	{
 		fscanf(fptr, "%s", &city_graph.City_Name[i]);
+		fgetc(fptr);
 	}
 
 	//申请城市地图的邻接矩阵

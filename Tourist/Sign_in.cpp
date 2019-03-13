@@ -13,6 +13,7 @@ Status User_sign_in(void)
 	//读取用户输入的ID
 	char userID[20];
 	gets_s(userID);
+	getchar();
 	bool find_passenger = false;
 
 	//使用temp遍历旅客链表
@@ -53,6 +54,7 @@ Status User_sign_in(void)
 		while (choice_correct == false)
 		{
 			scanf("%d", &choice);
+			getchar();
 			if (choice == 1 || choice == 2 || choice == 3)
 			{
 				if (choice == 1)
@@ -80,4 +82,9 @@ Status User_sign_in(void)
 	}
 		
 	return OK;
+}
+
+Status Output_Status(void)
+{
+
 }
