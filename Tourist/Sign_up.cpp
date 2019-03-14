@@ -1,6 +1,9 @@
 #include"main.h"
-PASSENGER *Passengers = NULL, *Passengers_tailPtr = NULL;
+PASSENGER *Passengers = NULL, *Passengers_tailPtr = NULL, *User;//User当前系统使用者
 #define Passengers_headPtr Passengers
+
+void Write_user_file(FILE *fptr, int choice);
+
 void Create_New_Passenger(PASSENGER *tailPtr)
 {
 	/*读输入&初始化*/
@@ -38,6 +41,8 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 	sprintf(string, "%s_status", psg_temp.ID);
 	fopen("string", "w+");
 
+	/*输入到user文档*/
+
 	/*加入passengers链表*/
 	if (Passengers_headPtr == NULL)
 	{
@@ -49,4 +54,8 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 		Passengers_tailPtr->next_passenger = &psg_temp;
 		Passengers_tailPtr = Passengers_tailPtr->next_passenger;
 	}
+
+	Write_user_file(User->fptr_user, 1);
+
+	User = &psg_temp;//？？？？？？？？？？？？？？？？？？
 }
