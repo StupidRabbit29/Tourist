@@ -3,7 +3,7 @@ PASSENGER *Passengers = NULL, *Passengers_tailPtr = NULL;
 #define Passengers_headPtr Passengers
 void Create_New_Passenger(PASSENGER *tailPtr)
 {
-	/*读输入*/
+	/*读输入&初始化*/
 	PASSENGER psg_temp;
 	printf("请输入ID：");
 	scanf_s("%s", psg_temp.ID);
@@ -31,11 +31,12 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 		psg_temp.Time_Limited = NULL;
 
 	char string[500];//随便取的500
-	sprintf(string, "%s_user", psg_temp.ID);
-
-
-
-
+	sprintf(string, "%s_user", psg_temp.ID);//???????会不会把\0写进去
+	fopen("string", "w+");
+	sprintf(string, "%s_route", psg_temp.ID);
+	fopen("string", "w+");
+	sprintf(string, "%s_status", psg_temp.ID);
+	fopen("string", "w+");
 
 	/*加入passengers链表*/
 	if (Passengers_headPtr == NULL)
@@ -48,5 +49,4 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 		Passengers_tailPtr->next_passenger = &psg_temp;
 		Passengers_tailPtr = Passengers_tailPtr->next_passenger;
 	}
-	fprintf()
 }
