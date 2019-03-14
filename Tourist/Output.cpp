@@ -59,6 +59,8 @@ Status Output(int path[], int dist[], int src, int dest,int travel_strategy/*´«È
 	Pop(&stack, v1);
 	while (stack.base != stack.top)//Õ»·Ç¿Õ
 	{
+		Pop(&stack, v2);//?????
+
 		//±éÀúÒ»ÌõÁ´±íÒÔÕÒµ½³µĞÍ£¬Æğµã£¬ÖÕµã
 		TransTable_NODE *currentPtr = NULL;
 		int vehicle_num = city_graph.pp_G[v1][v2].num_OfTheEgde;

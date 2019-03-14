@@ -117,6 +117,7 @@
     <ClCompile Include="Output.cpp" />
     <ClCompile Include="Prepare.cpp" />
     <ClCompile Include="Sign_in.cpp" />
+    <ClCompile Include="Sign_up.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
