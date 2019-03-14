@@ -55,7 +55,7 @@ typedef struct User_Status
 	time_t time;//当前时刻
 	Location loca;//乘客旅行状态
 	int src, dest;//起点，终点；若乘客在途中，代表交通工具的起始点；若乘客停留在某城市，src=dest；
-	int number;//搭乘交通工具的车次
+	int number;//搭乘交通工具的车次2
 }User_Status;
 
 /*乘客 结构 链表形式存储*/
