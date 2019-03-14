@@ -30,3 +30,8 @@ void Write_user_file(FILE *fptr, int choice)
 
 	//¥Ú”° ±º‰
 }
+
+void Write_route_file()
+{
+
+}
