@@ -111,11 +111,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Change_User_Info.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Min_Cost.cpp" />
     <ClCompile Include="Min_Time.cpp" />
     <ClCompile Include="Output.cpp" />
     <ClCompile Include="Prepare.cpp" />
+    <ClCompile Include="Read_Trans_Table.cpp" />
     <ClCompile Include="Sign_in.cpp" />
     <ClCompile Include="Sign_up.cpp" />
     <ClCompile Include="Write_File.cpp" />
