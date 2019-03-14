@@ -1,5 +1,6 @@
 //Ê¹ÓÃÒýÓÃ ·ÃÎÊpathÊý×é£¿£¿
 #include"main.h"
+char *Vehicle_Name[3] = { "Æû³µ", "»ð³µ", "·É»ú" };
 
 SqStack *s;
 Status Init_Stack(SqStack *s)
@@ -71,7 +72,7 @@ Status Output(int path[], int dist[], int src, int dest,int travel_strategy/*´«È
 
 		/*³ö·¢µ½´ïÊ±¼ä»¹Ã»¼ÓÉÏ*/
 		if (currentPtr->number == vehicle_num)
-			printf("³Ë×ø%dºÅ%s\t´Ó%s³ö·¢\tµ½´ï%s\n", vehicle_num, currentPtr->transport, currentPtr->src, currentPtr->dest);
+			printf("³Ë×ø%dºÅ%s\t´Ó%s³ö·¢\tµ½´ï%s\n", vehicle_num, Vehicle_Name[currentPtr->transport], currentPtr->src, currentPtr->dest);
 		else return ERROR;
 		v1 = v2;
 	}
