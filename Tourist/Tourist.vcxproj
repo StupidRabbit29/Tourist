@@ -123,6 +123,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Document\map.txt" />
+    <Text Include="..\Document\Standard_Route_file.txt" />
+    <Text Include="..\Document\Standard_Status_file.txt" />
+    <Text Include="..\Document\Standard_User_file.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

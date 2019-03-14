@@ -1,0 +1,9 @@
+passenger.ID
+状态：登录
+时间：
+passenger.ID
+状态：登出
+时间：
+passenger.ID
+状态：旅行状态查询
+时间：

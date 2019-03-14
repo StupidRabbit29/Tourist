@@ -33,6 +33,9 @@
     <ClCompile Include="Prepare.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Sign_in.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -41,6 +44,15 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Document\map.txt">
+      <Filter>Document</Filter>
+    </Text>
+    <Text Include="..\Document\Standard_User_file.txt">
+      <Filter>Document</Filter>
+    </Text>
+    <Text Include="..\Document\Standard_Route_file.txt">
+      <Filter>Document</Filter>
+    </Text>
+    <Text Include="..\Document\Standard_Status_file.txt">
       <Filter>Document</Filter>
     </Text>
   </ItemGroup>

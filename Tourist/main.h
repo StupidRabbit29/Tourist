@@ -56,9 +56,11 @@ typedef struct passenger{
 	int Time_Limited;//若限制时间最少费用，还有一项限制的时间
 	int status;//状态//可以使用枚举类型？或者类型要改？
 
-	FILE *fptr_user;//用户文档//什么鬼 存用户id的吗
-	FILE *fptr_route;//路线 若用户中途修改策略，路线会被全部覆盖重写
-	//或许还应该有一个记录用户状态的文档？
+	FILE *fptr_user;	//用户文档——用户登录登出记录，查询操作记录
+	FILE *fptr_route;	//路线——由旅行线路生成算法计算得到，若用户中途修改策略，路线会被全部覆盖重写，
+						//面向程序设计者
+	FILE *fptr_status;	//用户状态文档——通过时间线程实时更新用户状态
+						//面向用户
 
 	struct passenger *next_passenger;//指向下一个旅客
 }PASSENGER;
