@@ -11,16 +11,18 @@
 enum Vehicle { CAR, TRAIN, AIRPLANE };
 enum Status { ERROR, OK, STACK_FULL, STACK_EMPTY };
 enum Travel_Strategy { STRA_minCOST, STRA_minTIME, STRA_limTIME_minCOST };
+enum Location { CAR, TRAIN, AIRPLANE, CITY };
+
 
 /*全局变量*/
 
 
 /*结构体*/
 /*航班表结构*/
-typedef struct transport_table{
-	int src, dest;//起点和终点//之后使用数组存储地点具体名字，使用数组下标访问
+typedef struct transport_table {
+	int src, dest;//起点和终点
 	Vehicle transport;//车型//枚举类型
-	int number;//车次(0到2147483647） 不同车型车次的编号不允许重复！！！//或许类型需要改为字符串？
+	int number;//车次 不同车型车次的编号不允许重复！！！//或许类型需要改为字符串？
 	int time_departure;//发车时间 //系统时间精确到小时
 	int time_consumed;//耗时
 	int cost;//钱
@@ -36,25 +38,35 @@ typedef struct Edge {
 }EDGE, *P_EDGE;
 
 /*图（城市）-邻接矩阵 结构*/
-typedef struct graph{
+typedef struct graph {
 	EDGE **pp_G;//指向邻接矩阵(二维动态数组）的指针//大小为Graph_size*Graph_size
 	int Graph_size;//城市数量
 	char **City_Name;//数组名字是二维数组还是指针数组？？？？
 }GRAPH;//定义了结构体方便后期扩展
 
-/*栈 结构*/
+	   /*栈 结构*/
 typedef struct {
 	int *base, *top, stack_size;
 }SqStack;
 
+/*旅客旅行状态 结构*/
+typedef struct User_Status
+{
+	time_t time;//当前时刻
+	Location loca;//乘客旅行状态
+	int src, dest;//起点，终点；若乘客在途中，代表交通工具的起始点；若乘客停留在某城市，src=dest；
+	int number;//搭乘交通工具的车次
+}User_Status;
+
 /*乘客 结构 链表形式存储*/
-typedef struct passenger{
+typedef struct passenger {
 	char ID[20];//旅客名称
 	int src, dest;//起点终点
 	int strategy;//旅行策略//时间or费用最少or限制时间最少费用
 	int pass_by[MAX_NODE_NUM];//要求途经的城市 //虽然很浪费空间但是我不想malloc了
 	int Time_Limited;//若限制时间最少费用，还有一项限制的时间
-	int status;//状态//可以使用枚举类型？或者类型要改？
+
+	User_Status status;//旅客旅行状态
 
 	FILE *fptr_user;	//用户文档——用户登录登出记录，查询操作记录
 	FILE *fptr_route;	//路线——由旅行线路生成算法计算得到，若用户中途修改策略，路线会被全部覆盖重写，
