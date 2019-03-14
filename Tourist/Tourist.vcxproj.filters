@@ -13,6 +13,35 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Min_Cost.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Min_Time.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Output.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Prepare.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sign_in.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sign_up.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Write_File.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Document\map.txt" />
