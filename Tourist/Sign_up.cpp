@@ -30,6 +30,13 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 	else
 		psg_temp.Time_Limited = NULL;
 
+	char string[500];//随便取的500
+	sprintf(string, "%s_user", psg_temp.ID);
+
+
+
+
+
 	/*加入passengers链表*/
 	if (Passengers_headPtr == NULL)
 	{
