@@ -68,16 +68,16 @@ typedef struct passenger {
 
 	User_Status status;//旅客旅行状态
 
-	FILE *fptr_user;	//用户文档——用户登录登出记录，查询操作记录
+	
 	FILE *fptr_route;	//路线——由旅行线路生成算法计算得到，若用户中途修改策略，路线会被全部覆盖重写，
 						//面向程序设计者
-	FILE *fptr_status;	//用户状态文档——通过时间线程实时更新用户状态
-						//面向用户
-
+	
 	struct passenger *next_passenger;//指向下一个旅客
 }PASSENGER;
-
-
+//FILE *fptr_user;	//日志文档//用户文档——用户登录登出记录，查询操作记录
+//FILE *fptr_status;	//用户状态文档——通过时间线程实时更新用户状态
+						//面向用户
+//每小时读旅客状态 写入文件
 
 //函数放在.h里怪怪的？？因为有extern
 //可以写函数声明

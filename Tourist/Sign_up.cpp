@@ -7,6 +7,7 @@ void Write_user_file(FILE *fptr, int choice);
 void Create_New_Passenger(PASSENGER *tailPtr)
 {
 	/*读输入&初始化*/
+	/*需要修改！！！！！文件输入*/
 	PASSENGER psg_temp;
 	printf("请输入ID：");
 	scanf_s("%s", psg_temp.ID);
@@ -34,14 +35,17 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 		psg_temp.Time_Limited = NULL;
 
 	char string[500];//随便取的500
-	sprintf(string, "%s_user", psg_temp.ID);//???????会不会把\0写进去
+	//sprintf(string, "%s_user.ini", psg_temp.ID);//???????会不会把\0写进去
+	//fopen("string", "w+");
+	sprintf(string, "%s_route.ini", psg_temp.ID);
 	fopen("string", "w+");
-	sprintf(string, "%s_route", psg_temp.ID);
-	fopen("string", "w+");
-	sprintf(string, "%s_status", psg_temp.ID);
-	fopen("string", "w+");
+	/*sprintf(string, "%s_status.ini", psg_temp.ID);
+	fopen("string", "w+");*/
 
-	/*输入到user文档*/
+	///*格式化输出到user文档*/
+	//fprintf(psg_temp.ID,"%s ");
+
+
 
 	/*加入passengers链表*/
 	if (Passengers_headPtr == NULL)
