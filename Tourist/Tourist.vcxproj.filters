@@ -10,6 +10,8 @@
     <ClCompile Include="Sign_up.cpp" />
     <ClCompile Include="Read_Trans_Table.cpp" />
     <ClCompile Include="Change_User_Info.cpp" />
+    <ClCompile Include="Write_File.cpp" />
+    <ClCompile Include="Mouse_Thread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -32,9 +34,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Sign_up.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Write_File.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
