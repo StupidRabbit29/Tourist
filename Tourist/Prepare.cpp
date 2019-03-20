@@ -5,6 +5,14 @@
 GRAPH city_graph = { NULL, 0, NULL };
 
 /*函数*/
+Status Prepare(void)
+{
+	//恢复上次关闭的系统
+	//打开文件
+	//读取地图、航班
+	return OK;
+}
+
 //读取地图信息（城市名称，连通性，距离）
 Status Read_Map(FILE *fptr)
 {
