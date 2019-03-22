@@ -2,7 +2,7 @@
 PASSENGER *Passengers = NULL, *Passengers_tailPtr = NULL, *User;//User当前系统使用者
 #define Passengers_headPtr Passengers
 
-void Write_user_file(FILE *fptr, int choice);
+void Write_user_file(int choice);
 
 void Create_New_Passenger(PASSENGER *tailPtr)
 {
@@ -59,7 +59,7 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 		Passengers_tailPtr = Passengers_tailPtr->next_passenger;
 	}
 
-	Write_user_file(User->fptr_user, 1);
+	Write_user_file(1);//将用户注册信息写入User_File.ini
 
 	User = &psg_temp;//？？？？？？？？？？？？？？？？？？
 }

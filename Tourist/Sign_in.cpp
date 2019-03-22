@@ -7,7 +7,7 @@ extern PASSENGER *User;
 
 void Write_status_file(FILE *fptr);
 void Change_User_Info(PASSENGER &psg);
-void Write_user_file(FILE *fptr, int choice);
+void Write_user_file(int choice);
 
 
 /*函数*/
@@ -15,7 +15,7 @@ void Write_user_file(FILE *fptr, int choice);
 //用户登录
 Status User_sign_in(void)
 {
-	Write_user_file(User->fptr_user, 1);
+	Write_user_file(2);
 	//读取用户输入的ID
 	char userID[20];
 	gets_s(userID);
@@ -71,13 +71,13 @@ Status User_sign_in(void)
 				else if (choice == 2)
 				{
 					//调用打印旅客信息的函数
-					Write_user_file(User->fptr_user, 3);
+
 					Output_Status();
 				}
 				else
 				{
 					//旅客退出
-					Write_user_file(User->fptr_user, 2);
+					Write_user_file(3);
 					User = NULL;
 				}
 

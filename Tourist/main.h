@@ -71,6 +71,7 @@ typedef struct passenger {
 	
 	FILE *fptr_route;	//路线——由旅行线路生成算法计算得到，若用户中途修改策略，路线会被全部覆盖重写，
 						//面向程序设计者
+						//.ini
 	
 	struct passenger *next_passenger;//指向下一个旅客
 }PASSENGER;

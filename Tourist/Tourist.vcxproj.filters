@@ -49,4 +49,7 @@
     <Text Include="..\Document\Standard_Status_file.txt" />
     <Text Include="..\Document\Standard_User_file.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Document\User_File.ini" />
+  </ItemGroup>
 </Project>
