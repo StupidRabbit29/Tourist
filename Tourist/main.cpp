@@ -3,7 +3,7 @@
 #include<process.h>
 
 bool Quit = false;
-
+extern int System_Time;
 
 Status Prepare(void);
 unsigned __stdcall mouse(void* pArguments);

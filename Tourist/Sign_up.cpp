@@ -2,6 +2,9 @@
 PASSENGER *Passengers = NULL, *Passengers_tailPtr = NULL, *User;//User当前系统使用者
 #define Passengers_headPtr Passengers
 
+
+extern FILE *fptr_input;
+
 void Write_user_file(int choice);
 
 void Create_New_Passenger(PASSENGER *tailPtr)
@@ -38,12 +41,12 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 	//sprintf(string, "%s_user.ini", psg_temp.ID);//???????会不会把\0写进去
 	//fopen("string", "w+");
 	sprintf(string, "%s_route.ini", psg_temp.ID);
-	fopen("string", "w+");
+	psg_temp.fptr_route=fopen("string", "w+");
 	/*sprintf(string, "%s_status.ini", psg_temp.ID);
 	fopen("string", "w+");*/
 
-	///*格式化输出到user文档*/
-	//fprintf(psg_temp.ID,"%s ");
+	/*用户输入写到user文档*/
+	fprintf(fptr_input, "起点编号：%d\n", psg_temp.src);
 
 
 
