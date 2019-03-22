@@ -3,12 +3,15 @@
 
 /*全局变量*/
 GRAPH city_graph = { NULL, 0, NULL };
+FILE *fptr_input = NULL;
 
 /*函数*/
 Status Prepare(void)
 {
 	//恢复上次关闭的系统
 	//打开文件
+	/*打开：日志文档2-用户输入信息*/
+	fptr_input = fopen("log_file_input", "w");//只能写
 	//读取地图、航班
 	return OK;
 }
