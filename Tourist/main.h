@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
 /*常量定义*/
 #define INFINITE 2147483647 //最大int
@@ -81,5 +82,7 @@ typedef struct passenger {
 //日志文档2：用户输入信息
 //每小时读旅客状态 写入文件
 
-//函数放在.h里怪怪的？？因为有extern
-//可以写函数声明
+/*系统时间 结构*/
+typedef struct SYSTEM_TIME {
+	int year, mouth, date, hour;
+};
