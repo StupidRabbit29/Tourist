@@ -12,7 +12,7 @@
 enum Vehicle { CAR, TRAIN, AIRPLANE };
 enum Status { ERROR, OK, STACK_FULL, STACK_EMPTY };
 enum Travel_Strategy { STRA_minCOST, STRA_minTIME, STRA_limTIME_minCOST };
-enum Location { CAR, TRAIN, AIRPLANE, CITY };
+enum Location { CAR, TRAIN, AIRPLANE, STAY_IN_CITY };
 
 
 /*全局变量*/
@@ -84,5 +84,5 @@ typedef struct passenger {
 
 /*系统时间 结构*/
 typedef struct SYSTEM_TIME {
-	int year, mouth, date, hour;
+	int year, month, date, hour;
 };

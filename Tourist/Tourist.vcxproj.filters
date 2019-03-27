@@ -51,5 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Document\User_File.ini" />
+    <None Include="..\Document\Status_File.ini" />
+    <None Include="..\Document\System_File.ini" />
   </ItemGroup>
 </Project>

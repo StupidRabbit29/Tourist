@@ -4,8 +4,9 @@
 /*外部变量*/
 extern PASSENGER *Passengers;
 extern PASSENGER *User;
+extern SYSTEM_TIME System_Time;
+extern GRAPH city_graph;
 
-void Write_status_file(FILE *fptr);
 void Change_User_Info(PASSENGER &psg);
 void Write_user_file(int choice);
 
@@ -96,7 +97,14 @@ Status User_sign_in(void)
 
 Status Output_Status(void)
 {
-	Write_status_file(stdout);
+	char *loca[4] = { "CAR", "TRAIN", "AIRPLANE", "STAY_IN_CITY" };
+	char str2[100] = { '\0' };
+
+	printf("时间：%d - %d - %d  %d : 00 : 00\n", System_Time.year, System_Time.month, System_Time.date, System_Time.hour);
+	printf("旅行状态：%s\n", loca[(int)(User->status.loca)]);
+	memset(str2, 0, sizeof(str2));
+	sprintf(str2, "%s  ==》 %s", city_graph.City_Name[User->status.src], city_graph.City_Name[User->status.dest]);
+	printf("地理位置：%s\n", str2);
 
 	return OK;
 }

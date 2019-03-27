@@ -3,25 +3,27 @@
 
 /*全局变量*/
 GRAPH city_graph = { NULL, 0, NULL };
-FILE *fptr_user;//日志文件，记录用户登录事件
-FILE *fptr_states;//日志文件，记录用户旅行状态
+
 FILE *fptr_input;//日志文件，记录用户输入信息
-FILE *fptr_system_recover;//系统配置文件，用于系统恢复
+
 
 /*函数*/
 Status Prepare(void)
 {
 	//恢复上次关闭的系统
-	//打开文件
-	if (fopen_s(&fptr_user, "User_File.ini", "w+") != 0)
-	{
-		printf("配置文件User_FIle.ini打开失败\n");
-		return ERROR;
-	}
 
 	/*打开：日志文档2-用户输入信息*/
 	fptr_input = fopen("log_file_input", "w");//只能写
+
 	//读取地图、航班
+	FILE *fmap;
+	fopen_s(&fmap, "map.txt", "r");
+	if (Read_Map(fmap) == ERROR)
+	{
+		printf("读取地图错误\n");
+		return ERROR;
+	}
+		
 	return OK;
 }
 

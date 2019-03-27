@@ -134,6 +134,8 @@
     <Text Include="..\Document\Standard_User_file.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Document\Status_File.ini" />
+    <None Include="..\Document\System_File.ini" />
     <None Include="..\Document\User_File.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
