@@ -23,7 +23,7 @@ Status Prepare(void)
 		printf("¶ÁÈ¡µØÍ¼´íÎó\n");
 		return ERROR;
 	}
-		
+		 
 	return OK;
 }
 
