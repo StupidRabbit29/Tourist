@@ -3,29 +3,60 @@
 
 /*全局变量*/
 GRAPH city_graph = { NULL, 0, NULL };
-
 FILE *fptr_input;//日志文件，记录用户输入信息
 
+Status Read_system_file();
 
 /*函数*/
 Status Read_Trans_Table();
 Status Prepare(void)
 {
 	//恢复上次关闭的系统
-
-	/*打开：日志文档2-用户输入信息*/
-	fptr_input = fopen("log_file_input", "w");//只能写
-
-	//读取地图、航班
-	FILE *fmap;
-	fopen_s(&fmap, "map.txt", "r");
-	if (Read_Map(fmap) == ERROR)
+	char ch;
+	printf("是否恢复上次打开的系统？Y（打开旧系统）/N（打开新系统）\n");
+	scanf("%c", &ch);
+	while (ch != 'Y' && ch != 'N')
 	{
-		printf("读取地图错误\n");
-		return ERROR;
+		printf("输入错误，请输入Y或N。\n");
+		scanf("%c", &ch);
 	}
-	Read_Trans_Table();
+	if (ch == 'Y')
+	{
+		if (Read_system_file() == UNABLE)
+		{
+			printf("读取存档失败！创建新系统\n");
 
+			//读取地图、航班
+			FILE *fmap;
+			fopen_s(&fmap, "map.txt", "r");
+			if (Read_Map(fmap) == ERROR)
+			{
+				printf("读取地图错误\n");
+				return ERROR;
+			}
+
+			//读取航班表
+			Read_Trans_Table();
+		}
+			
+	}
+	else
+	{
+		//读取地图、航班
+		FILE *fmap;
+		fopen_s(&fmap, "map.txt", "r");
+		if (Read_Map(fmap) == ERROR)
+		{
+			printf("读取地图错误\n");
+			return ERROR;
+		}
+
+		//读取航班表
+		Read_Trans_Table();
+
+	}
+	/*打开：日志文档2-用户输入信息*/
+	fptr_input = fopen("log_file_input", "w");//只能写 
 
 	return OK;
 }

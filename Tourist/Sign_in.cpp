@@ -73,7 +73,7 @@ Status User_sign_in(void)
 				{
 					//调用打印旅客信息的函数
 
-					Output_Status();
+					Output_Status(User);
 				}
 				else
 				{
@@ -95,15 +95,16 @@ Status User_sign_in(void)
 	return OK;
 }
 
-Status Output_Status(void)
+Status Output_Status(PASSENGER *psg)
 {
 	char *loca[4] = { "CAR", "TRAIN", "AIRPLANE", "STAY_IN_CITY" };
 	char str2[100] = { '\0' };
 
+	printf("旅客：【%s】", psg->ID);
 	printf("时间：%d - %d - %d  %d : 00 : 00\n", System_Time.year, System_Time.month, System_Time.date, System_Time.hour);
-	printf("旅行状态：%s\n", loca[(int)(User->status.loca)]);
+	printf("旅行状态：%s\n", loca[(int)(psg->status.loca)]);
 	memset(str2, 0, sizeof(str2));
-	sprintf(str2, "%s  ==》 %s", city_graph.City_Name[User->status.src], city_graph.City_Name[User->status.dest]);
+	sprintf(str2, "%s  ==》 %s", city_graph.City_Name[psg->status.src], city_graph.City_Name[psg->status.dest]);
 	printf("地理位置：%s\n", str2);
 
 	return OK;
