@@ -8,6 +8,7 @@ FILE *fptr_input;//日志文件，记录用户输入信息
 
 
 /*函数*/
+Status Read_Trans_Table();
 Status Prepare(void)
 {
 	//恢复上次关闭的系统
@@ -23,7 +24,9 @@ Status Prepare(void)
 		printf("读取地图错误\n");
 		return ERROR;
 	}
-		
+	Read_Trans_Table();
+
+
 	return OK;
 }
 

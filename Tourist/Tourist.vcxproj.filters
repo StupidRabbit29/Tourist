@@ -13,6 +13,7 @@
     <ClCompile Include="Write_File.cpp" />
     <ClCompile Include="Mouse_Thread.cpp" />
     <ClCompile Include="Time_Thread.cpp" />
+    <ClCompile Include="Dijkstra.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />

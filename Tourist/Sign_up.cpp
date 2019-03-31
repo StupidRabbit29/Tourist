@@ -26,13 +26,23 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 
 	printf("请输入途经城市数量：");
 	int cnt=0,i;
-	scanf_s("%d", cnt);
+	scanf_s("%d", &cnt);
 	fprintf(fptr_input, "途经城市数量：%d\n途经城市编号：",cnt);//用户输入写入input.txt文件
 	printf("请输入途经城市编号：");
+	bool stay = false;
 	for (i = 0; i < cnt; i++)
 	{
-		scanf_s("%d", &psg_temp.pass_by[i]);
-		fprintf(fptr_input, "%d ", psg_temp.pass_by[i]);//用户输入写入input.txt文件
+		scanf_s("%d", &psg_temp.pass_by[0][i]);
+		fprintf(fptr_input, "%d ", psg_temp.pass_by[0][i]);//用户输入写入input.txt文件
+		printf("是否需要在该地停留（Y=1/N=0）：");
+		scanf_s("%d", &stay);
+		if (stay == true)
+		{
+			printf("请输入停留时间（单位：小时）：");
+			scanf_s("%d", &psg_temp.pass_by[1][i]);
+		}
+		else
+			psg_temp.pass_by[1][i] = 0;
 	}
 
 	psg_temp.next_passenger = NULL;
@@ -71,4 +81,6 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 	Write_user_file(1);//将用户注册信息写入User_File.ini
 
 	User = &psg_temp;//？？？？？？？？？？？？？？？？？？
+
+	/*计算路径*/
 }

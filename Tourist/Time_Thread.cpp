@@ -34,6 +34,8 @@ unsigned __stdcall time(void* pArguments)
 			System_Time.month = 1;
 		}
 	}
+	/*写需要保存的系统状态*/
+
 	_endthreadex(0);
 	return 0;
 }

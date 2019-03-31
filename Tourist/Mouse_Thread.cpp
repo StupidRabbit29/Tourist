@@ -3,10 +3,13 @@
 #include<process.h>
 
 extern bool Quit;
+extern PASSENGER *Passengers, *Passengers_tailPtr, *User;//User当前系统使用者
+
 
 
 void Create_New_Passenger(PASSENGER *tailPtr);
 Status User_sign_in(void);
+void Create_New_Passenger(PASSENGER *tailPtr);
 
 unsigned __stdcall mouse(void* pArguments)
 {
@@ -32,13 +35,12 @@ unsigned __stdcall mouse(void* pArguments)
 		{
 		case 0://退出系统
 		{
-			Quit = true;
+			Quit = true;//关闭时间进程
 			//存档，关闭文件等
-			//关闭时间进程
 		}
-		case 1:
+		case 1://用户注册
 		{
-			//用户注册
+			Create_New_Passenger(Passengers_tailPtr);
 		}
 		case 2:
 		{

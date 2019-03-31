@@ -64,7 +64,7 @@ typedef struct passenger {
 	char ID[20];//旅客名称
 	int src, dest;//起点终点
 	int strategy;//旅行策略//时间or费用最少or限制时间最少费用
-	int pass_by[MAX_NODE_NUM];//要求途经的城市 //已经访问过的城市需要标记？？？
+	int pass_by[2][MAX_NODE_NUM];//row0要求途经的城市;row1在该地停留时间 //已经访问过的城市需要标记？？？
 	int Time_Limited;//若限制时间最少费用，还有一项限制的时间
 
 	User_Status status;//旅客旅行状态
