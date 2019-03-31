@@ -3,10 +3,11 @@
 #include<process.h>
 
 extern bool Quit;
-
+extern PASSENGER *Passengers;
 
 void Create_New_Passenger(PASSENGER *tailPtr);
 Status User_sign_in(void);
+Status Output_Status(PASSENGER *psg);
 
 unsigned __stdcall mouse(void* pArguments)
 {
@@ -32,9 +33,8 @@ unsigned __stdcall mouse(void* pArguments)
 		{
 		case 0://退出系统
 		{
+			//通过设置Quit关闭时间进程
 			Quit = true;
-			//存档，关闭文件等
-			//关闭时间进程
 		}
 		case 1:
 		{
@@ -48,6 +48,15 @@ unsigned __stdcall mouse(void* pArguments)
 		case 3:
 		{
 			//查询用户状态
+			PASSENGER *temp = Passengers;
+
+			if (temp == NULL)
+				printf("当前系统中无用户！\n");
+			while (temp != NULL)
+			{
+				Output_Status(temp);
+				temp = temp->next_passenger;
+			}
 		}
 		default:
 		{

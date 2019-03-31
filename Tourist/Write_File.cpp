@@ -2,6 +2,7 @@
 #include<windows.h>
 
 extern PASSENGER *User;
+extern PASSENGER *Passengers, *Passengers_tailPtr;
 extern SYSTEM_TIME System_Time;
 extern GRAPH city_graph;
 
@@ -69,7 +70,85 @@ void Write_route_file()
 
 }
 
-void Write_system_file()
+Status Write_system_file()
 {
+	WritePrivateProfileStringA("able_or_unable", "able", "1", ".\\System_File.ini");
+	WritePrivateProfileStructA("System_Time", "time", &System_Time, sizeof(SYSTEM_TIME), ".\\System_File.ini");
 
+	int number = 0;
+	PASSENGER *temp = Passengers;
+	while (temp != NULL)
+	{
+		temp = temp->next_passenger;
+		number++;
+	}
+	char str1[100];
+	memset(str1, 0, sizeof(str1));
+	sprintf(str1, "%d", number);
+	WritePrivateProfileStringA("Passenger", "number", str1, ".\\System_File.ini");
+
+	int i = 0;
+	temp = Passengers;
+	for (i=1;i<=number;i++)
+	{
+		if (temp == User)
+		{
+			memset(str1, 0, sizeof(str1));
+			sprintf(str1, "%d", i);
+			WritePrivateProfileStringA("Passenger", "User", str1, ".\\System_File.ini");
+		}
+		memset(str1, 0, sizeof(str1));
+		sprintf(str1, "旅客No.%d", i);
+		
+		WritePrivateProfileStructA("Passenger", str1, &temp, sizeof(PASSENGER), ".\\System_File.ini");
+		temp = temp->next_passenger;
+	}
+
+	WritePrivateProfileStructA("GRAPH", "graph", &city_graph, sizeof(GRAPH), ".\\System_File.ini");
+
+	return OK;
+}
+
+Status Read_system_file()
+{
+	int able = GetPrivateProfileIntA("able_or_unable", "able", 0, ".\\System_File.ini");
+	if (able == 0)
+	{
+		printf("没有系统使用记录，无法恢复系统！\n");
+		return UNABLE;
+	}
+
+	GetPrivateProfileStructA("System_Time", "time", &System_Time, sizeof(SYSTEM_TIME), ".\\System_File.ini");
+
+	int number=GetPrivateProfileIntA("Passenger", "number", 0, ".\\System_File.ini");
+
+	if (number > 0)
+	{
+		PASSENGER *temp = Passengers;
+		Passengers = (PASSENGER*)malloc(sizeof(PASSENGER));
+		GetPrivateProfileStructA("Passenger", "旅客No.1", &Passengers, sizeof(PASSENGER), ".\\System_File.ini");
+		int i = 2;
+		char str1[100];
+		for (; i <= number; i++)
+		{
+			memset(str1, 0, sizeof(str1));
+			sprintf(str1, "旅客No.%d", i);
+			temp->next_passenger = (PASSENGER*)malloc(sizeof(PASSENGER));
+			GetPrivateProfileStructA("Passenger", str1, temp->next_passenger, sizeof(PASSENGER), ".\\System_File.ini");
+			temp = temp->next_passenger;
+		}
+
+		Passengers_tailPtr = temp;
+		User = NULL;
+	}
+	else
+	{
+		Passengers = NULL;
+		Passengers_tailPtr = NULL;
+		User = NULL;
+	}
+	
+	GetPrivateProfileStructA("GRAPH", "graph", &city_graph, sizeof(GRAPH), ".\\System_File.ini");
+
+	return OK;
 }

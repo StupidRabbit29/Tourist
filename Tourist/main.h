@@ -10,7 +10,7 @@
 
 /*枚举类型*/
 enum Vehicle { CAR, TRAIN, AIRPLANE };
-enum Status { ERROR, OK, STACK_FULL, STACK_EMPTY };
+enum Status { ERROR, OK, STACK_FULL, STACK_EMPTY, UNABLE };
 enum Travel_Strategy { STRA_minCOST, STRA_minTIME, STRA_limTIME_minCOST };
 enum Location { CAR, TRAIN, AIRPLANE, STAY_IN_CITY };
 
