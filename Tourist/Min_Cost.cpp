@@ -2,7 +2,10 @@
 
 /*全局变量定义  暂时放在这个文件里*/
 extern GRAPH city_graph;
-int path_c[MAX_NODE_NUM], dist_c[MAX_NODE_NUM];//dist即为weight，或者说是cost
+extern PASSENGER *User;//User当前系统使用者
+//dist即为weight，或者说是cost
+
+Status Dijkstra(int src, int dest, int path[]);
 
 void Init_Graph_MinCost()//遍历整个图，将其边初的权重始化
 {
@@ -31,69 +34,113 @@ void Init_Graph_MinCost()//遍历整个图，将其边初的权重始化
 		}
 	}
 }
-
-
-Status Dijkstra_MinCost(int src, int dest)
+Status Min_Cost()
 {
-	/*初始化*/
-	bool collected[MAX_NODE_NUM] = { false };
-
-	//收录起点src
-	dist_c[src] = 0;
-	collected[src] = true;
-	
-	//初始化dist_c和path_c数组
-	for (int i = 0; i < city_graph.Graph_size; i++)
+	//判断需要经过的中间节点个数是否等于0
+	if (User->num_passby == 0)//为0直接dijkstra
 	{
-		if (city_graph.pp_G[src][i].weight < INFINITE ) //将 从src出的边赋值
-		{
-			dist_c[i] = city_graph.pp_G[src][i].weight;
-			path_c[i] = src;
-		}
-		else //????
-		{
-			dist_c[i] = INFINITE;//将dist_c数组元素初始化为无穷;对未被收录的，dist_c[v]为起点到源点的最短距离
-			path_c[i] = -1;//将path_c数组元素初始化为-1，path_c数组元素为起点到节点i的路径的上一个节点
-		}
+		int path[MAX_NODE_NUM];
+		Dijkstra(User->src, User->dest, path);
 	}
-
-	/*Dijkstra*/
-	int V = src;
-	int minV, mindist;
-	while (1)
+	else//要经过的中间节点个数不为0
 	{
-		/*收录未收录顶点中dist_c最小者*/
-		mindist = INFINITE;
-		minV = -1;
-		for (int V = 0; V < city_graph.Graph_size; V++)//遍历dist_c数组，找到dist最小的节点
+		//图完全连通，省略判断连通性
+
+		/*起点到全部中间节点调dijkstra*/
+		for (int i = 0; i < User->num_passby; i++)
 		{
-			if (collected[V] == false)
-			{
-				if (dist_c[V] < mindist)
-				{
-					mindist = dist_c[V];
-					minV = V;
-				}
-			}
+
 		}
 
-		if (minV == -1) break;//若这样的顶点不存在，break（已收录所有顶点或图不连通）
 
-		V = minV;//收录该最小dist顶点
-		collected[V] = true;
 
-		/*更新dist_c和path_c*/
-		for (int W = 0; W < city_graph.Graph_size; W++)
-		{
-			if (collected[W] == false)
-			{
-				if (dist_c[V] + city_graph.pp_G[V][W].weight < dist_c[W])//如果V到W有一条边 并且W节点未被收录到path_c中
-				{
-					dist_c[W] = dist_c[V] + city_graph.pp_G[V][W].weight;//起点到W的距离等于起点到W的距离+VW边的距离
-					path_c[W] = V;//路径中W的上一个节点是V
-				}
-			}
-		}
+		/*全排列中间节点*/
+		/*每个排列要建一个数组存路径，建一个指向数组的链表？还要保存路径总长度用于排序*/
+
+
+		/*中间节点会经过多次导致数组不够大？*/
 	}
-	return OK;
 }
+void perm()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Status Dijkstra_MinCost(int src, int dest)
+//{
+//	/*初始化*/
+//	bool collected[MAX_NODE_NUM] = { false };
+//
+//	//收录起点src
+//	dist_c[src] = 0;
+//	collected[src] = true;
+//	
+//	//初始化dist_c和path_c数组
+//	for (int i = 0; i < city_graph.Graph_size; i++)
+//	{
+//		if (city_graph.pp_G[src][i].weight < INFINITE ) //将 从src出的边赋值
+//		{
+//			dist_c[i] = city_graph.pp_G[src][i].weight;
+//			path_c[i] = src;
+//		}
+//		else //????
+//		{
+//			dist_c[i] = INFINITE;//将dist_c数组元素初始化为无穷;对未被收录的，dist_c[v]为起点到源点的最短距离
+//			path_c[i] = -1;//将path_c数组元素初始化为-1，path_c数组元素为起点到节点i的路径的上一个节点
+//		}
+//	}
+//
+//	/*Dijkstra*/
+//	int V = src;
+//	int minV, mindist;
+//	while (1)
+//	{
+//		/*收录未收录顶点中dist_c最小者*/
+//		mindist = INFINITE;
+//		minV = -1;
+//		for (int V = 0; V < city_graph.Graph_size; V++)//遍历dist_c数组，找到dist最小的节点
+//		{
+//			if (collected[V] == false)
+//			{
+//				if (dist_c[V] < mindist)
+//				{
+//					mindist = dist_c[V];
+//					minV = V;
+//				}
+//			}
+//		}
+//
+//		if (minV == -1) break;//若这样的顶点不存在，break（已收录所有顶点或图不连通）
+//
+//		V = minV;//收录该最小dist顶点
+//		collected[V] = true;
+//
+//		/*更新dist_c和path_c*/
+//		for (int W = 0; W < city_graph.Graph_size; W++)
+//		{
+//			if (collected[W] == false)
+//			{
+//				if (dist_c[V] + city_graph.pp_G[V][W].weight < dist_c[W])//如果V到W有一条边 并且W节点未被收录到path_c中
+//				{
+//					dist_c[W] = dist_c[V] + city_graph.pp_G[V][W].weight;//起点到W的距离等于起点到W的距离+VW边的距离
+//					path_c[W] = V;//路径中W的上一个节点是V
+//				}
+//			}
+//		}
+//	}
+//	return OK;
+//}

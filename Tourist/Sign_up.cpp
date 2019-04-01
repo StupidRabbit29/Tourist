@@ -27,6 +27,7 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 	printf("请输入途经城市数量：");
 	int cnt=0,i;
 	scanf_s("%d", &cnt);
+	psg_temp.num_passby = cnt;
 	fprintf(fptr_input, "途经城市数量：%d\n途经城市编号：",cnt);//用户输入写入input.txt文件
 	printf("请输入途经城市编号：");
 	bool stay = false;
