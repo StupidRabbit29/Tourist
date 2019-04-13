@@ -2,8 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Min_Cost.cpp" />
-    <ClCompile Include="Min_Time.cpp" />
     <ClCompile Include="Output.cpp" />
     <ClCompile Include="Prepare.cpp" />
     <ClCompile Include="Sign_in.cpp" />
@@ -14,6 +12,9 @@
     <ClCompile Include="Mouse_Thread.cpp" />
     <ClCompile Include="Time_Thread.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
+    <ClCompile Include="无用Min_Time.cpp" />
+    <ClCompile Include="无用Min_Cost.cpp" />
+    <ClCompile Include="Min_Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -46,9 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Document\map.txt" />
-    <Text Include="..\Document\Standard_Route_file.txt" />
-    <Text Include="..\Document\Standard_Status_file.txt" />
-    <Text Include="..\Document\Standard_User_file.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Document\User_File.ini" />

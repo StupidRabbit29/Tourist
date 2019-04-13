@@ -114,8 +114,9 @@
     <ClCompile Include="Change_User_Info.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Min_Cost.cpp" />
     <ClCompile Include="Min_Time.cpp" />
+    <ClCompile Include="无用Min_Cost.cpp" />
+    <ClCompile Include="无用Min_Time.cpp" />
     <ClCompile Include="Mouse_Thread.cpp" />
     <ClCompile Include="Output.cpp" />
     <ClCompile Include="Prepare.cpp" />
@@ -130,9 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Document\map.txt" />
-    <Text Include="..\Document\Standard_Route_file.txt" />
-    <Text Include="..\Document\Standard_Status_file.txt" />
-    <Text Include="..\Document\Standard_User_file.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Document\Status_File.ini" />
