@@ -15,13 +15,11 @@
     <ClCompile Include="无用Min_Time.cpp" />
     <ClCompile Include="无用Min_Cost.cpp" />
     <ClCompile Include="Min_Time.cpp" />
+    <ClCompile Include="Min_Cost.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
     <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Min_Cost.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Min_Time.cpp">

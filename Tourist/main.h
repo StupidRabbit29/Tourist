@@ -1,6 +1,13 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<stack>
+#include<vector>
+#include<bitset>
+#include<algorithm>
+#include<iterator>
+using namespace std;
+
 
 /*常量定义*/
 #define INFINITE 2147483647 //最大int
