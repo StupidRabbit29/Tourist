@@ -74,7 +74,7 @@ typedef struct passenger {
 	int num_passby;//途经节点数量
 	int pass_by[2][MAX_NODE_NUM];//row0要求途经的城市;row1在该地停留时间 //已经访问过的城市需要标记？？？
 	int Time_Limited;//若限制时间最少费用，还有一项限制的时间
-
+	int start_time;//旅行者开始旅行的时间
 	User_Status status;//旅客旅行状态
 
 	
