@@ -94,3 +94,15 @@ typedef struct passenger {
 typedef struct SYSTEM_TIME {
 	int year, month, date, hour;
 };
+
+/*旅客旅行路线的结点 结构*/
+typedef struct pathnode
+{
+	int src;//一段路径的起点
+	int dest;//一段路径的终点
+	int number;//旅行者搭乘的车次
+	int start_time;//开始时间
+	int time;//耗费时间
+	int start_date;//开始天数
+	PathNode* next;//下一条路径
+}PathNode, *PATH;

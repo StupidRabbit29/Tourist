@@ -16,6 +16,7 @@
     <ClCompile Include="无用Min_Cost.cpp" />
     <ClCompile Include="Min_Time.cpp" />
     <ClCompile Include="Min_Cost.cpp" />
+    <ClCompile Include="temp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -50,5 +51,6 @@
     <None Include="..\Document\User_File.ini" />
     <None Include="..\Document\Status_File.ini" />
     <None Include="..\Document\System_File.ini" />
+    <None Include="..\Document\User_Route.ini" />
   </ItemGroup>
 </Project>

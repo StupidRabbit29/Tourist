@@ -65,9 +65,23 @@ void Write_user_file(int choice)
 
 }
 
-void Write_route_file()
+void Write_route_file(PATH tour)
 {
+	char filename[20] = { ".\\User_Route.ini" };
+	char str1[100];
 
+	int number = 0;
+	PATH temp = tour;
+	while (temp != NULL)
+	{
+		number++;
+		memset(str1, 0, sizeof(str1));
+		sprintf(str1, "No.%d", number);
+
+		WritePrivateProfileStructA(User->ID, str1, temp, sizeof(PathNode), filename);
+
+		temp = temp->next;
+	}
 }
 
 Status Write_system_file()
