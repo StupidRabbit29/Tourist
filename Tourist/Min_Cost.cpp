@@ -5,6 +5,10 @@ extern GRAPH city_graph;
 extern PASSENGER *User;//User当前系统使用者
 //dist即为weight，或者说是cost
 
+void Write_route_file(PATH tour);
+Status Output_route(PATH tour);
+Status Finish_Path(PATH tour);
+
 void Init_Graph_MinCost()//遍历整个图，将其边初的权重始化
 {
 	int min_cost, num_of_the_MinCostEdge;
@@ -196,7 +200,42 @@ Status Min_Cost()
 				min_row = i;
 			}
 		}
-		/*待改：调用函数将结果写入文件？*/
 
+		/*待改：调用函数将结果写入文件？*/
+		/*改为链表*/
+		PATH headptr = NULL, currentptr, tailptr;
+		for (int col = 0; col < all_path.at(min_row).size()/*?*/; col++)//遍历cost最小的一行
+		{
+			currentptr = (PATH)malloc(sizeof(PathNode));
+			currentptr->src = all_path.at(min_row).at(col);
+			currentptr->dest = all_path.at(min_row).at(col + 1);
+			currentptr->number = city_graph.pp_G[currentptr->src][currentptr->dest].num_OfTheEgde;//???
+			currentptr->next = NULL;
+
+			if (headptr == NULL)
+			{
+				headptr = currentptr;
+				tailptr = currentptr;
+			}
+			else
+			{
+				tailptr->next = currentptr;
+				tailptr = tailptr->next;
+			}
+		}
+
+		//补全路线链表中的内容
+		Finish_Path(headptr);
+
+		Output_route(headptr);
+		Write_route_file(headptr);
+
+		/*释放链表*/
+		while( headptr != NULL)
+		{
+			currentptr = headptr;
+			headptr = headptr->next;
+			free(currentptr);
+		}
 	}
 }
