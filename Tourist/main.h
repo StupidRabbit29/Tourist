@@ -1,3 +1,4 @@
+#include<iostream>
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -30,6 +31,7 @@ enum Location { CAR, TRAIN, AIRPLANE, STAY_IN_CITY };
 typedef struct transport_table {
 	int src, dest;//起点和终点
 	Vehicle transport;//车型//枚举类型
+	char name[10];
 	int number;//车次 不同车型车次的编号不允许重复！！！//或许类型需要改为字符串？
 	int time_departure;//发车时间 //系统时间精确到小时
 	int time_consumed;//耗时

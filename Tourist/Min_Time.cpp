@@ -4,6 +4,9 @@ extern GRAPH city_graph;
 extern PASSENGER *User;
 extern char *Vehicle_Name[3];
 
+void Write_route_file(PATH tour);
+Status Output_route(PATH tour);
+
 //计算给定两个城市间的最短路径
 Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 {
@@ -410,8 +413,37 @@ Status Min_Time()
 	//补全路线链表中的内容
 	Finish_Path(tour);
 	
+	Output_route(tour);
+	Write_route_file(tour);
+
 	for (int i = 0; i < path_number; i++)
 		delete[]Path[i];
 	delete[]Path;
 	return OK;
+}
+
+//在屏幕上打印旅客的旅行路线
+Status Output_route(PATH tour)
+{
+	int number = 0;
+	PATH temp = tour;
+
+	while (temp != NULL)
+	{
+		number++;
+		Ptr_TransTable_NODE trans = city_graph.pp_G[temp->src][temp->dest].p_TransTable;
+		while (trans != NULL)
+		{
+			if (trans->number == temp->number)
+				break;
+
+			trans = trans->nextPtr;
+		}
+
+		cout << "No." << number << " " << city_graph.City_Name[temp->src]
+			<< "----->" << city_graph.City_Name[temp->dest] << " "
+			<< trans->name << "  发车时间：" << temp->start_time << endl;
+
+		temp = temp->next;
+	}
 }
