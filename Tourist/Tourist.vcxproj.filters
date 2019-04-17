@@ -16,7 +16,6 @@
     <ClCompile Include="无用Min_Cost.cpp" />
     <ClCompile Include="Min_Time.cpp" />
     <ClCompile Include="Min_Cost.cpp" />
-    <ClCompile Include="temp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
