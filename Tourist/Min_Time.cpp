@@ -419,6 +419,13 @@ Status Min_Time()
 	for (int i = 0; i < path_number; i++)
 		delete[]Path[i];
 	delete[]Path;
+
+	while (tour != NULL)
+	{
+		PATH cur = tour;
+		tour = tour->next;
+		delete tour;
+	}
 	return OK;
 }
 

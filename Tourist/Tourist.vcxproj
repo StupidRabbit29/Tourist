@@ -132,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Document\map.txt" />
+    <Text Include="Transtable.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Document\Status_File.ini" />
