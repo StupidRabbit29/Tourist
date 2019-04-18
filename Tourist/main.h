@@ -21,7 +21,7 @@ using namespace std;
 enum Vehicle { CAR, TRAIN, AIRPLANE };
 enum Status { ERROR, OK, STACK_FULL, STACK_EMPTY, UNABLE };
 enum Travel_Strategy { STRA_minCOST, STRA_minTIME, STRA_limTIME_minCOST };
-enum Location { CAR, TRAIN, AIRPLANE, STAY_IN_CITY , ARRIVE};
+enum Location { IN_CAR, IN_TRAIN, IN_AIRPLANE, STAY_IN_CITY , ARRIVE};
 
 
 /*全局变量*/
@@ -38,11 +38,12 @@ typedef struct transport_table {
 	int time_consumed;//耗时
 	int cost;//钱
 	struct transport_table *nextPtr;
-}TransTable_NODE, *Ptr_TransTable_NODE;
+}TransTable_NODE;
+typedef TransTable_NODE* Ptr_TransTable_NODE;
 
 /*边 结构*/
 typedef struct Edge {
-	Ptr_TransTable_NODE p_TransTable;
+	TransTable_NODE *p_TransTable;
 	int weight;//边的权重//是可以唯一确定的
 	int num_OfTheEgde;//权重最小的边的编号
 	int distance;//城市之间的距离，0代表本市到本市，-1代表不连通
@@ -59,6 +60,11 @@ typedef struct graph {
 typedef struct {
 	int *base, *top, stack_size;
 }SqStack;
+
+/*系统时间 结构*/
+typedef struct SYSTEM_TIME {
+	int year, month, date, hour;
+}SYSTEM_TIME;
 
 /*旅客旅行状态 结构*/
 typedef struct User_Status
@@ -79,7 +85,7 @@ typedef struct passenger {
 	int num_passby;//途经节点数量
 	int pass_by[2][MAX_NODE_NUM];//row0要求途经的城市;row1在该地停留时间 //已经访问过的城市需要标记？？？
 	int Time_Limited;//若限制时间最少费用，还有一项限制的时间
-	struct SYSTEM_TIME start_time;//旅行者开始旅行的时间
+	SYSTEM_TIME start_time;//旅行者开始旅行的时间
 	User_Status status;//旅客旅行状态
 
 	
@@ -95,10 +101,7 @@ typedef struct passenger {
 //日志文档2：用户输入信息
 //每小时读旅客状态 写入文件
 
-/*系统时间 结构*/
-typedef struct SYSTEM_TIME {
-	int year, month, date, hour;
-}SYSTEM_TIME;
+
 
 /*旅客旅行路线的结点 结构*/
 typedef struct pathnode
@@ -106,8 +109,8 @@ typedef struct pathnode
 	int src;//一段路径的起点
 	int dest;//一段路径的终点
 	int number;//旅行者搭乘的车次
-	struct SYSTEM_TIME start_time;//开始时间
+	SYSTEM_TIME start_time;//开始时间
 	int time;//耗费时间
 	//int start_date;//开始天数
-	PathNode* next;//下一条路径
+	PathNode *next;//下一条路径
 }PathNode, *PATH;

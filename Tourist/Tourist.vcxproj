@@ -116,8 +116,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Min_Cost.cpp" />
     <ClCompile Include="Min_Time.cpp" />
-    <ClCompile Include="无用Min_Cost.cpp" />
-    <ClCompile Include="无用Min_Time.cpp" />
     <ClCompile Include="Mouse_Thread.cpp" />
     <ClCompile Include="Output.cpp" />
     <ClCompile Include="Prepare.cpp" />

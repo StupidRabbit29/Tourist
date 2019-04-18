@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include"main.h"
 #include<windows.h>
 #include<process.h>
@@ -11,6 +12,7 @@ extern PASSENGER *Passengers;
 int Travelstate[10] = { 0 };
 
 Status Write_system_file();
+Status Refresh(PASSENGER *tourist, int touristnum);
 
 unsigned __stdcall time(void* pArguments)
 {

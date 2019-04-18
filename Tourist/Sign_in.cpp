@@ -97,7 +97,7 @@ Status User_sign_in(void)
 
 Status Output_Status(PASSENGER *psg)
 {
-	char *loca[5] = { "CAR", "TRAIN", "AIRPLANE", "STAY_IN_CITY" , "ARRIVE" };
+	char *loca[5] = { "IN_CAR", "IN_TRAIN", "IN_AIRPLANE", "STAY_IN_CITY" , "ARRIVE" };
 	char str2[100] = { '\0' };
 
 	printf("ÂÃ¿Í£º¡¾%s¡¿", psg->ID);

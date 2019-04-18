@@ -46,17 +46,17 @@ void Write_user_file(int choice)
 
 		break;
 	case 2://sign_in
-		int number=GetPrivateProfileIntA(User->ID, "Sign_in_number", 0, ".\\User_File.ini");
+		int number1=GetPrivateProfileIntA(User->ID, "Sign_in_number", 0, ".\\User_File.ini");
 		memset(str1, 0, sizeof(str1));
-		sprintf(str1, "Sign In No.%d", ++number);
+		sprintf(str1, "Sign In No.%d", ++number1);
 		memset(str2, 0, sizeof(str2));
 		sprintf(str2, "%d - %d - %d  %d : 00 : 00", System_Time.year, System_Time.month, System_Time.date, System_Time.hour);
 		WritePrivateProfileStringA(User->ID, str1, str2, ".\\User_File.ini");
 		break;
 	case 3://sign_out
-		int number = GetPrivateProfileIntA(User->ID, "Sign_out_number", 0, ".\\User_File.ini");
+		int number2 = GetPrivateProfileIntA(User->ID, "Sign_out_number", 0, ".\\User_File.ini");
 		memset(str1, 0, sizeof(str1));
-		sprintf(str1, "Sign Out No.%d", ++number);
+		sprintf(str1, "Sign Out No.%d", ++number2);
 		memset(str2, 0, sizeof(str2));
 		sprintf(str2, "%d - %d - %d  %d : 00 : 00", System_Time.year, System_Time.month, System_Time.date, System_Time.hour);
 		WritePrivateProfileStringA(User->ID, str1, str2, ".\\User_File.ini");
