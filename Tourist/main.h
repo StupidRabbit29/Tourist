@@ -7,6 +7,7 @@
 #include<bitset>
 #include<algorithm>
 #include<iterator>
+#include<fstream>
 using namespace std;
 
 
