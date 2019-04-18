@@ -76,7 +76,7 @@ typedef struct passenger {
 	int num_passby;//途经节点数量
 	int pass_by[2][MAX_NODE_NUM];//row0要求途经的城市;row1在该地停留时间 //已经访问过的城市需要标记？？？
 	int Time_Limited;//若限制时间最少费用，还有一项限制的时间
-	int start_time;//旅行者开始旅行的时间
+	struct SYSTEM_TIME start_time;//旅行者开始旅行的时间
 	User_Status status;//旅客旅行状态
 
 	
@@ -103,8 +103,8 @@ typedef struct pathnode
 	int src;//一段路径的起点
 	int dest;//一段路径的终点
 	int number;//旅行者搭乘的车次
-	int start_time;//开始时间
+	struct SYSTEM_TIME start_time;//开始时间
 	int time;//耗费时间
-	int start_date;//开始天数
+	//int start_date;//开始天数
 	PathNode* next;//下一条路径
 }PathNode, *PATH;

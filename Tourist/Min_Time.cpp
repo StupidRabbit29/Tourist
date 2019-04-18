@@ -297,7 +297,7 @@ Status Finish_Path(PATH tour)
 {
 	PATH temp = tour;
 	PATH pre = NULL;
-	int arrive_pre = User->start_time;
+	int arrive_pre = User->start_time.hour;
 	while (temp != NULL)
 	{
 		//遍历航班表，找到对应车次
@@ -313,32 +313,57 @@ Status Finish_Path(PATH tour)
 		for (int i = 0; i < User->num_passby; i++)
 			if (User->pass_by[0][i] == temp->src)
 			{
-				arrive_pre += User->pass_by[1][i];
+				//arrive_pre += User->pass_by[1][i];
 				wait = User->pass_by[1][i];
 				break;
 			}
 
-		temp->start_time = trans->time_departure;//旅客出发时间为对应交通工具出发时间
+		temp->start_time.hour = trans->time_departure;//旅客出发时间为对应交通工具出发时间
 		temp->time = trans->time_consumed;//旅程耗费时间等于交通工具耗时
 		//确定出发日期
-		if (arrive_pre > trans->time_departure)
+		//int inter = pre->start_time.hour + pre->time + wait;
+		if ((arrive_pre+wait)%24 > trans->time_departure)
 		{
 			//到达出发城市后第二天出发
 			if (temp == tour)
-				temp->start_date = 2;
+				temp->start_time.date = User->start_time.date + 1;
 			else
-				temp->start_date = pre->start_date + (pre->start_time + pre->time + wait) / 24 + 1;
+			{
+				temp->start_time.date = pre->start_time.date + 1;
+				if (pre->time + wait > 24 - pre->start_time.hour)
+					temp->start_time.date += (pre->start_time.hour + pre->time + wait) / 24;
+			}
 		}
 		else
 		{
 			//到达出发城市后当天出发
 			if (temp == tour)
-				temp->start_date = 1;
+				temp->start_time.date = User->start_time.date;
 			else
-				temp->start_date = pre->start_date + (pre->start_time + pre->time + wait) / 24;
+			{
+				temp->start_time.date = pre->start_time.date;
+				if (pre->time + wait > 24 - pre->start_time.hour)
+					temp->start_time.date += (pre->start_time.hour + pre->time + wait) / 24;
+			}
 		}
 
-		arrive_pre = (temp->start_time + temp->time) % 24;
+		if (temp->start_time.date > 30)
+		{
+			temp->start_time.month = pre->start_time.month + 1;
+			temp->start_time.date -= 30;
+		}
+		else
+			temp->start_time.month = pre->start_time.month;
+
+		if (temp->start_time.month > 12)
+		{
+			temp->start_time.year = pre->start_time.year + 1;
+			temp->start_time.month -= 12;
+		}
+		else
+			temp->start_time.year = pre->start_time.year;
+
+		arrive_pre = (temp->start_time.hour + temp->time) % 24;
 
 		pre = temp;
 		temp = temp->next;
@@ -375,14 +400,14 @@ Status Min_Time()
 	for (int i = 0; i < path_number; i++)
 	{
 		int alltime = 0;
-		int tempstarttime = User->start_time;
+		int tempstarttime = User->start_time.hour;
 		for (int j = 0; j < pcity_num + 1; j++)
 		{
 			int temptime = 0;
 			//对每条路线逐段求解时间
 			Dijkstra_For_Min_Time(Path[i][j], Path[i][j + 1], tempstarttime, temptime);
 			alltime += temptime;
-			tempstarttime = (User->start_time + alltime) % 24;
+			tempstarttime = (User->start_time.hour + alltime) % 24;
 		}
 
 		if (alltime < mintime)
@@ -397,7 +422,7 @@ Status Min_Time()
 	PATH tourend = tour;
 
 	int alltime = 0;
-	int tempstarttime = User->start_time;
+	int tempstarttime = User->start_time.hour;
 
 	for (int i = 0; i < pcity_num + 1; i++)
 	{
@@ -405,7 +430,7 @@ Status Min_Time()
 		//分段确定路线
 		Dijkstra_For_Min_Time(Path[mintimepath][i], Path[mintimepath][i + 1], tempstarttime, tour==NULL?tour:tourend,  temptime);
 		alltime += temptime;
-		tempstarttime = (User->start_time + alltime) % 24;
+		tempstarttime = (User->start_time.hour + alltime) % 24;
 		while (tourend->next != NULL)
 			tourend = tourend->next;
 	}
@@ -449,7 +474,8 @@ Status Output_route(PATH tour)
 
 		cout << "No." << number << " " << city_graph.City_Name[temp->src]
 			<< "----->" << city_graph.City_Name[temp->dest] << " "
-			<< trans->name << "  发车时间：" << temp->start_time << endl;
+			<< trans->name << "  发车时间：" << temp->start_time.year << "-" << temp->start_time.month
+			<< "-" << temp->start_time.date << " " << temp->start_time.hour << ":00:00" << endl;
 
 		temp = temp->next;
 	}
