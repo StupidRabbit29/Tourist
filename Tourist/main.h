@@ -20,7 +20,7 @@ using namespace std;
 enum Vehicle { CAR, TRAIN, AIRPLANE };
 enum Status { ERROR, OK, STACK_FULL, STACK_EMPTY, UNABLE };
 enum Travel_Strategy { STRA_minCOST, STRA_minTIME, STRA_limTIME_minCOST };
-enum Location { CAR, TRAIN, AIRPLANE, STAY_IN_CITY };
+enum Location { CAR, TRAIN, AIRPLANE, STAY_IN_CITY , ARRIVE};
 
 
 /*全局变量*/
@@ -31,7 +31,7 @@ enum Location { CAR, TRAIN, AIRPLANE, STAY_IN_CITY };
 typedef struct transport_table {
 	int src, dest;//起点和终点
 	Vehicle transport;//车型//枚举类型
-	char name[10];
+	char name[10];//交通工具名称
 	int number;//车次 不同车型车次的编号不允许重复！！！//或许类型需要改为字符串？
 	int time_departure;//发车时间 //系统时间精确到小时
 	int time_consumed;//耗时
@@ -62,10 +62,12 @@ typedef struct {
 /*旅客旅行状态 结构*/
 typedef struct User_Status
 {
-	time_t time;//当前时刻
+	SYSTEM_TIME time;//当前时刻
 	Location loca;//乘客旅行状态
 	int src, dest;//起点，终点；若乘客在途中，代表交通工具的起始点；若乘客停留在某城市，src=dest；
-	int number;//搭乘交通工具的车次
+	//int number;//搭乘交通工具的车次
+	//Vehicle transport;//车型//枚举类型
+	char name[10];//交通工具名称
 }User_Status;
 
 /*乘客 结构 链表形式存储*/
@@ -95,7 +97,7 @@ typedef struct passenger {
 /*系统时间 结构*/
 typedef struct SYSTEM_TIME {
 	int year, month, date, hour;
-};
+}SYSTEM_TIME;
 
 /*旅客旅行路线的结点 结构*/
 typedef struct pathnode

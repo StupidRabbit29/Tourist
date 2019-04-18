@@ -6,6 +6,7 @@ extern PASSENGER *User;
 extern PASSENGER *Passengers, *Passengers_tailPtr;
 extern SYSTEM_TIME System_Time;
 extern GRAPH city_graph;
+extern int Travelstate[10];
 
 //Ð´Èë×´Ì¬º¯Êý
 void Write_status_file(PASSENGER &psg)
@@ -83,6 +84,13 @@ void Write_route_file(PATH tour)
 
 		temp = temp->next;
 	}
+
+	int touristnum = 0;
+	PASSENGER *tempp = Passengers;
+	while (tempp != User)
+		touristnum++;
+
+	Travelstate[touristnum] = 1;
 }
 
 Status Write_system_file()

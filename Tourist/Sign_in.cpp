@@ -97,15 +97,19 @@ Status User_sign_in(void)
 
 Status Output_Status(PASSENGER *psg)
 {
-	char *loca[4] = { "CAR", "TRAIN", "AIRPLANE", "STAY_IN_CITY" };
+	char *loca[5] = { "CAR", "TRAIN", "AIRPLANE", "STAY_IN_CITY" , "ARRIVE" };
 	char str2[100] = { '\0' };
 
 	printf("旅客：【%s】", psg->ID);
-	printf("时间：%d - %d - %d  %d : 00 : 00\n", System_Time.year, System_Time.month, System_Time.date, System_Time.hour);
-	printf("旅行状态：%s\n", loca[(int)(psg->status.loca)]);
+	printf("时间：%d - %d - %d  %d : 00 : 00\n", psg->status.time.year, psg->status.time.month, psg->status.time.date, psg->status.time.hour);
+	printf("旅行状态：%s:\t\t", loca[(int)(psg->status.loca)]);
+
 	memset(str2, 0, sizeof(str2));
-	sprintf(str2, "%s  ==》 %s", city_graph.City_Name[psg->status.src], city_graph.City_Name[psg->status.dest]);
-	printf("地理位置：%s\n", str2);
+	if (psg->status.loca != STAY_IN_CITY)
+		sprintf(str2, "%s\t\t%s  ==》 %s", psg->status.name, city_graph.City_Name[psg->status.src], city_graph.City_Name[psg->status.dest]);
+	else
+		sprintf(str2, "%s", psg->status.name);
+	printf("%s\n", str2);
 
 	return OK;
 }
