@@ -131,6 +131,7 @@ int Dijkstra_MinCost(const int src, const int dest, vector<int> &path)
 	/*弹栈，得到正序*/
 	int i = 0, cost_count = 0, W;//WV为一条弧，W为弧尾，V为弧头，由弧尾指向弧头
 	W = s.top();
+	s.pop();//删除栈顶元素但不返回其值  
 	path.push_back(W);//返回栈顶的元素，但不删除该元素  
 	while (!s.empty())//栈非空
 	{
@@ -172,7 +173,7 @@ Status Min_Cost()
 		/*对每一个排列，计算最短路径*/
 		int counter = 0;
 		for (sort(passby.begin(), passby.end());//为了全排列
-			(next_permutation(passby.begin(), passby.end()))&&(counter< path_count);//???可能出错
+			counter< path_count;//???可能出错
 			counter++)
 		{
 			all_path[counter].push_back(0);//0号位存总花费，同时初始化为0
@@ -183,11 +184,27 @@ Status Min_Cost()
 			//计算中间节点集
 			for (int i = 0; i < passby.size() - 1; i++)
 			{
-				all_path.at(counter).at(0) += Dijkstra_MinCost(passby[i], passby[i+1], all_path.at(counter));
+				int tempint;
+				tempint = Dijkstra_MinCost(passby[i], passby[i + 1], all_path.at(counter));
+				all_path.at(counter).at(0) += tempint;
 			}
 
 			/*最后一个中间节点到终点*/
-			all_path.at(counter).at(0) += Dijkstra_MinCost(passby[passby.size() - 1], User->dest, all_path.at(counter));
+			int tempint;
+			tempint = Dijkstra_MinCost(passby[passby.size() - 1], User->dest, all_path.at(counter));
+			all_path.at(counter).at(0) += tempint;
+
+			/*每个中间节点既会当终点又会当起点，会被存两遍*/
+			unique(all_path.at(counter).begin(), all_path.at(counter).end());
+			//size需要手动改
+			for (int k = 0; k < User->num_passby; k++)
+			{
+				all_path.at(counter).erase(all_path.at(counter).end() - 1);
+			}
+
+			/*准备计算下个路径*/
+			next_permutation(passby.begin(), passby.end());
+
 		}
 
 		/*找到cost最小的路径*/
