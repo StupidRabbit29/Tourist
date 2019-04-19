@@ -63,6 +63,8 @@ void Read_trans_t()
 		f_trans >> currentptr->time_departure >> currentptr->time_consumed >> currentptr->cost;
 
 		currentptr->nextPtr = NULL;
+
+
 	}
 
 }
