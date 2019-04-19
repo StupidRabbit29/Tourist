@@ -13,7 +13,7 @@ using namespace std;
 
 
 /*常量定义*/
-#define MY_INFINITE 2147483647 //最大int//？？？？宏重定义？？可能出问题？
+#define MY_INFINITE 999999 //最大int//？？？？宏重定义？？可能出问题？
 #define NOT_EXIST -1
 #define MAX_NODE_NUM 200 //最大城市数量
 #define MIN_NODE_NUM 10 //最小城市数量

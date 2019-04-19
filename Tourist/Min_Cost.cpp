@@ -23,7 +23,8 @@ void Init_Graph_MinCost()//遍历整个图，将其边初的权重始化
 			/*遍历链表里的每一个节点*/
 			for (currentPtr = city_graph.pp_G[row][col].p_TransTable;
 				currentPtr != NULL; //此处可判定边是否存在？？
-				currentPtr = city_graph.pp_G[row][col].p_TransTable->nextPtr)
+				//currentPtr = city_graph.pp_G[row][col].p_TransTable->nextPtr)
+				currentPtr = currentPtr->nextPtr)
 			{
 				if (city_graph.pp_G[row][col].p_TransTable->cost < min_cost)
 				{
@@ -36,6 +37,8 @@ void Init_Graph_MinCost()//遍历整个图，将其边初的权重始化
 			city_graph.pp_G[row][col].num_OfTheEgde = num_of_the_MinCostEdge;
 		}
 	}
+	if (DEBUG)
+		cout << "Init_Graph_MinCost() done" << endl;
 }
 
 
@@ -84,26 +87,28 @@ int Dijkstra_MinCost(const int src, const int dest, vector<int> &path)
 		/*收录未收录顶点中dist最小者*/
 		mindist = MY_INFINITE;
 		minV = -1;
-		for (int V = 0; V < city_graph.Graph_size; V++)//遍历dist数组，找到dist最小的节点
+		for (int V_temp = 0; V_temp < city_graph.Graph_size; V_temp++)//遍历dist数组，找到dist最小的节点
 		{
-			if (collected[V] == false)//bitset支持[]运算符，返回bool
+			if (collected[V_temp] == false)//bitset支持[]运算符，返回bool
 			{
-				if (dist[V] < mindist)
+				if (dist[V_temp] < mindist)
 				{
-					mindist = dist[V];
-					minV = V;
+					mindist = dist[V_temp];
+					minV = V_temp;
 				}
 			}
 		}
 
-		if (collected[dest] == true) break;//若终点被收录，break/*不用算完整个图*/
+		if (collected[dest] == true || minV == -1) break;//若终点被收录，break/*不用算完整个图*/
 		
 
-		V = minV;//收录该最小dist顶点
-		collected[V] = true;
+		//V = minV;
+		collected[minV] = true;//收录该最小dist顶点
 
 		/*更新dist和path_temp*/
-		for (int W = 0; W < city_graph.Graph_size; W++)
+		/*新收录的minV导致更新*/
+		for (int W = 0, V = minV/*此处V为刚收录的节点*/; 
+			W < city_graph.Graph_size; W++)
 		{
 			if (collected[W] == false)
 			{
@@ -151,6 +156,10 @@ void Min_Cost()
 {
 	if (DEBUG)
 		cout << "Min_Cost() Called" << endl;
+
+	/*初始化！！*/
+	Init_Graph_MinCost();
+
 	//判断需要经过的中间节点个数是否等于0
 	if (User->num_passby == 0)//为0直接dijkstra
 	{
@@ -262,7 +271,7 @@ void Min_Cost()
 		/*待改：调用函数将结果写入文件？*/
 		/*改为链表*/
 		PATH headptr = NULL, currentptr = NULL, tailptr = NULL;
-		for (int col = 0; col < all_path.at(min_row).size()/*?*/; col++)//遍历cost最小的一行
+		for (int col = 1/*0号为总花费*/; col < all_path.at(min_row).size() - 1/*?*/; col++)//遍历cost最小的一行
 		{
 			currentptr = (PATH)malloc(sizeof(PathNode));
 			currentptr->src = all_path.at(min_row).at(col);

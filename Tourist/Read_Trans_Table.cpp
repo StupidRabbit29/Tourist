@@ -59,6 +59,7 @@ void Read_trans_t()
 		{
 			currentptr->name[i] = temp_string[i];
 		}
+		currentptr->name[temp_string.size()] = '\0';
 
 		f_trans >> currentptr->time_departure >> currentptr->time_consumed >> currentptr->cost;
 
