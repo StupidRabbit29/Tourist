@@ -103,7 +103,7 @@ Status Dijkstra(int src, int dest ,int path[])
 	/*把路径变为正序的（栈）*/
 
 	/*从终点开始把逆序路径压入栈*/
-	int V = dest;
+	V = dest;
 	SqStack stack;
 	Init_Stack(&stack);
 	Push(&stack, V);

@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include<iostream>
 #include<stdio.h>
 #include<stdlib.h>
@@ -43,7 +44,8 @@ typedef TransTable_NODE* Ptr_TransTable_NODE;
 
 /*边 结构*/
 typedef struct Edge {
-	TransTable_NODE *p_TransTable;
+//	TransTable_NODE *p_TransTable;
+	struct transport_table *p_TransTable;
 	int weight;//边的权重//是可以唯一确定的
 	int num_OfTheEgde;//权重最小的边的编号
 	int distance;//城市之间的距离，0代表本市到本市，-1代表不连通
@@ -111,6 +113,7 @@ typedef struct pathnode
 	int number;//旅行者搭乘的车次
 	SYSTEM_TIME start_time;//开始时间
 	int time;//耗费时间
-			 //int start_date;//开始天数
-	PathNode *next;//下一条路径
+	//int start_date;//开始天数
+	//PathNode *next;//下一条路径
+	struct pathnode *next;
 }PathNode, *PATH;

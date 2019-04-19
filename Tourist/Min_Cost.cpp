@@ -12,7 +12,8 @@ Status Finish_Path(PATH tour);
 void Init_Graph_MinCost()//遍历整个图，将其边初的权重始化
 {
 	int min_cost, num_of_the_MinCostEdge;
-	TransTable_NODE *currentPtr;
+	//TransTable_NODE *currentPtr;
+	struct transport_table *currentPtr;
 	for (int row = 0; row < city_graph.Graph_size; row++)//有向图！不可只遍历半个二维数组
 	{
 		for (int col = 0; col < city_graph.Graph_size; col++)
