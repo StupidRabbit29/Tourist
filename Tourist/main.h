@@ -21,7 +21,7 @@ using namespace std;
 enum Vehicle { CAR, TRAIN, AIRPLANE };
 enum Status { ERROR, OK, STACK_FULL, STACK_EMPTY, UNABLE };
 enum Travel_Strategy { STRA_minCOST, STRA_minTIME, STRA_limTIME_minCOST };
-enum Location { IN_CAR, IN_TRAIN, IN_AIRPLANE, STAY_IN_CITY , ARRIVE};
+enum Location { IN_CAR, IN_TRAIN, IN_AIRPLANE, STAY_IN_CITY, ARRIVE };
 
 
 /*全局变量*/
@@ -72,8 +72,8 @@ typedef struct User_Status
 	SYSTEM_TIME time;//当前时刻
 	Location loca;//乘客旅行状态
 	int src, dest;//起点，终点；若乘客在途中，代表交通工具的起始点；若乘客停留在某城市，src=dest；
-	//int number;//搭乘交通工具的车次
-	//Vehicle transport;//车型//枚举类型
+				  //int number;//搭乘交通工具的车次
+				  //Vehicle transport;//车型//枚举类型
 	char name[10];//交通工具名称
 }User_Status;
 
@@ -88,16 +88,16 @@ typedef struct passenger {
 	SYSTEM_TIME start_time;//旅行者开始旅行的时间
 	User_Status status;//旅客旅行状态
 
-	
+
 	FILE *fptr_route;	//路线——由旅行线路生成算法计算得到，若用户中途修改策略，路线会被全部覆盖重写，
 						//面向程序设计者
 						//.ini
-	
+
 	struct passenger *next_passenger;//指向下一个旅客
 }PASSENGER;
 //FILE *fptr_user;	//日志文档//用户文档——用户登录登出记录，查询操作记录
 //FILE *fptr_status;	//用户状态文档——通过时间线程实时更新用户状态
-						//面向用户
+//面向用户
 //日志文档2：用户输入信息
 //每小时读旅客状态 写入文件
 
@@ -111,6 +111,6 @@ typedef struct pathnode
 	int number;//旅行者搭乘的车次
 	SYSTEM_TIME start_time;//开始时间
 	int time;//耗费时间
-	//int start_date;//开始天数
+			 //int start_date;//开始天数
 	PathNode *next;//下一条路径
 }PathNode, *PATH;
