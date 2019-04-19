@@ -10,7 +10,8 @@ void Read_Trans_Table()
 		cerr << "Transtable.txt打开失败\n";
 	f_trans.seekg(0, fstream::beg);//移动到文件头
 	int src, dest;
-	Ptr_TransTable_NODE currentptr,preptr;
+	//Ptr_TransTable_NODE currentptr,preptr;
+	struct transport_table *currentptr, *preptr;
 	int count_vehicle = 1;
 	while (!f_trans.eof())//???可能出错
 	{
@@ -26,7 +27,9 @@ void Read_Trans_Table()
 			preptr = currentptr;
 			currentptr = currentptr->nextPtr;
 		}/*退出后per指到链表尾，current指空*/
-		currentptr = (Ptr_TransTable_NODE)malloc(sizeof(TransTable_NODE));
+		//currentptr = (Ptr_TransTable_NODE)malloc(sizeof(TransTable_NODE));
+		currentptr = (struct transport_table*)malloc(sizeof(struct transport_table));
+		
 
 		if (city_graph.pp_G[src][dest].p_TransTable == NULL)//若头指针为空//链表为空
 		{

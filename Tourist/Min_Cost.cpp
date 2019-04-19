@@ -147,7 +147,7 @@ int Dijkstra_MinCost(const int src, const int dest, vector<int> &path)
 	return cost_count;
 }
 
-Status Min_Cost()
+void Min_Cost()
 {
 	//判断需要经过的中间节点个数是否等于0
 	if (User->num_passby == 0)//为0直接dijkstra

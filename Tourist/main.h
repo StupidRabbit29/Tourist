@@ -13,7 +13,7 @@ using namespace std;
 
 
 /*常量定义*/
-#define INFINITE 2147483647 //最大int
+#define INFINITE 2147483647 //最大int//？？？？宏重定义？？可能出问题？
 #define NOT_EXIST -1
 #define MAX_NODE_NUM 200 //最大城市数量
 #define MIN_NODE_NUM 10 //最小城市数量
@@ -83,7 +83,7 @@ typedef struct User_Status
 typedef struct passenger {
 	char ID[20];//旅客名称
 	int src, dest;//起点终点
-	int strategy;//旅行策略//时间or费用最少or限制时间最少费用
+	int strategy;//旅行策略//时间or费用最少or限制时间最少费用//STRA_minCOST, STRA_minTIME, STRA_limTIME_minCOST
 	int num_passby;//途经节点数量
 	int pass_by[2][MAX_NODE_NUM];//row0要求途经的城市;row1在该地停留时间 //已经访问过的城市需要标记？？？
 	int Time_Limited;//若限制时间最少费用，还有一项限制的时间

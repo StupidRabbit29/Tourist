@@ -6,6 +6,8 @@ PASSENGER *Passengers = NULL, *Passengers_tailPtr = NULL, *User;//User当前系统使
 extern FILE *fptr_input;
 
 void Write_user_file(int choice);
+void Min_Cost();
+Status Min_Time();
 
 void Create_New_Passenger(PASSENGER *tailPtr)
 {
@@ -84,4 +86,18 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 	User = &psg_temp;//？？？？？？？？？？？？？？？？？？
 
 	/*计算路径*/
+	switch (psg_temp.strategy)
+	{
+	case 0:
+		Min_Cost();
+		break;
+	case 1:
+		Min_Time();
+		break;
+	case 2:
+		//待改
+		break;
+	default:
+		break;
+	}
 }
