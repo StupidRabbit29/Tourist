@@ -17,7 +17,7 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 	PASSENGER psg_temp;
 	printf("请输入ID：");
 	scanf_s("%s", &psg_temp.ID);//&有没有问题？
-	fprintf(fptr_input, "ID：%d\n", psg_temp.ID);//用户输入写入input.txt文件
+	fprintf(fptr_input, "ID：%s\n", psg_temp.ID);//用户输入写入input.txt文件
 
 	printf("请输入起点编号：");
 	scanf_s("%d", &psg_temp.src);

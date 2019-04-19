@@ -20,10 +20,10 @@ int main()
 	HANDLE time_thread = (HANDLE)_beginthreadex(NULL, 0, time, NULL, 0, NULL);
 
 	//等待线程关闭信号，退出线程
-	WaitForSingleObject(mouse_thread, INFINITE);
+	WaitForSingleObject(mouse_thread, MY_INFINITE);
 	CloseHandle(mouse_thread);
 	//等待线程关闭信号，退出线程
-	WaitForSingleObject(time_thread, INFINITE);
+	WaitForSingleObject(time_thread, MY_INFINITE);
 	CloseHandle(time_thread);
 
 	cout << "Program End" << endl;

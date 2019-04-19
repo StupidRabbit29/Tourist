@@ -18,7 +18,7 @@ void Init_Graph_MinCost()//遍历整个图，将其边初的权重始化
 	{
 		for (int col = 0; col < city_graph.Graph_size; col++)
 		{
-			min_cost = INFINITE;
+			min_cost = MY_INFINITE;
 			num_of_the_MinCostEdge = NOT_EXIST;
 			/*遍历链表里的每一个节点*/
 			for (currentPtr = city_graph.pp_G[row][col].p_TransTable;
@@ -62,16 +62,16 @@ int Dijkstra_MinCost(const int src, const int dest, vector<int> &path)
 	for (int i = 0; i < city_graph.Graph_size; i++)//G[src].size应该是节点个数
 	{
 		/*假设是有权有向图*/
-		if (city_graph.pp_G[src][i].weight < INFINITE) //将 从src出的边赋值
+		if (city_graph.pp_G[src][i].weight < MY_INFINITE) //将 从src出的边赋值
 		{
 			dist[i] = city_graph.pp_G[src][i].weight;
 			path_temp[i] = src;
 		}
 		else //????
 		{
-			dist[i] = INFINITE;//将dist数组元素初始化为无穷;对未被收录的，dist[v]为起点到源点的最短距离
+			dist[i] = MY_INFINITE;//将dist数组元素初始化为无穷;对未被收录的，dist[v]为起点到源点的最短距离
 			path_temp[i] = -1;//将path_temp数组元素初始化为-1，path_temp数组元素为起点到节点i的路径的上一个节点
-			//dist.insert(dist.begin() + i, INFINITE);
+			//dist.insert(dist.begin() + i, MY_INFINITE);
 			//path_temp.insert(path_temp.begin() + i, -1);
 		}
 	}
@@ -82,7 +82,7 @@ int Dijkstra_MinCost(const int src, const int dest, vector<int> &path)
 	while (1)
 	{
 		/*收录未收录顶点中dist最小者*/
-		mindist = INFINITE;
+		mindist = MY_INFINITE;
 		minV = -1;
 		for (int V = 0; V < city_graph.Graph_size; V++)//遍历dist数组，找到dist最小的节点
 		{
@@ -247,7 +247,7 @@ void Min_Cost()
 		}
 
 		/*找到cost最小的路径*/
-		int min_cost = INFINITE, min_row;
+		int min_cost = MY_INFINITE, min_row;
 		for (int i = 0; i < path_count/*行数*/; i++)
 		{
 			if (all_path[i][0] < min_cost)

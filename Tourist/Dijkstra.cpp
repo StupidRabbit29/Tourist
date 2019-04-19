@@ -48,14 +48,14 @@ Status Dijkstra(int src, int dest ,int path[])
 	//初始化dist和path数组
 	for (int i = 0; i < city_graph.Graph_size; i++)
 	{
-		if (city_graph.pp_G[src][i].weight < INFINITE) //将 从src出的边赋值
+		if (city_graph.pp_G[src][i].weight < MY_INFINITE) //将 从src出的边赋值
 		{
 			dist[i] = city_graph.pp_G[src][i].weight;
 			path[i] = src;
 		}
 		else //????
 		{
-			dist[i] = INFINITE;//将dist数组元素初始化为无穷;对未被收录的，dist[v]为起点到源点的最短距离
+			dist[i] = MY_INFINITE;//将dist数组元素初始化为无穷;对未被收录的，dist[v]为起点到源点的最短距离
 			path[i] = -1;//将path数组元素初始化为-1，path数组元素为起点到节点i的路径的上一个节点
 		}
 	}
@@ -66,7 +66,7 @@ Status Dijkstra(int src, int dest ,int path[])
 	while (1)
 	{
 		/*收录未收录顶点中dist最小者*/
-		mindist = INFINITE;
+		mindist = MY_INFINITE;
 		minV = -1;
 		for (int V = 0; V < city_graph.Graph_size; V++)//遍历dist数组，找到dist最小的节点
 		{

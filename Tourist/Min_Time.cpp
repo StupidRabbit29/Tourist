@@ -21,7 +21,7 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 	//初始化dist数组
 	for (int i = 0; i < city_graph.Graph_size&&i != src; i++)
 	{
-		int min = INFINITE;
+		int min = MY_INFINITE;
 		int number = 0;
 		//遍历两个城市间的航班表，找到最快的通行方式
 		Ptr_trans_t_Node temp = city_graph.pp_G[src][i].p_TransTable;
@@ -46,10 +46,10 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 			temp = temp->nextPtr;
 		}
 
-		if (min < INFINITE) //将 从src出的边赋值
+		if (min < MY_INFINITE) //将 从src出的边赋值
 			dist[i] = min;
 		else 
-			dist[i] = INFINITE;//将dist数组元素初始化为无穷;对未被收录的，dist[v]为起点到源点的最短距离
+			dist[i] = MY_INFINITE;//将dist数组元素初始化为无穷;对未被收录的，dist[v]为起点到源点的最短距离
 	
 	}
 
@@ -59,7 +59,7 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 	while (!collected[dest])
 	{
 		/*收录未收录顶点中dist最小者*/
-		mindist = INFINITE;
+		mindist = MY_INFINITE;
 		minV = -1;
 		for (int V = 0; V < city_graph.Graph_size; V++)//遍历dist数组，找到dist最小的节点
 		{
@@ -83,7 +83,7 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 		{
 			if (collected[W] == false && city_graph.pp_G[V][W].p_TransTable)
 			{
-				int min = INFINITE;
+				int min = MY_INFINITE;
 				int number = 0;
 				Ptr_trans_t_Node temp = city_graph.pp_G[V][W].p_TransTable;
 				while (temp)//遍历V到W的所有交通方式，寻找时间最短的一种
@@ -133,7 +133,7 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH tourend, in
 	//初始化dist和path数组
 	for (int i = 0; i < city_graph.Graph_size&&i!=src; i++)
 	{
-		int min = INFINITE;
+		int min = MY_INFINITE;
 		int number = 0;
 		//遍历两个城市间的航班表，找到最快的通行方式
 		Ptr_trans_t_Node temp = city_graph.pp_G[src][i].p_TransTable;
@@ -158,7 +158,7 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH tourend, in
 			temp = temp->nextPtr;
 		}
 
-		if (min < INFINITE) //将 从src出的边赋值
+		if (min < MY_INFINITE) //将 从src出的边赋值
 		{
 			dist[i] = min;
 			path[i][0] = src;
@@ -166,7 +166,7 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH tourend, in
 		}
 		else
 		{
-			dist[i] = INFINITE;//将dist数组元素初始化为无穷;对未被收录的，dist[v]为起点到源点的最短距离
+			dist[i] = MY_INFINITE;//将dist数组元素初始化为无穷;对未被收录的，dist[v]为起点到源点的最短距离
 			path[i][0] = -1;//将path数组元素初始化为-1，path数组元素为起点到节点i的路径的上一个节点
 		}
 	}
@@ -177,7 +177,7 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH tourend, in
 	while (!collected[dest])
 	{
 		/*收录未收录顶点中dist最小者*/
-		mindist = INFINITE;
+		mindist = MY_INFINITE;
 		minV = -1;
 		for (int V = 0; V < city_graph.Graph_size; V++)//遍历dist数组，找到dist最小的节点
 		{
@@ -201,7 +201,7 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH tourend, in
 		{
 			if (collected[W] == false && city_graph.pp_G[V][W].p_TransTable)
 			{
-				int min = INFINITE;
+				int min = MY_INFINITE;
 				int number = 0;
 				Ptr_trans_t_Node temp = city_graph.pp_G[V][W].p_TransTable;
 				while (temp)//遍历V到W的所有交通方式，寻找时间最短的一种
@@ -395,7 +395,7 @@ Status Min_Time()
 
 	//求出耗时最短的路线
 	int mintimepath = 0;
-	int mintime = INFINITE;
+	int mintime = MY_INFINITE;
 	//遍历所有的旅行路线求解
 	for (int i = 0; i < path_number; i++)
 	{
