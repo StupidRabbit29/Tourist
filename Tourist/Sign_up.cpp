@@ -5,6 +5,7 @@ PASSENGER *Passengers = NULL, *Passengers_tailPtr = NULL, *User;//User当前系�
 
 
 extern FILE *fptr_input;
+extern SYSTEM_TIME System_Time;
 
 void Write_user_file(int choice);
 void Min_Cost();
@@ -37,10 +38,10 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 	scanf_s("%d", &cnt);
 	psg_temp->num_passby = cnt;
 	fprintf(fptr_input, "途经城市数量：%d\n途经城市编号：",cnt);//用户输入写入input.txt文件
-	printf("请输入途经城市编号：");
 	int stay = 0;
 	for (i = 0; i < cnt; i++)
 	{
+		printf("请输入途经城市编号：");
 		scanf_s("%d", &psg_temp->pass_by[0][i]);
 		fprintf(fptr_input, "%d ", psg_temp->pass_by[0][i]);//用户输入写入input.txt文件
 		printf("是否需要在该地停留（Y=1/N=0）：");
@@ -66,6 +67,9 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 	}
 	else
 		psg_temp->Time_Limited = NULL;
+
+	/*旅客开始旅行时间*/
+	psg_temp->start_time = System_Time;
 
 	///*打开route.ini文件*/
 	//char string_filename[500];//随便取的500
