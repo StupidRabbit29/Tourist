@@ -8,11 +8,14 @@ FILE *fptr_input;//日志文件，记录用户输入信息
 Status Read_system_file();
 
 /*函数*/
-Status Read_trans_t();
+void Read_trans_t();
 Status Read_Map(FILE *fptr);
 
 Status Prepare(void)
 {
+	if (DEBUG)
+		cout << "Called Prepare()" << endl;
+
 	//恢复上次关闭的系统
 	char ch;
 	printf("是否恢复上次打开的系统？Y（打开旧系统）/N（打开新系统）\n");
@@ -66,6 +69,9 @@ Status Prepare(void)
 //读取地图信息（城市名称，连通性，距离）
 Status Read_Map(FILE *fptr)
 {
+	if (DEBUG)
+		cout << "Called Read_Map(FILE *fptr)" << endl;
+
 	//读取城市数目
 	fscanf(fptr, "%d", &city_graph.Graph_size);
 	fgetc(fptr);

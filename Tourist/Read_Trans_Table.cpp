@@ -4,6 +4,9 @@ extern GRAPH city_graph;
 
 void Read_trans_t()
 {
+	if (DEBUG)
+		cout << "Called Read_trans_t()" << endl;
+
 	fstream f_trans;
 	f_trans.open("Transtable.txt", fstream::in);
 	if (!f_trans)

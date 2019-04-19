@@ -11,7 +11,9 @@ unsigned __stdcall time(void* pArguments);
 
 int main()
 {
-	Prepare();//准备函数
+	//准备函数
+	if (Prepare() != OK)
+		cout << "Function Prepare ERROR" << endl;
 
 	//创建mouse_thread线程和time_thread线程
 	HANDLE mouse_thread = (HANDLE)_beginthreadex(NULL, 0, mouse, NULL, 0, NULL);
@@ -24,6 +26,7 @@ int main()
 	WaitForSingleObject(time_thread, INFINITE);
 	CloseHandle(time_thread);
 
+	cout << "Program End" << endl;
 	system("pause");
 	return 0;
 }

@@ -136,6 +136,10 @@ Status Write_system_file()
 
 Status Read_system_file()
 {
+	if (DEBUG)
+		cout << "Called Read_system_file()" << endl;
+
+	//判断system_file中是否有可读内容
 	int able = GetPrivateProfileIntA("able_or_unable", "able", 0, ".\\System_File.ini");
 	if (able == 0)
 	{
@@ -143,10 +147,12 @@ Status Read_system_file()
 		return UNABLE;
 	}
 
+	//读取系统时间
 	GetPrivateProfileStructA("System_Time", "time", &System_Time, sizeof(SYSTEM_TIME), ".\\System_File.ini");
 
 	int number=GetPrivateProfileIntA("Passenger", "number", 0, ".\\System_File.ini");
 
+	//逐个读取旅客信息
 	if (number > 0)
 	{
 		PASSENGER *temp = Passengers;
@@ -173,7 +179,9 @@ Status Read_system_file()
 		User = NULL;
 	}
 	
+	//读取地图信息
 	GetPrivateProfileStructA("GRAPH", "graph", &city_graph, sizeof(GRAPH), ".\\System_File.ini");
 
+	cout << "Read system_file successfully" << endl;
 	return OK;
 }
