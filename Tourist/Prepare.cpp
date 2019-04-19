@@ -68,7 +68,7 @@ Status Prepare(void)
 
 	}
 	/*打开：日志文档2-用户输入信息*/
-	fptr_input = fopen("log_file_input", "w");//只能写 
+	//fptr_input = fopen("log_file_input", "w");//只能写 
 
 	return OK;
 }
