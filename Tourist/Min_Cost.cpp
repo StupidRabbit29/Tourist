@@ -154,8 +154,45 @@ void Min_Cost()
 	{
 		vector<int> path(1);//0占位
 		path.at(0) = Dijkstra_MinCost(User->src, User->dest, path);
+
 		/*待改：调用函数将结果写入文件？*/
+		/*改为链表*/
+		PATH headptr = NULL, currentptr=NULL, tailptr=NULL;
+		for (int col = 0; col < path.size()/*?*/; col++)//遍历cost最小的一行
+		{
+			currentptr = (PATH)malloc(sizeof(PathNode));
+			currentptr->src = path.at(col);
+			currentptr->dest = path.at(col + 1);
+			currentptr->number = city_graph.pp_G[currentptr->src][currentptr->dest].num_OfTheEgde;//???
+			currentptr->next = NULL;
+
+			if (headptr == NULL)
+			{
+				headptr = currentptr;
+				tailptr = currentptr;
+			}
+			else
+			{
+				tailptr->next = currentptr;
+				tailptr = tailptr->next;
+			}
+		}
+
+		//补全路线链表中的内容
+		Finish_Path(headptr);
+
+		Output_route(headptr);
+		Write_route_file(headptr);
+
+		/*释放链表*/
+		while (headptr != NULL)
+		{
+			currentptr = headptr;
+			headptr = headptr->next;
+			free(currentptr);
+		}
 	}
+
 	else//要经过的中间节点个数不为0
 	{
 		//图完全连通，省略判断连通性
@@ -168,7 +205,8 @@ void Min_Cost()
 		}
 
 		vector<vector<int>> all_path(path_count);//存放所有可能的路径//[0]存放总花费
-		vector<int> passby(User->pass_by, User->pass_by + User->num_passby);  //用数组初始化vector  //??可能出问题
+		vector<int> passby(User->pass_by[0], User->pass_by[0] + User->num_passby);  //用数组初始化vector  //??可能出问题//?????????????
+
 		//sort(passby.begin(), passby.end());//为了全排列
 
 		/*对每一个排列，计算最短路径*/
@@ -221,7 +259,7 @@ void Min_Cost()
 
 		/*待改：调用函数将结果写入文件？*/
 		/*改为链表*/
-		PATH headptr = NULL, currentptr, tailptr;
+		PATH headptr = NULL, currentptr = NULL, tailptr = NULL;
 		for (int col = 0; col < all_path.at(min_row).size()/*?*/; col++)//遍历cost最小的一行
 		{
 			currentptr = (PATH)malloc(sizeof(PathNode));

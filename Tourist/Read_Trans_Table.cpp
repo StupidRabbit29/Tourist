@@ -52,7 +52,7 @@ void Read_trans_t()
 
 		string temp_string;
 		f_trans >> temp_string;
-		for (int i; i < temp_string.size(); i++)
+		for (int i=0; i < temp_string.size(); i++)
 		{
 			currentptr->name[i] = temp_string[i];
 		}
