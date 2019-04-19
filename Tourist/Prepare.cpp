@@ -70,6 +70,7 @@ Status Prepare(void)
 			}
 		}	
 
+		fopen_s(&fptr_input, "User_input.txt", "w");
 		//读取航班表
 		Read_trans_t();
 
