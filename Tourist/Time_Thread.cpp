@@ -12,6 +12,7 @@ int Travelstate[10] = { 0 };
 
 Status Write_system_file();
 Status Refresh(PASSENGER *tourist, int touristnum);
+void Freememory(void);
 
 unsigned __stdcall time(void* pArguments)
 {
@@ -55,6 +56,8 @@ unsigned __stdcall time(void* pArguments)
 
 	/*写需要保存的系统状态*/
 	Write_system_file();
+	//释放动态申请的内存
+	Freememory();
 
 	_endthreadex(0);
 	return 0;

@@ -4,12 +4,13 @@
 /*全局变量*/
 GRAPH city_graph = { NULL, 0, NULL };
 FILE *fptr_input;//日志文件，记录用户输入信息
-
-Status Read_system_file();
+extern PASSENGER *Passengers;
 
 /*函数*/
 void Read_trans_t();
 Status Read_Map(FILE *fptr);
+Status Read_system_file();
+
 
 Status Prepare(void)
 {
@@ -50,11 +51,17 @@ Status Prepare(void)
 		//读取地图、航班
 		FILE *fmap;
 		fopen_s(&fmap, "map.txt", "r");
-		if (Read_Map(fmap) == ERROR)
+
+		if (fmap == NULL)
+			cout << "Open file map.txt ERROR!" << endl;
+		else
 		{
-			printf("读取地图错误\n");
-			return ERROR;
-		}
+			if (Read_Map(fmap) == ERROR)
+			{
+				printf("读取地图错误\n");
+				return ERROR;
+			}
+		}	
 
 		//读取航班表
 		Read_trans_t();
@@ -74,12 +81,22 @@ Status Read_Map(FILE *fptr)
 
 	//读取城市数目
 	fscanf(fptr, "%d", &city_graph.Graph_size);
+	if (DEBUG)
+		cout << "Get Graph_size" << endl;
 	fgetc(fptr);
 	if (city_graph.Graph_size == 0 || city_graph.Graph_size < MIN_NODE_NUM)
 		return ERROR;
 
 	//动态申请城市名称数组
 	city_graph.City_Name = (char**)malloc(sizeof(char*)*city_graph.Graph_size);
+	for (int i = 0; i < city_graph.Graph_size; i++)
+	{
+		city_graph.City_Name[i] = new char[20];
+		if (city_graph.City_Name[i] != NULL)
+			memset(city_graph.City_Name[i], 0, 20);
+		else
+			return ERROR;
+	}
 	if (city_graph.City_Name == NULL)
 		return ERROR;
 
@@ -90,6 +107,8 @@ Status Read_Map(FILE *fptr)
 		fscanf(fptr, "%s", city_graph.City_Name[i]);
 		fgetc(fptr);
 	}
+	if (DEBUG)
+		cout << "Get city names" << endl;
 
 	//申请城市地图的邻接矩阵
 	city_graph.pp_G = (EDGE**)malloc(sizeof(EDGE*)*city_graph.Graph_size);
@@ -101,6 +120,8 @@ Status Read_Map(FILE *fptr)
 		if (city_graph.pp_G[i] == NULL)
 			return ERROR;
 	}
+	if (DEBUG)
+		cout << "Initialize edges" << endl;
 
 	//读取任意两个城市间的距离
 	for (i = 0; i < city_graph.Graph_size; i++)
@@ -111,8 +132,59 @@ Status Read_Map(FILE *fptr)
 			fscanf(fptr, "%d", &city_graph.pp_G[i][j].distance);
 		}
 	}
+	if (DEBUG)
+		cout << "Get city distance" << endl;
 
 	//关闭城市文件
 	fclose(fptr);
 	return OK;
+}
+
+//释放内存
+void Freememory(void)
+{
+	if (DEBUG)
+		cout << "Called Freememory" << endl;
+
+	Ptr_trans_t_Node temp = NULL;
+
+	//释放所有城市的航班表
+	for (int i = 0; i < city_graph.Graph_size; i++)
+	{
+		for (int j = 0; j < city_graph.Graph_size; j++)
+		{
+			temp = city_graph.pp_G[i][j].p_TransTable;
+			while (temp != NULL)
+			{
+				Ptr_trans_t_Node pre = temp;
+				temp = temp->nextPtr;
+				free(temp);
+			}
+		}
+	}
+
+	//释放地图的边结点
+	for (int i = 0; i < city_graph.Graph_size; i++)
+	{
+		free(city_graph.pp_G[i]);
+	}
+	free(city_graph.pp_G);
+
+	//释放城市名称
+	for (int i = 0; i < city_graph.Graph_size; i++)
+	{
+		free(city_graph.City_Name[i]);
+	}
+	free(city_graph.City_Name);
+
+	//释放所有旅客的信息
+	PASSENGER *tempp=Passengers;
+	while (tempp != NULL)
+	{
+		PASSENGER *pre = tempp;
+		tempp = tempp->next_passenger;
+		free(pre);
+	}
+
+	cout << "Free memory successfully" << endl;
 }
