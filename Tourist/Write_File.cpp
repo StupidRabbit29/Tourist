@@ -32,6 +32,8 @@ void Write_user_file(int choice)
 {	
 	char str1[100] = { '\0' };
 	char str2[100] = { '\0' };
+	int number1 = 0;
+	int number2 = 0;
 
 	switch (choice)
 	{
@@ -46,7 +48,7 @@ void Write_user_file(int choice)
 
 		break;
 	case 2://sign_in
-		int number1=GetPrivateProfileIntA(User->ID, "Sign_in_number", 0, ".\\User_File.ini");
+		number1=GetPrivateProfileIntA(User->ID, "Sign_in_number", 0, ".\\User_File.ini");
 		memset(str1, 0, sizeof(str1));
 		sprintf(str1, "Sign In No.%d", ++number1);
 		memset(str2, 0, sizeof(str2));
@@ -54,7 +56,7 @@ void Write_user_file(int choice)
 		WritePrivateProfileStringA(User->ID, str1, str2, ".\\User_File.ini");
 		break;
 	case 3://sign_out
-		int number2 = GetPrivateProfileIntA(User->ID, "Sign_out_number", 0, ".\\User_File.ini");
+		number2 = GetPrivateProfileIntA(User->ID, "Sign_out_number", 0, ".\\User_File.ini");
 		memset(str1, 0, sizeof(str1));
 		sprintf(str1, "Sign Out No.%d", ++number2);
 		memset(str2, 0, sizeof(str2));
