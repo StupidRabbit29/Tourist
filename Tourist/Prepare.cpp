@@ -35,12 +35,19 @@ Status Prepare(void)
 			//读取地图、航班
 			FILE *fmap;
 			fopen_s(&fmap, "map.txt", "r");
-			if (Read_Map(fmap) == ERROR)
+
+			if (fmap == NULL)
+				cout << "Open file map.txt ERROR!" << endl;
+			else
 			{
-				printf("读取地图错误\n");
-				return ERROR;
+				if (Read_Map(fmap) == ERROR)
+				{
+					printf("读取地图错误\n");
+					return ERROR;
+				}
 			}
 
+			fopen_s(&fptr_input, "User_input.txt", "w");
 			//读取航班表
 			Read_trans_t();
 		}
