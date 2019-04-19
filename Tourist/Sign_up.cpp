@@ -38,14 +38,14 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 	psg_temp->num_passby = cnt;
 	fprintf(fptr_input, "途经城市数量：%d\n途经城市编号：",cnt);//用户输入写入input.txt文件
 	printf("请输入途经城市编号：");
-	bool stay = false;
+	int stay = 0;
 	for (i = 0; i < cnt; i++)
 	{
 		scanf_s("%d", &psg_temp->pass_by[0][i]);
 		fprintf(fptr_input, "%d ", psg_temp->pass_by[0][i]);//用户输入写入input.txt文件
 		printf("是否需要在该地停留（Y=1/N=0）：");
 		scanf_s("%d", &stay);
-		if (stay == true)
+		if (stay == 1)
 		{
 			printf("请输入停留时间（单位：小时）：");
 			scanf_s("%d", &psg_temp->pass_by[1][i]);
@@ -57,7 +57,7 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 	psg_temp->next_passenger = NULL;
 	printf("请输入旅行策略编号：");
 	scanf_s("%d", &psg_temp->strategy);
-	fprintf(fptr_input, "\n旅行策略编号：%d\n", psg_temp->strategy);//用户输入写入input.txt文件
+	fprintf(fptr_input, "\n旅行策略编号：%d\n", psg_temp->strategy);//用户输入写入input.txt文件// STRA_minCOST, STRA_minTIME, STRA_limTIME_minCOST
 	if (psg_temp->strategy == STRA_limTIME_minCOST)
 	{
 		printf("请输入限制时间：");
