@@ -94,7 +94,7 @@ typedef struct passenger {
 	User_Status status;//旅客旅行状态
 
 
-	FILE *fptr_route;	//路线——由旅行线路生成算法计算得到，若用户中途修改策略，路线会被全部覆盖重写，
+	//FILE *fptr_route;	//路线——由旅行线路生成算法计算得到，若用户中途修改策略，路线会被全部覆盖重写，
 						//面向程序设计者
 						//.ini
 

@@ -112,7 +112,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Change_User_Info.cpp" />
-    <ClCompile Include="Dijkstra.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Min_Cost.cpp" />
     <ClCompile Include="Min_Time.cpp" />
