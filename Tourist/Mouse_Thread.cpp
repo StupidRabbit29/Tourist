@@ -1,9 +1,9 @@
-#include"main.h"
+ï»¿#include"main.h"
 #include<windows.h>
 #include<process.h>
 
 extern bool Quit;
-extern PASSENGER *Passengers, *Passengers_tailPtr, *User;//Userµ±Ç°ÏµÍ³Ê¹ÓÃÕß
+extern PASSENGER *Passengers, *Passengers_tailPtr, *User;//Userå½“å‰ç³»ç»Ÿä½¿ç”¨è€…
 
 void Create_New_Passenger(PASSENGER *tailPtr);
 Status User_sign_in(void);
@@ -12,46 +12,46 @@ Status Output_Status(PASSENGER *psg);
 unsigned __stdcall mouse(void* pArguments)
 {
 
-	int choice;//ÓÃ»§Ñ¡Ôñ
+	int choice;//ç”¨æˆ·é€‰æ‹©
 
-	while (Quit == false)//ÔÚÍË³ö³ÌĞòÇ°Ñ­»·¶ÁÈ¡ÓÃ»§ÊäÈë£¬ÊµÏÖ¸÷ÖÖ¹¦ÄÜ
+	while (Quit == false)//åœ¨é€€å‡ºç¨‹åºå‰å¾ªç¯è¯»å–ç”¨æˆ·è¾“å…¥ï¼Œå®ç°å„ç§åŠŸèƒ½
 	{
-		//´òÓ¡ÊäÈëÌáÊ¾
+		//æ‰“å°è¾“å…¥æç¤º
 		printf("/**************************************************************************/\n");
-		printf("\tÇëÊäÈë¸÷Ïî²Ù×÷¶ÔÓ¦±êºÅÒÔ½øĞĞ²Ù×÷\n");
-		printf("\t±êºÅ\t²Ù×÷ÄÚÈİ\n");
-		printf("\t0:\tÍË³öÏµÍ³£¡\n");
-		printf("\t1:\tÓÃ»§×¢²á£¡\n");
-		printf("\t2:\tÓÃ»§µÇÂ¼£¡\n");
-		printf("\t3:\t²éÑ¯ÓÃ»§×´Ì¬£¡\n");	
+		printf("\tè¯·è¾“å…¥å„é¡¹æ“ä½œå¯¹åº”æ ‡å·ä»¥è¿›è¡Œæ“ä½œ\n");
+		printf("\tæ ‡å·\tæ“ä½œå†…å®¹\n");
+		printf("\t0:\té€€å‡ºç³»ç»Ÿï¼\n");
+		printf("\t1:\tç”¨æˆ·æ³¨å†Œï¼\n");
+		printf("\t2:\tç”¨æˆ·ç™»å½•ï¼\n");
+		printf("\t3:\tæŸ¥è¯¢ç”¨æˆ·çŠ¶æ€ï¼\n");	
 		printf("/**************************************************************************/\n");
-		printf("ÇëÊäÈëÄúµÄ²Ù×÷£º\n");
+		printf("è¯·è¾“å…¥æ‚¨çš„æ“ä½œï¼š\n");
 
 		scanf("%d", &choice);
 
 		switch (choice)
 		{
-		case 0://ÍË³öÏµÍ³
+		case 0://é€€å‡ºç³»ç»Ÿ
 		{
-			//Í¨¹ıÉèÖÃQuit¹Ø±ÕÊ±¼ä½ø³Ì
+			//é€šè¿‡è®¾ç½®Quitå…³é—­æ—¶é—´è¿›ç¨‹
 			Quit = true;
 		}
-		case 1://ÓÃ»§×¢²á
+		case 1://ç”¨æˆ·æ³¨å†Œ
 		{
 			Create_New_Passenger(Passengers_tailPtr);
 		}
 		case 2:
 		{
-			//ÓÃ»§µÇÂ¼
+			//ç”¨æˆ·ç™»å½•
 			User_sign_in();
 		}
 		case 3:
 		{
-			//²éÑ¯ÓÃ»§×´Ì¬
+			//æŸ¥è¯¢ç”¨æˆ·çŠ¶æ€
 			PASSENGER *temp = Passengers;
 
 			if (temp == NULL)
-				printf("µ±Ç°ÏµÍ³ÖĞÎŞÓÃ»§£¡\n");
+				printf("å½“å‰ç³»ç»Ÿä¸­æ— ç”¨æˆ·ï¼\n");
 			while (temp != NULL)
 			{
 				Output_Status(temp);
@@ -60,7 +60,7 @@ unsigned __stdcall mouse(void* pArguments)
 		}
 		default:
 		{
-			printf("ÄúÑ¡ÔñµÄ²Ù×÷²»´æÔÚ£¡\n");
+			printf("æ‚¨é€‰æ‹©çš„æ“ä½œä¸å­˜åœ¨ï¼\n");
 			break;
 		}
 		}

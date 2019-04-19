@@ -1,4 +1,4 @@
-#include"main.h"
+ï»¿#include"main.h"
 
 extern GRAPH city_graph;
 extern PASSENGER *User;
@@ -7,28 +7,28 @@ extern char *Vehicle_Name[3];
 void Write_route_file(PATH tour);
 Status Output_route(PATH tour);
 
-//¼ÆËã¸ø¶¨Á½¸ö³ÇÊĞ¼äµÄ×î¶ÌÂ·¾¶
+//è®¡ç®—ç»™å®šä¸¤ä¸ªåŸå¸‚é—´çš„æœ€çŸ­è·¯å¾„
 Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 {
-	/*³õÊ¼»¯*/
-	bool collected[MAX_NODE_NUM] = { false };//µãÊÇ·ñ±»È·ÈÏ×î¶Ì¾àÀë
-	int dist[MAX_NODE_NUM];//¸÷³ÇÊĞµ½ÆğµãµÄ¾àÀë
+	/*åˆå§‹åŒ–*/
+	bool collected[MAX_NODE_NUM] = { false };//ç‚¹æ˜¯å¦è¢«ç¡®è®¤æœ€çŸ­è·ç¦»
+	int dist[MAX_NODE_NUM];//å„åŸå¸‚åˆ°èµ·ç‚¹çš„è·ç¦»
 
-	//ÊÕÂ¼Æğµãsrc
+	//æ”¶å½•èµ·ç‚¹src
 	dist[src] = 0;
 	collected[src] = true;
 
-	//³õÊ¼»¯distÊı×é
+	//åˆå§‹åŒ–distæ•°ç»„
 	for (int i = 0; i < city_graph.Graph_size&&i != src; i++)
 	{
 		int min = INFINITE;
 		int number = 0;
-		//±éÀúÁ½¸ö³ÇÊĞ¼äµÄº½°à±í£¬ÕÒµ½×î¿ìµÄÍ¨ĞĞ·½Ê½
-		Ptr_TransTable_NODE temp = city_graph.pp_G[src][i].p_TransTable;
+		//éå†ä¸¤ä¸ªåŸå¸‚é—´çš„èˆªç­è¡¨ï¼Œæ‰¾åˆ°æœ€å¿«çš„é€šè¡Œæ–¹å¼
+		Ptr_trans_t_Node temp = city_graph.pp_G[src][i].p_TransTable;
 		while (temp)
 		{
 			if (temp->time_departure >= start_time)
-			//µ±ÈÕ³ö·¢
+			//å½“æ—¥å‡ºå‘
 				if (temp->time_departure - start_time + temp->time_consumed < min)
 				{
 					min = temp->time_departure - start_time + temp->time_consumed;
@@ -36,7 +36,7 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 				}
 			
 			if(temp->time_departure < start_time)
-			//µÚ¶şÌì³ö·¢
+			//ç¬¬äºŒå¤©å‡ºå‘
 				if (temp->time_departure + 24 - start_time + temp->time_consumed < min)
 				{
 					min = temp->time_departure +24 - start_time + temp->time_consumed;
@@ -46,10 +46,10 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 			temp = temp->nextPtr;
 		}
 
-		if (min < INFINITE) //½« ´Ósrc³öµÄ±ß¸³Öµ
+		if (min < INFINITE) //å°† ä»srcå‡ºçš„è¾¹èµ‹å€¼
 			dist[i] = min;
 		else 
-			dist[i] = INFINITE;//½«distÊı×éÔªËØ³õÊ¼»¯ÎªÎŞÇî;¶ÔÎ´±»ÊÕÂ¼µÄ£¬dist[v]ÎªÆğµãµ½Ô´µãµÄ×î¶Ì¾àÀë
+			dist[i] = INFINITE;//å°†distæ•°ç»„å…ƒç´ åˆå§‹åŒ–ä¸ºæ— ç©·;å¯¹æœªè¢«æ”¶å½•çš„ï¼Œdist[v]ä¸ºèµ·ç‚¹åˆ°æºç‚¹çš„æœ€çŸ­è·ç¦»
 	
 	}
 
@@ -58,10 +58,10 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 	int minV, mindist;
 	while (!collected[dest])
 	{
-		/*ÊÕÂ¼Î´ÊÕÂ¼¶¥µãÖĞdist×îĞ¡Õß*/
+		/*æ”¶å½•æœªæ”¶å½•é¡¶ç‚¹ä¸­distæœ€å°è€…*/
 		mindist = INFINITE;
 		minV = -1;
-		for (int V = 0; V < city_graph.Graph_size; V++)//±éÀúdistÊı×é£¬ÕÒµ½dist×îĞ¡µÄ½Úµã
+		for (int V = 0; V < city_graph.Graph_size; V++)//éå†distæ•°ç»„ï¼Œæ‰¾åˆ°distæœ€å°çš„èŠ‚ç‚¹
 		{
 			if (collected[V] == false)
 			{
@@ -73,43 +73,43 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 			}
 		}
 
-		if (minV == -1) break;//ÈôÕâÑùµÄ¶¥µã²»´æÔÚ£¬break£¨ÒÑÊÕÂ¼ËùÓĞ¶¥µã»òÍ¼²»Á¬Í¨£©
+		if (minV == -1) break;//è‹¥è¿™æ ·çš„é¡¶ç‚¹ä¸å­˜åœ¨ï¼Œbreakï¼ˆå·²æ”¶å½•æ‰€æœ‰é¡¶ç‚¹æˆ–å›¾ä¸è¿é€šï¼‰
 
-		V = minV;//ÊÕÂ¼¸Ã×îĞ¡dist¶¥µã
+		V = minV;//æ”¶å½•è¯¥æœ€å°disté¡¶ç‚¹
 		collected[V] = true;
 
-		/*¸üĞÂdistºÍpath*/
+		/*æ›´æ–°distå’Œpath*/
 		for (int W = 0; W < city_graph.Graph_size; W++)
 		{
 			if (collected[W] == false && city_graph.pp_G[V][W].p_TransTable)
 			{
 				int min = INFINITE;
 				int number = 0;
-				Ptr_TransTable_NODE temp = city_graph.pp_G[V][W].p_TransTable;
-				while (temp)//±éÀúVµ½WµÄËùÓĞ½»Í¨·½Ê½£¬Ñ°ÕÒÊ±¼ä×î¶ÌµÄÒ»ÖÖ
+				Ptr_trans_t_Node temp = city_graph.pp_G[V][W].p_TransTable;
+				while (temp)//éå†Våˆ°Wçš„æ‰€æœ‰äº¤é€šæ–¹å¼ï¼Œå¯»æ‰¾æ—¶é—´æœ€çŸ­çš„ä¸€ç§
 				{
 					if (temp->time_departure >= (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24)
-						//ÂÃ¿Í¿ÉÒÔµ½´ïVµÄµ±ÈÕ³ö·¢
+						//æ—…å®¢å¯ä»¥åˆ°è¾¾Vçš„å½“æ—¥å‡ºå‘
 						if (temp->time_departure - (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24 + temp->time_consumed < min)
 						{
-							//ÂÃĞĞÊ±¼ä¸ü¶Ì£¬Ë¢ĞÂ
+							//æ—…è¡Œæ—¶é—´æ›´çŸ­ï¼Œåˆ·æ–°
 							min = temp->time_departure - (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24 + temp->time_consumed;
 							number = temp->number;
 						}
 
 					if (temp->time_departure < (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24)
-						//ÂÃ¿ÍĞèÒªµÚ¶şÌì³ö·¢
+						//æ—…å®¢éœ€è¦ç¬¬äºŒå¤©å‡ºå‘
 						if (temp->time_departure + 24 - (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24 + temp->time_consumed < min)
 						{
-							//ÂÃĞĞÊ±¼ä¸ü¶Ì£¬Ë¢ĞÂ
+							//æ—…è¡Œæ—¶é—´æ›´çŸ­ï¼Œåˆ·æ–°
 							min = temp->time_departure + 24 - (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24 + temp->time_consumed;
 							number = temp->number;
 						}
 					temp = temp->nextPtr;
 				}
 
-				if (dist[V] + min < dist[W])//Èç¹ûVµ½WÓĞÒ»Ìõ¸ü¶ÌµÄ±ß ²¢ÇÒW½ÚµãÎ´±»ÊÕÂ¼µ½pathÖĞ
-					dist[W] = dist[V] + min;//Æğµãµ½WµÄ¾àÀëµÈÓÚÆğµãµ½WµÄ¾àÀë+VW±ßµÄ¾àÀë
+				if (dist[V] + min < dist[W])//å¦‚æœVåˆ°Wæœ‰ä¸€æ¡æ›´çŸ­çš„è¾¹ å¹¶ä¸”WèŠ‚ç‚¹æœªè¢«æ”¶å½•åˆ°pathä¸­
+					dist[W] = dist[V] + min;//èµ·ç‚¹åˆ°Wçš„è·ç¦»ç­‰äºèµ·ç‚¹åˆ°Wçš„è·ç¦»+VWè¾¹çš„è·ç¦»
 			}
 		}
 	}
@@ -118,29 +118,29 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 	return OK;
 }
 
-//¼ÆËã¸ø¶¨Á½¸ö³ÇÊĞ¼äµÄ×î¶ÌÂ·¾¶£¬ÖØÔØ£¬¼ÇÂ¼Â·¾¶
+//è®¡ç®—ç»™å®šä¸¤ä¸ªåŸå¸‚é—´çš„æœ€çŸ­è·¯å¾„ï¼Œé‡è½½ï¼Œè®°å½•è·¯å¾„
 Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH tourend, int& time)
 {
-	/*³õÊ¼»¯*/
-	bool collected[MAX_NODE_NUM] = { false };//µãÊÇ·ñ±»È·ÈÏ×î¶Ì¾àÀë
-	int dist[MAX_NODE_NUM];//¸÷³ÇÊĞµ½ÆğµãµÄ¾àÀë
-	int path[MAX_NODE_NUM][2];//path[0]´æ³ÇÊĞ£¬¼ÇÂ¼Â·¾¶, path[1]´æ²»Í¬³ÇÊĞ¼äµÄÂÃĞĞ³µ´Î
+	/*åˆå§‹åŒ–*/
+	bool collected[MAX_NODE_NUM] = { false };//ç‚¹æ˜¯å¦è¢«ç¡®è®¤æœ€çŸ­è·ç¦»
+	int dist[MAX_NODE_NUM];//å„åŸå¸‚åˆ°èµ·ç‚¹çš„è·ç¦»
+	int path[MAX_NODE_NUM][2];//path[0]å­˜åŸå¸‚ï¼Œè®°å½•è·¯å¾„, path[1]å­˜ä¸åŒåŸå¸‚é—´çš„æ—…è¡Œè½¦æ¬¡
 
-	//ÊÕÂ¼Æğµãsrc
+	//æ”¶å½•èµ·ç‚¹src
 	dist[src] = 0;
 	collected[src] = true;
 
-	//³õÊ¼»¯distºÍpathÊı×é
+	//åˆå§‹åŒ–distå’Œpathæ•°ç»„
 	for (int i = 0; i < city_graph.Graph_size&&i!=src; i++)
 	{
 		int min = INFINITE;
 		int number = 0;
-		//±éÀúÁ½¸ö³ÇÊĞ¼äµÄº½°à±í£¬ÕÒµ½×î¿ìµÄÍ¨ĞĞ·½Ê½
-		Ptr_TransTable_NODE temp = city_graph.pp_G[src][i].p_TransTable;
+		//éå†ä¸¤ä¸ªåŸå¸‚é—´çš„èˆªç­è¡¨ï¼Œæ‰¾åˆ°æœ€å¿«çš„é€šè¡Œæ–¹å¼
+		Ptr_trans_t_Node temp = city_graph.pp_G[src][i].p_TransTable;
 		while (temp)
 		{
 			if (temp->time_departure >= start_time)
-			//µ±ÈÕ³ö·¢
+			//å½“æ—¥å‡ºå‘
 				if (temp->time_departure - start_time + temp->time_consumed < min)
 				{
 					min = temp->time_departure - start_time + temp->time_consumed;
@@ -148,7 +148,7 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH tourend, in
 				}
 
 			if (temp->time_departure < start_time)
-			//µÚ¶şÌì³ö·¢
+			//ç¬¬äºŒå¤©å‡ºå‘
 				if (temp->time_departure + 24 - start_time + temp->time_consumed < min)
 				{
 					min = temp->time_departure + 24 - start_time + temp->time_consumed;
@@ -158,7 +158,7 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH tourend, in
 			temp = temp->nextPtr;
 		}
 
-		if (min < INFINITE) //½« ´Ósrc³öµÄ±ß¸³Öµ
+		if (min < INFINITE) //å°† ä»srcå‡ºçš„è¾¹èµ‹å€¼
 		{
 			dist[i] = min;
 			path[i][0] = src;
@@ -166,8 +166,8 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH tourend, in
 		}
 		else
 		{
-			dist[i] = INFINITE;//½«distÊı×éÔªËØ³õÊ¼»¯ÎªÎŞÇî;¶ÔÎ´±»ÊÕÂ¼µÄ£¬dist[v]ÎªÆğµãµ½Ô´µãµÄ×î¶Ì¾àÀë
-			path[i][0] = -1;//½«pathÊı×éÔªËØ³õÊ¼»¯Îª-1£¬pathÊı×éÔªËØÎªÆğµãµ½½ÚµãiµÄÂ·¾¶µÄÉÏÒ»¸ö½Úµã
+			dist[i] = INFINITE;//å°†distæ•°ç»„å…ƒç´ åˆå§‹åŒ–ä¸ºæ— ç©·;å¯¹æœªè¢«æ”¶å½•çš„ï¼Œdist[v]ä¸ºèµ·ç‚¹åˆ°æºç‚¹çš„æœ€çŸ­è·ç¦»
+			path[i][0] = -1;//å°†pathæ•°ç»„å…ƒç´ åˆå§‹åŒ–ä¸º-1ï¼Œpathæ•°ç»„å…ƒç´ ä¸ºèµ·ç‚¹åˆ°èŠ‚ç‚¹içš„è·¯å¾„çš„ä¸Šä¸€ä¸ªèŠ‚ç‚¹
 		}
 	}
 
@@ -176,10 +176,10 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH tourend, in
 	int minV, mindist;
 	while (!collected[dest])
 	{
-		/*ÊÕÂ¼Î´ÊÕÂ¼¶¥µãÖĞdist×îĞ¡Õß*/
+		/*æ”¶å½•æœªæ”¶å½•é¡¶ç‚¹ä¸­distæœ€å°è€…*/
 		mindist = INFINITE;
 		minV = -1;
-		for (int V = 0; V < city_graph.Graph_size; V++)//±éÀúdistÊı×é£¬ÕÒµ½dist×îĞ¡µÄ½Úµã
+		for (int V = 0; V < city_graph.Graph_size; V++)//éå†distæ•°ç»„ï¼Œæ‰¾åˆ°distæœ€å°çš„èŠ‚ç‚¹
 		{
 			if (collected[V] == false)
 			{
@@ -191,45 +191,45 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH tourend, in
 			}
 		}
 
-		if (minV == -1) break;//ÈôÕâÑùµÄ¶¥µã²»´æÔÚ£¬break£¨ÒÑÊÕÂ¼ËùÓĞ¶¥µã»òÍ¼²»Á¬Í¨£©
+		if (minV == -1) break;//è‹¥è¿™æ ·çš„é¡¶ç‚¹ä¸å­˜åœ¨ï¼Œbreakï¼ˆå·²æ”¶å½•æ‰€æœ‰é¡¶ç‚¹æˆ–å›¾ä¸è¿é€šï¼‰
 
-		V = minV;//ÊÕÂ¼¸Ã×îĞ¡dist¶¥µã
+		V = minV;//æ”¶å½•è¯¥æœ€å°disté¡¶ç‚¹
 		collected[V] = true;
 
-		/*¸üĞÂdistºÍpath*/
+		/*æ›´æ–°distå’Œpath*/
 		for (int W = 0; W < city_graph.Graph_size; W++)
 		{
 			if (collected[W] == false && city_graph.pp_G[V][W].p_TransTable)
 			{
 				int min = INFINITE;
 				int number = 0;
-				Ptr_TransTable_NODE temp = city_graph.pp_G[V][W].p_TransTable;
-				while (temp)//±éÀúVµ½WµÄËùÓĞ½»Í¨·½Ê½£¬Ñ°ÕÒÊ±¼ä×î¶ÌµÄÒ»ÖÖ
+				Ptr_trans_t_Node temp = city_graph.pp_G[V][W].p_TransTable;
+				while (temp)//éå†Våˆ°Wçš„æ‰€æœ‰äº¤é€šæ–¹å¼ï¼Œå¯»æ‰¾æ—¶é—´æœ€çŸ­çš„ä¸€ç§
 				{
 					if (temp->time_departure >= (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24)
-						//ÂÃ¿Í¿ÉÒÔµ½´ïVµÄµ±ÈÕ³ö·¢
+						//æ—…å®¢å¯ä»¥åˆ°è¾¾Vçš„å½“æ—¥å‡ºå‘
 						if (temp->time_departure - (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24 + temp->time_consumed < min)
 						{
-							//ÂÃĞĞÊ±¼ä¸ü¶Ì£¬Ë¢ĞÂ
+							//æ—…è¡Œæ—¶é—´æ›´çŸ­ï¼Œåˆ·æ–°
 							min = temp->time_departure - (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24 + temp->time_consumed;
 							number = temp->number;
 						}
 
 					if (temp->time_departure < (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24)
-						//ÂÃ¿ÍĞèÒªµÚ¶şÌì³ö·¢
+						//æ—…å®¢éœ€è¦ç¬¬äºŒå¤©å‡ºå‘
 						if (temp->time_departure + 24 - (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24 + temp->time_consumed < min)
 						{
-							//ÂÃĞĞÊ±¼ä¸ü¶Ì£¬Ë¢ĞÂ
+							//æ—…è¡Œæ—¶é—´æ›´çŸ­ï¼Œåˆ·æ–°
 							min = temp->time_departure + 24 - (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24 + temp->time_consumed;
 							number = temp->number;
 						}
 					temp = temp->nextPtr;
 				}
 
-				if (dist[V] + min < dist[W])//Èç¹ûVµ½WÓĞÒ»Ìõ¸ü¶ÌµÄ±ß ²¢ÇÒW½ÚµãÎ´±»ÊÕÂ¼µ½pathÖĞ
+				if (dist[V] + min < dist[W])//å¦‚æœVåˆ°Wæœ‰ä¸€æ¡æ›´çŸ­çš„è¾¹ å¹¶ä¸”WèŠ‚ç‚¹æœªè¢«æ”¶å½•åˆ°pathä¸­
 				{
-					dist[W] = dist[V] + min;//Æğµãµ½WµÄ¾àÀëµÈÓÚÆğµãµ½WµÄ¾àÀë+VW±ßµÄ¾àÀë
-					path[W][0] = V;//Â·¾¶ÖĞWµÄÉÏÒ»¸ö½ÚµãÊÇV
+					dist[W] = dist[V] + min;//èµ·ç‚¹åˆ°Wçš„è·ç¦»ç­‰äºèµ·ç‚¹åˆ°Wçš„è·ç¦»+VWè¾¹çš„è·ç¦»
+					path[W][0] = V;//è·¯å¾„ä¸­Wçš„ä¸Šä¸€ä¸ªèŠ‚ç‚¹æ˜¯V
 					path[W][1] = number;
 				}
 			}
@@ -237,9 +237,9 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH tourend, in
 	}
 	time = dist[dest];
 
-	int V = dest;
+	V = dest;
 
-	//½«¸÷¶Î±ßÌí¼Óµ½ÂÃ¿ÍµÄÂÃĞĞÏßÂ·ÖĞ
+	//å°†å„æ®µè¾¹æ·»åŠ åˆ°æ—…å®¢çš„æ—…è¡Œçº¿è·¯ä¸­
 	while (V != src)
 	{
 		PATH temp = new PathNode;
@@ -264,7 +264,7 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH tourend, in
 	return OK;
 }
 
-//È«ÅÅÁĞ£¬¶ÔÓÚÂÃ¿ÍÒªÍ¾¾¶µÄ½áµã½øĞĞÈ«ÅÅÁĞ£¬ÒÔ±ãÖğ¸ö±éÀú
+//å…¨æ’åˆ—ï¼Œå¯¹äºæ—…å®¢è¦é€”å¾„çš„ç»“ç‚¹è¿›è¡Œå…¨æ’åˆ—ï¼Œä»¥ä¾¿é€ä¸ªéå†
 void Permutation(int k, int n, int a[], int **A)
 {
 	static int count = 0;
@@ -292,7 +292,7 @@ void Permutation(int k, int n, int a[], int **A)
 	}
 }
 
-//²¹È«ÂÃ¿ÍÂÃĞĞÂ·ÏßÖĞµÄ¿ÕÈ±£¬Á´±íÖĞµÄÇ°ÈıÏî£¬Æğµã£¬ÖÕµã£¬³µ´ÎÌîÍêÖ®ºó£¬¼´¿Éµ÷ÓÃ¸Ãº¯Êı
+//è¡¥å…¨æ—…å®¢æ—…è¡Œè·¯çº¿ä¸­çš„ç©ºç¼ºï¼Œé“¾è¡¨ä¸­çš„å‰ä¸‰é¡¹ï¼Œèµ·ç‚¹ï¼Œç»ˆç‚¹ï¼Œè½¦æ¬¡å¡«å®Œä¹‹åï¼Œå³å¯è°ƒç”¨è¯¥å‡½æ•°
 Status Finish_Path(PATH tour)
 {
 	PATH temp = tour;
@@ -300,15 +300,15 @@ Status Finish_Path(PATH tour)
 	int arrive_pre = User->start_time.hour;
 	while (temp != NULL)
 	{
-		//±éÀúº½°à±í£¬ÕÒµ½¶ÔÓ¦³µ´Î
-		Ptr_TransTable_NODE trans = city_graph.pp_G[temp->src][temp->dest].p_TransTable;
+		//éå†èˆªç­è¡¨ï¼Œæ‰¾åˆ°å¯¹åº”è½¦æ¬¡
+		Ptr_trans_t_Node trans = city_graph.pp_G[temp->src][temp->dest].p_TransTable;
 		while (trans != NULL)
 		{
 			if (trans->number == temp->number)
 				break;
 		}
 
-		//Ìí¼ÓÔÚ³ö·¢³ÇÊĞµÄµÈ´ıÊ±¼ä
+		//æ·»åŠ åœ¨å‡ºå‘åŸå¸‚çš„ç­‰å¾…æ—¶é—´
 		int wait = 0;
 		for (int i = 0; i < User->num_passby; i++)
 			if (User->pass_by[0][i] == temp->src)
@@ -318,13 +318,13 @@ Status Finish_Path(PATH tour)
 				break;
 			}
 
-		temp->start_time.hour = trans->time_departure;//ÂÃ¿Í³ö·¢Ê±¼äÎª¶ÔÓ¦½»Í¨¹¤¾ß³ö·¢Ê±¼ä
-		temp->time = trans->time_consumed;//ÂÃ³ÌºÄ·ÑÊ±¼äµÈÓÚ½»Í¨¹¤¾ßºÄÊ±
-		//È·¶¨³ö·¢ÈÕÆÚ
+		temp->start_time.hour = trans->time_departure;//æ—…å®¢å‡ºå‘æ—¶é—´ä¸ºå¯¹åº”äº¤é€šå·¥å…·å‡ºå‘æ—¶é—´
+		temp->time = trans->time_consumed;//æ—…ç¨‹è€—è´¹æ—¶é—´ç­‰äºäº¤é€šå·¥å…·è€—æ—¶
+		//ç¡®å®šå‡ºå‘æ—¥æœŸ
 		//int inter = pre->start_time.hour + pre->time + wait;
 		if ((arrive_pre+wait)%24 > trans->time_departure)
 		{
-			//µ½´ï³ö·¢³ÇÊĞºóµÚ¶şÌì³ö·¢
+			//åˆ°è¾¾å‡ºå‘åŸå¸‚åç¬¬äºŒå¤©å‡ºå‘
 			if (temp == tour)
 				temp->start_time.date = User->start_time.date + 1;
 			else
@@ -336,7 +336,7 @@ Status Finish_Path(PATH tour)
 		}
 		else
 		{
-			//µ½´ï³ö·¢³ÇÊĞºóµ±Ìì³ö·¢
+			//åˆ°è¾¾å‡ºå‘åŸå¸‚åå½“å¤©å‡ºå‘
 			if (temp == tour)
 				temp->start_time.date = User->start_time.date;
 			else
@@ -372,16 +372,16 @@ Status Finish_Path(PATH tour)
 	return OK;
 }
 
-//ÂÃ¿Í×î¶ÌÊ±¼äÂÃĞĞ²ßÂÔ
+//æ—…å®¢æœ€çŸ­æ—¶é—´æ—…è¡Œç­–ç•¥
 Status Min_Time()
 {
-	//È·¶¨Â·ÏßÊıÁ¿
+	//ç¡®å®šè·¯çº¿æ•°é‡
 	int path_number = 1;
 	int pcity_num = User->num_passby;
 	for (int i = 2; i <= User->num_passby; i++)
 		path_number *= i;
 
-	//³õÊ¼»¯Â·Ïß
+	//åˆå§‹åŒ–è·¯çº¿
 	int **Path = new int*[path_number];
 	for (int i = 0; i < path_number; i++)
 	{
@@ -390,13 +390,13 @@ Status Min_Time()
 		Path[i][User->num_passby + 1] = User->dest;
 	}
 
-	//Í¨¹ıÈ«ÅÅÁĞ£¬Éú³ÉËùÓĞÂ·Ïß
+	//é€šè¿‡å…¨æ’åˆ—ï¼Œç”Ÿæˆæ‰€æœ‰è·¯çº¿
 	Permutation(0, pcity_num, User->pass_by[0], Path);
 
-	//Çó³öºÄÊ±×î¶ÌµÄÂ·Ïß
+	//æ±‚å‡ºè€—æ—¶æœ€çŸ­çš„è·¯çº¿
 	int mintimepath = 0;
 	int mintime = INFINITE;
-	//±éÀúËùÓĞµÄÂÃĞĞÂ·ÏßÇó½â
+	//éå†æ‰€æœ‰çš„æ—…è¡Œè·¯çº¿æ±‚è§£
 	for (int i = 0; i < path_number; i++)
 	{
 		int alltime = 0;
@@ -404,7 +404,7 @@ Status Min_Time()
 		for (int j = 0; j < pcity_num + 1; j++)
 		{
 			int temptime = 0;
-			//¶ÔÃ¿ÌõÂ·ÏßÖğ¶ÎÇó½âÊ±¼ä
+			//å¯¹æ¯æ¡è·¯çº¿é€æ®µæ±‚è§£æ—¶é—´
 			Dijkstra_For_Min_Time(Path[i][j], Path[i][j + 1], tempstarttime, temptime);
 			alltime += temptime;
 			tempstarttime = (User->start_time.hour + alltime) % 24;
@@ -417,7 +417,7 @@ Status Min_Time()
 		}
 	}
 
-	//ÕÒµ½×î¿ìµÄÂ·Ïßºó£¬ÖØÓÃDijkstra¼ÇÂ¼Â·Ïß£¬Ê¹ÓÃÁ´±í´æ´¢Â·Ïß
+	//æ‰¾åˆ°æœ€å¿«çš„è·¯çº¿åï¼Œé‡ç”¨Dijkstraè®°å½•è·¯çº¿ï¼Œä½¿ç”¨é“¾è¡¨å­˜å‚¨è·¯çº¿
 	PATH tour = NULL;
 	PATH tourend = tour;
 
@@ -427,7 +427,7 @@ Status Min_Time()
 	for (int i = 0; i < pcity_num + 1; i++)
 	{
 		int temptime = 0;
-		//·Ö¶ÎÈ·¶¨Â·Ïß
+		//åˆ†æ®µç¡®å®šè·¯çº¿
 		Dijkstra_For_Min_Time(Path[mintimepath][i], Path[mintimepath][i + 1], tempstarttime, tour==NULL?tour:tourend,  temptime);
 		alltime += temptime;
 		tempstarttime = (User->start_time.hour + alltime) % 24;
@@ -435,7 +435,7 @@ Status Min_Time()
 			tourend = tourend->next;
 	}
 
-	//²¹È«Â·ÏßÁ´±íÖĞµÄÄÚÈİ
+	//è¡¥å…¨è·¯çº¿é“¾è¡¨ä¸­çš„å†…å®¹
 	Finish_Path(tour);
 	
 	Output_route(tour);
@@ -454,7 +454,7 @@ Status Min_Time()
 	return OK;
 }
 
-//ÔÚÆÁÄ»ÉÏ´òÓ¡ÂÃ¿ÍµÄÂÃĞĞÂ·Ïß
+//åœ¨å±å¹•ä¸Šæ‰“å°æ—…å®¢çš„æ—…è¡Œè·¯çº¿
 Status Output_route(PATH tour)
 {
 	int number = 0;
@@ -463,7 +463,7 @@ Status Output_route(PATH tour)
 	while (temp != NULL)
 	{
 		number++;
-		Ptr_TransTable_NODE trans = city_graph.pp_G[temp->src][temp->dest].p_TransTable;
+		Ptr_trans_t_Node trans = city_graph.pp_G[temp->src][temp->dest].p_TransTable;
 		while (trans != NULL)
 		{
 			if (trans->number == temp->number)
@@ -474,9 +474,11 @@ Status Output_route(PATH tour)
 
 		cout << "No." << number << " " << city_graph.City_Name[temp->src]
 			<< "----->" << city_graph.City_Name[temp->dest] << " "
-			<< trans->name << "  ·¢³µÊ±¼ä£º" << temp->start_time.year << "-" << temp->start_time.month
+			<< trans->name << "  å‘è½¦æ—¶é—´ï¼š" << temp->start_time.year << "-" << temp->start_time.month
 			<< "-" << temp->start_time.date << " " << temp->start_time.hour << ":00:00" << endl;
 
 		temp = temp->next;
 	}
+
+	return OK;
 }

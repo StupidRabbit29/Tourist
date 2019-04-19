@@ -1,7 +1,7 @@
-#include"main.h"
+ï»¿#include"main.h"
 #include<string.h>
 
-/*Íâ²¿±äÁ¿*/
+/*å¤–éƒ¨å˜é‡*/
 extern PASSENGER *Passengers;
 extern PASSENGER *User;
 extern SYSTEM_TIME System_Time;
@@ -9,24 +9,24 @@ extern GRAPH city_graph;
 
 void Change_User_Info(PASSENGER &psg);
 void Write_user_file(int choice);
+Status Output_Status(PASSENGER *psg);
 
+/*å‡½æ•°*/
 
-/*º¯Êý*/
-
-//ÓÃ»§µÇÂ¼
+//ç”¨æˆ·ç™»å½•
 Status User_sign_in(void)
 {
 	Write_user_file(2);
-	//¶ÁÈ¡ÓÃ»§ÊäÈëµÄID
+	//è¯»å–ç”¨æˆ·è¾“å…¥çš„ID
 	char userID[20];
 	gets_s(userID);
 	getchar();
 	bool find_passenger = false;
 
-	//Ê¹ÓÃtemp±éÀúÂÃ¿ÍÁ´±í
+	//ä½¿ç”¨tempéåŽ†æ—…å®¢é“¾è¡¨
 	PASSENGER *temp = Passengers;
 
-	//Ñ°ÕÒÓëÓÃ»§ÊäÈëIDÆ¥ÅäµÄÂÃ¿Í
+	//å¯»æ‰¾ä¸Žç”¨æˆ·è¾“å…¥IDåŒ¹é…çš„æ—…å®¢
 	while (temp != NULL && !find_passenger)
 	{
 		if (strcmp(userID, temp->ID) != 0)
@@ -40,24 +40,24 @@ Status User_sign_in(void)
 		}
 	}
 
-	//ÓÃ»§²»´æÔÚ£¬ÐèÒªÖØÐÂÊäÈëID
+	//ç”¨æˆ·ä¸å­˜åœ¨ï¼Œéœ€è¦é‡æ–°è¾“å…¥ID
 	if (find_passenger == false)
 	{
-		printf("ÓÃ»§²»´æÔÚ£¡ÇëÖØÐÂÊäÈëID£¡\n");
+		printf("ç”¨æˆ·ä¸å­˜åœ¨ï¼è¯·é‡æ–°è¾“å…¥IDï¼\n");
 		User_sign_in();
 	}
-	else//ÓÃ»§½øÐÐÏÂÒ»²½²Ù×÷
+	else//ç”¨æˆ·è¿›è¡Œä¸‹ä¸€æ­¥æ“ä½œ
 	{
-		//Êä³öÌáÊ¾ÐÅÏ¢
-		printf("ÇëÑ¡ÔñÄúÒª½øÐÐµÄ²Ù×÷:\n");
-		printf("ÐÞ¸ÄÂÃÐÐ·½°¸£¨ÊäÈë1£©\n");
-		printf("²éÑ¯ÂÃ³Ì×´Ì¬£¨ÊäÈë2£©\n");
-		printf("ÍË³öµÇÂ¼    £¨ÊäÈë3£©\n");
+		//è¾“å‡ºæç¤ºä¿¡æ¯
+		printf("è¯·é€‰æ‹©æ‚¨è¦è¿›è¡Œçš„æ“ä½œ:\n");
+		printf("ä¿®æ”¹æ—…è¡Œæ–¹æ¡ˆï¼ˆè¾“å…¥1ï¼‰\n");
+		printf("æŸ¥è¯¢æ—…ç¨‹çŠ¶æ€ï¼ˆè¾“å…¥2ï¼‰\n");
+		printf("é€€å‡ºç™»å½•    ï¼ˆè¾“å…¥3ï¼‰\n");
 
 		int choice = 0;
 		bool choice_correct = false;
 
-		//¶ÁÈ¡ÕýÈ·ÊäÈë£¬¾ö¶¨ÏÂÒ»²½²Ù×÷
+		//è¯»å–æ­£ç¡®è¾“å…¥ï¼Œå†³å®šä¸‹ä¸€æ­¥æ“ä½œ
 		while (choice_correct == false)
 		{
 			scanf("%d", &choice);
@@ -66,18 +66,18 @@ Status User_sign_in(void)
 			{
 				if (choice == 1)
 				{
-					//µ÷ÓÃµ÷ÕûÂÃÐÐ·½°¸µÄº¯Êý
+					//è°ƒç”¨è°ƒæ•´æ—…è¡Œæ–¹æ¡ˆçš„å‡½æ•°
 					Change_User_Info(*User);
 				}
 				else if (choice == 2)
 				{
-					//µ÷ÓÃ´òÓ¡ÂÃ¿ÍÐÅÏ¢µÄº¯Êý
+					//è°ƒç”¨æ‰“å°æ—…å®¢ä¿¡æ¯çš„å‡½æ•°
 
 					Output_Status(User);
 				}
 				else
 				{
-					//ÂÃ¿ÍÍË³ö
+					//æ—…å®¢é€€å‡º
 					Write_user_file(3);
 					User = NULL;
 				}
@@ -86,7 +86,7 @@ Status User_sign_in(void)
 			}
 			else
 			{
-				printf("ÊäÈë²»·ûºÏÒªÇó£¬ÇëÖØÐÂÊäÈë£º\n");
+				printf("è¾“å…¥ä¸ç¬¦åˆè¦æ±‚ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š\n");
 				choice = 0;
 			}
 		}
@@ -100,13 +100,13 @@ Status Output_Status(PASSENGER *psg)
 	char *loca[5] = { "IN_CAR", "IN_TRAIN", "IN_AIRPLANE", "STAY_IN_CITY" , "ARRIVE" };
 	char str2[100] = { '\0' };
 
-	printf("ÂÃ¿Í£º¡¾%s¡¿", psg->ID);
-	printf("Ê±¼ä£º%d - %d - %d  %d : 00 : 00\n", psg->status.time.year, psg->status.time.month, psg->status.time.date, psg->status.time.hour);
-	printf("ÂÃÐÐ×´Ì¬£º%s:\t\t", loca[(int)(psg->status.loca)]);
+	printf("æ—…å®¢ï¼šã€%sã€‘", psg->ID);
+	printf("æ—¶é—´ï¼š%d - %d - %d  %d : 00 : 00\n", psg->status.time.year, psg->status.time.month, psg->status.time.date, psg->status.time.hour);
+	printf("æ—…è¡ŒçŠ¶æ€ï¼š%s:\t\t", loca[(int)(psg->status.loca)]);
 
 	memset(str2, 0, sizeof(str2));
 	if (psg->status.loca != STAY_IN_CITY)
-		sprintf(str2, "%s\t\t%s  ==¡· %s", psg->status.name, city_graph.City_Name[psg->status.src], city_graph.City_Name[psg->status.dest]);
+		sprintf(str2, "%s\t\t%s  ==ã€‹ %s", psg->status.name, city_graph.City_Name[psg->status.src], city_graph.City_Name[psg->status.dest]);
 	else
 		sprintf(str2, "%s", psg->status.name);
 	printf("%s\n", str2);

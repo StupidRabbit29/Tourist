@@ -1,5 +1,6 @@
-#include"main.h"
-PASSENGER *Passengers = NULL, *Passengers_tailPtr = NULL, *User;//Userµ±Ç°ÏµÍ³Ê¹ÓÃÕß
+ï»¿#include"main.h"
+
+PASSENGER *Passengers = NULL, *Passengers_tailPtr = NULL, *User;//Userå½“å‰ç³»ç»Ÿä½¿ç”¨è€…
 #define Passengers_headPtr Passengers
 
 
@@ -11,37 +12,37 @@ Status Min_Time();
 
 void Create_New_Passenger(PASSENGER *tailPtr)
 {
-	/*¶ÁÊäÈë&³õÊ¼»¯*/
-	/*ĞèÒªĞŞ¸Ä£¡£¡£¡£¡£¡ÎÄ¼şÊäÈë*/
+	/*è¯»è¾“å…¥&åˆå§‹åŒ–*/
+	/*éœ€è¦ä¿®æ”¹ï¼ï¼ï¼ï¼ï¼æ–‡ä»¶è¾“å…¥*/
 	PASSENGER psg_temp;
-	printf("ÇëÊäÈëID£º");
-	scanf_s("%s", &psg_temp.ID);//&ÓĞÃ»ÓĞÎÊÌâ£¿
-	fprintf(fptr_input, "ID£º%d\n", psg_temp.ID);//ÓÃ»§ÊäÈëĞ´Èëinput.txtÎÄ¼ş
+	printf("è¯·è¾“å…¥IDï¼š");
+	scanf_s("%s", &psg_temp.ID);//&æœ‰æ²¡æœ‰é—®é¢˜ï¼Ÿ
+	fprintf(fptr_input, "IDï¼š%d\n", psg_temp.ID);//ç”¨æˆ·è¾“å…¥å†™å…¥input.txtæ–‡ä»¶
 
-	printf("ÇëÊäÈëÆğµã±àºÅ£º");
+	printf("è¯·è¾“å…¥èµ·ç‚¹ç¼–å·ï¼š");
 	scanf_s("%d", &psg_temp.src);
-	fprintf(fptr_input, "Æğµã±àºÅ£º%d\n", psg_temp.src);//ÓÃ»§ÊäÈëĞ´Èëinput.txtÎÄ¼ş
+	fprintf(fptr_input, "èµ·ç‚¹ç¼–å·ï¼š%d\n", psg_temp.src);//ç”¨æˆ·è¾“å…¥å†™å…¥input.txtæ–‡ä»¶
 
-	printf("ÇëÊäÈëÖÕµã±àºÅ£º");
+	printf("è¯·è¾“å…¥ç»ˆç‚¹ç¼–å·ï¼š");
 	scanf_s("%d", &psg_temp.dest);
-	fprintf(fptr_input, "ÖÕµã±àºÅ£º%d\n", psg_temp.dest);//ÓÃ»§ÊäÈëĞ´Èëinput.txtÎÄ¼ş
+	fprintf(fptr_input, "ç»ˆç‚¹ç¼–å·ï¼š%d\n", psg_temp.dest);//ç”¨æˆ·è¾“å…¥å†™å…¥input.txtæ–‡ä»¶
 
-	printf("ÇëÊäÈëÍ¾¾­³ÇÊĞÊıÁ¿£º");
+	printf("è¯·è¾“å…¥é€”ç»åŸå¸‚æ•°é‡ï¼š");
 	int cnt=0,i;
 	scanf_s("%d", &cnt);
 	psg_temp.num_passby = cnt;
-	fprintf(fptr_input, "Í¾¾­³ÇÊĞÊıÁ¿£º%d\nÍ¾¾­³ÇÊĞ±àºÅ£º",cnt);//ÓÃ»§ÊäÈëĞ´Èëinput.txtÎÄ¼ş
-	printf("ÇëÊäÈëÍ¾¾­³ÇÊĞ±àºÅ£º");
+	fprintf(fptr_input, "é€”ç»åŸå¸‚æ•°é‡ï¼š%d\né€”ç»åŸå¸‚ç¼–å·ï¼š",cnt);//ç”¨æˆ·è¾“å…¥å†™å…¥input.txtæ–‡ä»¶
+	printf("è¯·è¾“å…¥é€”ç»åŸå¸‚ç¼–å·ï¼š");
 	bool stay = false;
 	for (i = 0; i < cnt; i++)
 	{
 		scanf_s("%d", &psg_temp.pass_by[0][i]);
-		fprintf(fptr_input, "%d ", psg_temp.pass_by[0][i]);//ÓÃ»§ÊäÈëĞ´Èëinput.txtÎÄ¼ş
-		printf("ÊÇ·ñĞèÒªÔÚ¸ÃµØÍ£Áô£¨Y=1/N=0£©£º");
+		fprintf(fptr_input, "%d ", psg_temp.pass_by[0][i]);//ç”¨æˆ·è¾“å…¥å†™å…¥input.txtæ–‡ä»¶
+		printf("æ˜¯å¦éœ€è¦åœ¨è¯¥åœ°åœç•™ï¼ˆY=1/N=0ï¼‰ï¼š");
 		scanf_s("%d", &stay);
 		if (stay == true)
 		{
-			printf("ÇëÊäÈëÍ£ÁôÊ±¼ä£¨µ¥Î»£ºĞ¡Ê±£©£º");
+			printf("è¯·è¾“å…¥åœç•™æ—¶é—´ï¼ˆå•ä½ï¼šå°æ—¶ï¼‰ï¼š");
 			scanf_s("%d", &psg_temp.pass_by[1][i]);
 		}
 		else
@@ -49,27 +50,27 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 	}
 
 	psg_temp.next_passenger = NULL;
-	printf("ÇëÊäÈëÂÃĞĞ²ßÂÔ±àºÅ£º");
+	printf("è¯·è¾“å…¥æ—…è¡Œç­–ç•¥ç¼–å·ï¼š");
 	scanf_s("%d", &psg_temp.strategy);
-	fprintf(fptr_input, "\nÂÃĞĞ²ßÂÔ±àºÅ£º%d\n", psg_temp.strategy);//ÓÃ»§ÊäÈëĞ´Èëinput.txtÎÄ¼ş
+	fprintf(fptr_input, "\næ—…è¡Œç­–ç•¥ç¼–å·ï¼š%d\n", psg_temp.strategy);//ç”¨æˆ·è¾“å…¥å†™å…¥input.txtæ–‡ä»¶
 	if (psg_temp.strategy == STRA_limTIME_minCOST)
 	{
-		printf("ÇëÊäÈëÏŞÖÆÊ±¼ä£º");
+		printf("è¯·è¾“å…¥é™åˆ¶æ—¶é—´ï¼š");
 		scanf_s("%d", &psg_temp.Time_Limited);
-		fprintf(fptr_input, "ÏŞÖÆÊ±¼ä£º%d\n\n", psg_temp.Time_Limited);//ÓÃ»§ÊäÈëĞ´Èëinput.txtÎÄ¼ş
+		fprintf(fptr_input, "é™åˆ¶æ—¶é—´ï¼š%d\n\n", psg_temp.Time_Limited);//ç”¨æˆ·è¾“å…¥å†™å…¥input.txtæ–‡ä»¶
 	}
 	else
 		psg_temp.Time_Limited = NULL;
 
-	/*´ò¿ªroute.iniÎÄ¼ş*/
-	char string_filename[500];//Ëæ±ãÈ¡µÄ500
+	/*æ‰“å¼€route.iniæ–‡ä»¶*/
+	char string_filename[500];//éšä¾¿å–çš„500
 	strcpy(string_filename, psg_temp.ID);
 	strcat(string_filename, "_route");
 	psg_temp.fptr_route=fopen(string_filename, "w+");
 
 	
 
-	/*¼ÓÈëpassengersÁ´±í*/
+	/*åŠ å…¥passengersé“¾è¡¨*/
 	if (Passengers_headPtr == NULL)
 	{
 		Passengers_headPtr = &psg_temp;
@@ -81,11 +82,11 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 		Passengers_tailPtr = Passengers_tailPtr->next_passenger;
 	}
 
-	Write_user_file(1);//½«ÓÃ»§×¢²áĞÅÏ¢Ğ´ÈëUser_File.ini
+	Write_user_file(1);//å°†ç”¨æˆ·æ³¨å†Œä¿¡æ¯å†™å…¥User_File.ini
 
-	User = &psg_temp;//£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿
+	User = &psg_temp;//ï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿ
 
-	/*¼ÆËãÂ·¾¶*/
+	/*è®¡ç®—è·¯å¾„*/
 	switch (psg_temp.strategy)
 	{
 	case 0:
@@ -95,7 +96,7 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 		Min_Time();
 		break;
 	case 2:
-		//´ı¸Ä
+		//å¾…æ”¹
 		break;
 	default:
 		break;

@@ -1,4 +1,4 @@
-#include"main.h"
+ï»¿#include"main.h"
 #include<windows.h>
 #include<process.h>
 
@@ -11,16 +11,16 @@ unsigned __stdcall time(void* pArguments);
 
 int main()
 {
-	Prepare();//×¼±¸º¯Êı
+	Prepare();//å‡†å¤‡å‡½æ•°
 
-	//´´½¨mouse_threadÏß³ÌºÍtime_threadÏß³Ì
+	//åˆ›å»ºmouse_threadçº¿ç¨‹å’Œtime_threadçº¿ç¨‹
 	HANDLE mouse_thread = (HANDLE)_beginthreadex(NULL, 0, mouse, NULL, 0, NULL);
 	HANDLE time_thread = (HANDLE)_beginthreadex(NULL, 0, time, NULL, 0, NULL);
 
-	//µÈ´ıÏß³Ì¹Ø±ÕĞÅºÅ£¬ÍË³öÏß³Ì
+	//ç­‰å¾…çº¿ç¨‹å…³é—­ä¿¡å·ï¼Œé€€å‡ºçº¿ç¨‹
 	WaitForSingleObject(mouse_thread, INFINITE);
 	CloseHandle(mouse_thread);
-	//µÈ´ıÏß³Ì¹Ø±ÕĞÅºÅ£¬ÍË³öÏß³Ì
+	//ç­‰å¾…çº¿ç¨‹å…³é—­ä¿¡å·ï¼Œé€€å‡ºçº¿ç¨‹
 	WaitForSingleObject(time_thread, INFINITE);
 	CloseHandle(time_thread);
 

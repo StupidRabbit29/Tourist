@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 #include<iostream>
 #include<stdio.h>
 #include<stdlib.h>
@@ -30,7 +30,7 @@ enum Location { IN_CAR, IN_TRAIN, IN_AIRPLANE, STAY_IN_CITY, ARRIVE };
 
 /*结构体*/
 /*航班表结构*/
-typedef struct transport_table {
+typedef struct trans_t {
 	int src, dest;//起点和终点
 	Vehicle transport;//车型//枚举类型
 	char name[10];//交通工具名称
@@ -38,14 +38,15 @@ typedef struct transport_table {
 	int time_departure;//发车时间 //系统时间精确到小时
 	int time_consumed;//耗时
 	int cost;//钱
-	struct transport_table *nextPtr;
-}TransTable_NODE;
-typedef TransTable_NODE* Ptr_TransTable_NODE;
+	struct trans_t *nextPtr;
+}trans_t_Node;
+
+typedef trans_t_Node* Ptr_trans_t_Node;
 
 /*边 结构*/
 typedef struct Edge {
-//	TransTable_NODE *p_TransTable;
-	struct transport_table *p_TransTable;
+//	trans_t_Node *p_TransTable;
+	struct trans_t *p_TransTable;
 	int weight;//边的权重//是可以唯一确定的
 	int num_OfTheEgde;//权重最小的边的编号
 	int distance;//城市之间的距离，0代表本市到本市，-1代表不连通

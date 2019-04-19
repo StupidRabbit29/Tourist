@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+ï»¿#define _CRT_SECURE_NO_WARNINGS
 #include"main.h"
 #include<windows.h>
 
@@ -8,23 +8,23 @@ extern SYSTEM_TIME System_Time;
 extern GRAPH city_graph;
 extern int Travelstate[10];
 
-//Ğ´Èë×´Ì¬º¯Êı
+//å†™å…¥çŠ¶æ€å‡½æ•°
 void Write_status_file(PASSENGER &psg)
 {
-	//½«UserµÄ×´Ì¬½á¹¹ÌåĞ´ÈëfptrÖ¸ÏòµÄÎÄ¼ş
+	//å°†Userçš„çŠ¶æ€ç»“æ„ä½“å†™å…¥fptræŒ‡å‘çš„æ–‡ä»¶
 	char str2[100] = { '\0' };
 	char *loca[4] = { "CAR", "TRAIN", "AIRPLANE", "STAY_IN_CITY" };
 
-	//ÂÃ¿ÍÂÃĞĞÊ±¿Ì
+	//æ—…å®¢æ—…è¡Œæ—¶åˆ»
 	memset(str2, 0, sizeof(str2));
 	sprintf(str2, "%d - %d - %d  %d : 00 : 00", System_Time.year, System_Time.month, System_Time.date, System_Time.hour);
 	WritePrivateProfileStringA(psg.ID, "System Time", str2, ".\\Status_File.ini");
-	//ÂÃ¿ÍËù´¦×´Ì¬£¨Ä³ÖÖ½»Í¨¹¤¾ß»òÍ£ÁôÔÚÄ³¸ö³ÇÊĞ£©
-	WritePrivateProfileStringA(psg.ID, "ÂÃĞĞ×´Ì¬", loca[(int)(psg.status.loca)], ".\\Status_File.ini");
-	//ÂÃ¿ÍËùÔÚ³ÇÊĞ
+	//æ—…å®¢æ‰€å¤„çŠ¶æ€ï¼ˆæŸç§äº¤é€šå·¥å…·æˆ–åœç•™åœ¨æŸä¸ªåŸå¸‚ï¼‰
+	WritePrivateProfileStringA(psg.ID, "æ—…è¡ŒçŠ¶æ€", loca[(int)(psg.status.loca)], ".\\Status_File.ini");
+	//æ—…å®¢æ‰€åœ¨åŸå¸‚
 	memset(str2, 0, sizeof(str2));
-	sprintf(str2, "%s  ==¡· %s", city_graph.City_Name[psg.status.src], city_graph.City_Name[psg.status.dest]);
-	WritePrivateProfileStringA(psg.ID, "µØÀíÎ»ÖÃ", str2, ".\\Status_File.ini");
+	sprintf(str2, "%s  ==ã€‹ %s", city_graph.City_Name[psg.status.src], city_graph.City_Name[psg.status.dest]);
+	WritePrivateProfileStringA(psg.ID, "åœ°ç†ä½ç½®", str2, ".\\Status_File.ini");
 
 }
 
@@ -38,10 +38,10 @@ void Write_user_file(int choice)
 	switch (choice)
 	{
 	case 1://sign_up
-		//Ìí¼ÓSign_in_numberºÍSign_out_number¼ü£¬¼ÇÂ¼ÓÃ»§µÇÂ¼µÇ³ö´ÎÊı
+		//æ·»åŠ Sign_in_numberå’ŒSign_out_numberé”®ï¼Œè®°å½•ç”¨æˆ·ç™»å½•ç™»å‡ºæ¬¡æ•°
 		WritePrivateProfileStringA(User->ID, "Sign_in_number", "0", ".\\User_File.ini");
 		WritePrivateProfileStringA(User->ID, "Sign_out_number", "0", ".\\User_File.ini");
-		//¼ÇÂ¼ÓÃ»§×¢²áĞÅÏ¢
+		//è®°å½•ç”¨æˆ·æ³¨å†Œä¿¡æ¯
 		memset(str2, 0, sizeof(str2));
 		sprintf(str2, "%d - %d - %d  %d : 00 : 00", System_Time.year, System_Time.month, System_Time.date, System_Time.hour);
 		WritePrivateProfileStringA(User->ID, "Sign_up", str2, ".\\User_File.ini");
@@ -123,7 +123,7 @@ Status Write_system_file()
 			WritePrivateProfileStringA("Passenger", "User", str1, ".\\System_File.ini");
 		}
 		memset(str1, 0, sizeof(str1));
-		sprintf(str1, "ÂÃ¿ÍNo.%d", i);
+		sprintf(str1, "æ—…å®¢No.%d", i);
 		
 		WritePrivateProfileStructA("Passenger", str1, &temp, sizeof(PASSENGER), ".\\System_File.ini");
 		temp = temp->next_passenger;
@@ -139,7 +139,7 @@ Status Read_system_file()
 	int able = GetPrivateProfileIntA("able_or_unable", "able", 0, ".\\System_File.ini");
 	if (able == 0)
 	{
-		printf("Ã»ÓĞÏµÍ³Ê¹ÓÃ¼ÇÂ¼£¬ÎŞ·¨»Ö¸´ÏµÍ³£¡\n");
+		printf("æ²¡æœ‰ç³»ç»Ÿä½¿ç”¨è®°å½•ï¼Œæ— æ³•æ¢å¤ç³»ç»Ÿï¼\n");
 		return UNABLE;
 	}
 
@@ -151,13 +151,13 @@ Status Read_system_file()
 	{
 		PASSENGER *temp = Passengers;
 		Passengers = (PASSENGER*)malloc(sizeof(PASSENGER));
-		GetPrivateProfileStructA("Passenger", "ÂÃ¿ÍNo.1", &Passengers, sizeof(PASSENGER), ".\\System_File.ini");
+		GetPrivateProfileStructA("Passenger", "æ—…å®¢No.1", &Passengers, sizeof(PASSENGER), ".\\System_File.ini");
 		int i = 2;
 		char str1[100];
 		for (; i <= number; i++)
 		{
 			memset(str1, 0, sizeof(str1));
-			sprintf(str1, "ÂÃ¿ÍNo.%d", i);
+			sprintf(str1, "æ—…å®¢No.%d", i);
 			temp->next_passenger = (PASSENGER*)malloc(sizeof(PASSENGER));
 			GetPrivateProfileStructA("Passenger", str1, temp->next_passenger, sizeof(PASSENGER), ".\\System_File.ini");
 			temp = temp->next_passenger;

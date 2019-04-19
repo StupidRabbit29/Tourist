@@ -1,44 +1,44 @@
-#include"main.h"
+ï»¿#include"main.h"
 
 extern GRAPH city_graph;
 
-void Read_Trans_Table()
+void Read_trans_t()
 {
 	fstream f_trans;
 	f_trans.open("Transtable.txt", fstream::in);
 	if (!f_trans)
-		cerr << "Transtable.txt´ò¿ªÊ§°Ü\n";
-	f_trans.seekg(0, fstream::beg);//ÒÆ¶¯µ½ÎÄ¼þÍ·
+		cerr << "Transtable.txtæ‰“å¼€å¤±è´¥\n";
+	f_trans.seekg(0, fstream::beg);//ç§»åŠ¨åˆ°æ–‡ä»¶å¤´
 	int src, dest;
-	//Ptr_TransTable_NODE currentptr,preptr;
-	struct transport_table *currentptr, *preptr;
+	//Ptr_trans_t_Node currentptr,preptr;
+	struct trans_t *currentptr, *preptr;
 	int count_vehicle = 1;
-	while (!f_trans.eof())//???¿ÉÄÜ³ö´í
+	while (!f_trans.eof())//???å¯èƒ½å‡ºé”™
 	{
 
 		f_trans >> src >> dest;
 
-		/*´¦ÀíÁ´±í*/
-		preptr= city_graph.pp_G[src][dest].p_TransTable;//Ö¸ÏòÁ´±íÍ·
-		currentptr = city_graph.pp_G[src][dest].p_TransTable;//Ö¸ÏòÁ´±íÍ·
+		/*å¤„ç†é“¾è¡¨*/
+		preptr= city_graph.pp_G[src][dest].p_TransTable;//æŒ‡å‘é“¾è¡¨å¤´
+		currentptr = city_graph.pp_G[src][dest].p_TransTable;//æŒ‡å‘é“¾è¡¨å¤´
 
-		while (currentptr != NULL/*Í·²»Îª¿Õ*/ /*|| currentptr->nextPtr != NULL/*Ö¸µ½Î²*/)
+		while (currentptr != NULL/*å¤´ä¸ä¸ºç©º*/ /*|| currentptr->nextPtr != NULL/*æŒ‡åˆ°å°¾*/)
 		{
 			preptr = currentptr;
 			currentptr = currentptr->nextPtr;
-		}/*ÍË³öºóperÖ¸µ½Á´±íÎ²£¬currentÖ¸¿Õ*/
-		//currentptr = (Ptr_TransTable_NODE)malloc(sizeof(TransTable_NODE));
-		currentptr = (struct transport_table*)malloc(sizeof(struct transport_table));
+		}/*é€€å‡ºåŽperæŒ‡åˆ°é“¾è¡¨å°¾ï¼ŒcurrentæŒ‡ç©º*/
+		//currentptr = (Ptr_trans_t_Node)malloc(sizeof(trans_t_Node));
+		currentptr = (struct trans_t*)malloc(sizeof(struct trans_t));
 		
 
-		if (city_graph.pp_G[src][dest].p_TransTable == NULL)//ÈôÍ·Ö¸ÕëÎª¿Õ//Á´±íÎª¿Õ
+		if (city_graph.pp_G[src][dest].p_TransTable == NULL)//è‹¥å¤´æŒ‡é’ˆä¸ºç©º//é“¾è¡¨ä¸ºç©º
 		{
 			city_graph.pp_G[src][dest].p_TransTable = currentptr;
 		}
 		else
-			preptr->nextPtr = currentptr;//Á¬½Ó
+			preptr->nextPtr = currentptr;//è¿žæŽ¥
 
-		/*´¦Àí½á¹¹ÌåÄÚÈÝ*/
+		/*å¤„ç†ç»“æž„ä½“å†…å®¹*/
 
 		currentptr->src = src;
 		currentptr->dest = dest;

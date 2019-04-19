@@ -1,66 +1,66 @@
-#include"main.h"
+ï»¿#include"main.h"
 
 extern FILE *fptr_input;
 
 void Change_User_Info(PASSENGER &psg)
 {
-	/*ÔÚĞŞ¸ÄÇ°ÊÇ·ñĞèÒªÊä³öÂÃ¿Íµ±Ç°×´Ì¬£¿£¿*/
+	/*åœ¨ä¿®æ”¹å‰æ˜¯å¦éœ€è¦è¾“å‡ºæ—…å®¢å½“å‰çŠ¶æ€ï¼Ÿï¼Ÿ*/
 
-	fprintf(fptr_input, "ID£º%s  ¸ü¸ÄÂÃĞĞ¼Æ»®\n", psg.ID);//ÓÃ»§ÊäÈëĞ´Èëinput.txtÎÄ¼ş
+	fprintf(fptr_input, "IDï¼š%s  æ›´æ”¹æ—…è¡Œè®¡åˆ’\n", psg.ID);//ç”¨æˆ·è¾“å…¥å†™å…¥input.txtæ–‡ä»¶
 
-	/*ĞŞ¸ÄÂÃ¿ÍĞÅÏ¢¼°²ßÂÔ*/
+	/*ä¿®æ”¹æ—…å®¢ä¿¡æ¯åŠç­–ç•¥*/
 	int choice;
-	printf("ÊÇ·ñ¸ü¸ÄÖÕµã£¨Y=1/N=0£©£º");
+	printf("æ˜¯å¦æ›´æ”¹ç»ˆç‚¹ï¼ˆY=1/N=0ï¼‰ï¼š");
 	scanf_s("%d",&choice);
 	if (choice == 1)
 	{
-		printf("ÇëÊäÈëÖÕµã±àºÅ£º");
+		printf("è¯·è¾“å…¥ç»ˆç‚¹ç¼–å·ï¼š");
 		scanf_s("%d", &psg.dest);
-		fprintf(fptr_input, "ÖÕµã±àºÅ£º%d\n", psg.dest);//ÓÃ»§ÊäÈëĞ´Èëinput.txtÎÄ¼ş
+		fprintf(fptr_input, "ç»ˆç‚¹ç¼–å·ï¼š%d\n", psg.dest);//ç”¨æˆ·è¾“å…¥å†™å…¥input.txtæ–‡ä»¶
 	}
-	printf("ÊÇ·ñ¸ü¸ÄÍ¾¾­³ÇÊĞ£¨Y=1/N=0£©£º");
+	printf("æ˜¯å¦æ›´æ”¹é€”ç»åŸå¸‚ï¼ˆY=1/N=0ï¼‰ï¼š");
 	scanf_s("%d", &choice);
 	if (choice == 1)
 	{
-		printf("ÇëÊäÈëÍ¾¾­³ÇÊĞÊıÁ¿£º");
+		printf("è¯·è¾“å…¥é€”ç»åŸå¸‚æ•°é‡ï¼š");
 		int cnt = 0, i;
 		scanf_s("%d", &cnt);
 		psg.num_passby = cnt;
-		fprintf(fptr_input, "Í¾¾­³ÇÊĞÊıÁ¿£º%d\nÍ¾¾­³ÇÊĞ±àºÅ£º", cnt);//ÓÃ»§ÊäÈëĞ´Èëinput.txtÎÄ¼ş
-		printf("ÇëÊäÈëÍ¾¾­³ÇÊĞ±àºÅ£º");
+		fprintf(fptr_input, "é€”ç»åŸå¸‚æ•°é‡ï¼š%d\né€”ç»åŸå¸‚ç¼–å·ï¼š", cnt);//ç”¨æˆ·è¾“å…¥å†™å…¥input.txtæ–‡ä»¶
+		printf("è¯·è¾“å…¥é€”ç»åŸå¸‚ç¼–å·ï¼š");
 		bool stay = false;
 		for (i = 0; i < cnt; i++)
 		{
 			scanf_s("%d", &psg.pass_by[0][i]);
-			fprintf(fptr_input, "%d ", psg.pass_by[0][i]);//ÓÃ»§ÊäÈëĞ´Èëinput.txtÎÄ¼ş
-			printf("ÊÇ·ñĞèÒªÔÚ¸ÃµØÍ£Áô£¨Y=1/N=0£©£º");
+			fprintf(fptr_input, "%d ", psg.pass_by[0][i]);//ç”¨æˆ·è¾“å…¥å†™å…¥input.txtæ–‡ä»¶
+			printf("æ˜¯å¦éœ€è¦åœ¨è¯¥åœ°åœç•™ï¼ˆY=1/N=0ï¼‰ï¼š");
 			scanf_s("%d", &stay);
 			if (stay == true)
 			{
-				printf("ÇëÊäÈëÍ£ÁôÊ±¼ä£¨µ¥Î»£ºĞ¡Ê±£©£º");
+				printf("è¯·è¾“å…¥åœç•™æ—¶é—´ï¼ˆå•ä½ï¼šå°æ—¶ï¼‰ï¼š");
 				scanf_s("%d", &psg.pass_by[1][i]);
 			}
 			else
 				psg.pass_by[1][i] = 0;
 		}
 	}
-	printf("ÊÇ·ñ¸ü¸ÄÂÃĞĞ²ßÂÔ£¨Y=1/N=0£©£º");
+	printf("æ˜¯å¦æ›´æ”¹æ—…è¡Œç­–ç•¥ï¼ˆY=1/N=0ï¼‰ï¼š");
 	scanf_s("%d", &choice);
 	if (choice == 1)
 	{
-		printf("ÇëÊäÈëÂÃĞĞ²ßÂÔ±àºÅ£º");
+		printf("è¯·è¾“å…¥æ—…è¡Œç­–ç•¥ç¼–å·ï¼š");
 		scanf_s("%d", &psg.strategy);
-		fprintf(fptr_input, "\nÂÃĞĞ²ßÂÔ±àºÅ£º%d\n", psg.strategy);//ÓÃ»§ÊäÈëĞ´Èëinput.txtÎÄ¼ş
+		fprintf(fptr_input, "\næ—…è¡Œç­–ç•¥ç¼–å·ï¼š%d\n", psg.strategy);//ç”¨æˆ·è¾“å…¥å†™å…¥input.txtæ–‡ä»¶
 	}
 	if (choice == 1 && psg.strategy == STRA_limTIME_minCOST)
 	{
-		printf("ÇëÊäÈëÏŞÖÆÊ±¼ä£º");
+		printf("è¯·è¾“å…¥é™åˆ¶æ—¶é—´ï¼š");
 		scanf_s("%d", &psg.Time_Limited);
-		fprintf(fptr_input, "ÏŞÖÆÊ±¼ä£º%d\n\n", psg.Time_Limited);//ÓÃ»§ÊäÈëĞ´Èëinput.txtÎÄ¼ş
+		fprintf(fptr_input, "é™åˆ¶æ—¶é—´ï¼š%d\n\n", psg.Time_Limited);//ç”¨æˆ·è¾“å…¥å†™å…¥input.txtæ–‡ä»¶
 	}
 
-	/*¸ù¾İ²ßÂÔ£¬ÂÃ¿Íµ±Ç°Î»ÖÃ£¬ÖÕµã£¬Í¾¾­³ÇÊĞÖØËãÂ·¾¶²¢¸²¸Ç¡£*/
+	/*æ ¹æ®ç­–ç•¥ï¼Œæ—…å®¢å½“å‰ä½ç½®ï¼Œç»ˆç‚¹ï¼Œé€”ç»åŸå¸‚é‡ç®—è·¯å¾„å¹¶è¦†ç›–ã€‚*/
 	//
-	//»¹Ã»Ğ´£¡
-	/*½«ĞÂµÄÂ·¾¶Ğ´ÈëÎÄ¼ş*/
+	//è¿˜æ²¡å†™ï¼
+	/*å°†æ–°çš„è·¯å¾„å†™å…¥æ–‡ä»¶*/
 }

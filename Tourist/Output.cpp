@@ -1,6 +1,6 @@
-////Ê¹ÓÃÒýÓÃ ·ÃÎÊpathÊý×é£¿£¿
+ï»¿////ä½¿ç”¨å¼•ç”¨ è®¿é—®pathæ•°ç»„ï¼Ÿï¼Ÿ
 //#include"main.h"
-//char *Vehicle_Name[3] = { "Æû³µ", "»ð³µ", "·É»ú" };
+//char *Vehicle_Name[3] = { "æ±½è½¦", "ç«è½¦", "é£žæœº" };
 //
 //SqStack *s;
 //Status Init_Stack(SqStack *s)
@@ -13,7 +13,7 @@
 //}
 //Status Push(SqStack *s, int data)
 //{
-//	if (s->top - s->base >= s->stack_size) return STACK_FULL;//ÅÐÂú
+//	if (s->top - s->base >= s->stack_size) return STACK_FULL;//åˆ¤æ»¡
 //	*s->top = data;
 //	s->top++;
 //	return OK;
@@ -27,24 +27,24 @@
 //}
 //
 //
-///*												¾¯¸æ£¡
-//Êä³öÖ®Ç°Í¼µÄ±ßµÄÎ¨Ò»È·¶¨µÄÈ¨ÖØ²»ÄÜ±»¸Ä±ä
-//¼´city_graph.pp_G[v1][v2].num_OfTheEgde²»ÄÜÓÐ¸Ä¶¯
-//¼´²»ÄÜÔÚÍ¬Ò»¸öÏß³ÌÄÚÔÙ´Îµ÷ÓÃmin cost»òmin timeÎÄ¼þ*/
+///*												è­¦å‘Šï¼
+//è¾“å‡ºä¹‹å‰å›¾çš„è¾¹çš„å”¯ä¸€ç¡®å®šçš„æƒé‡ä¸èƒ½è¢«æ”¹å˜
+//å³city_graph.pp_G[v1][v2].num_OfTheEgdeä¸èƒ½æœ‰æ”¹åŠ¨
+//å³ä¸èƒ½åœ¨åŒä¸€ä¸ªçº¿ç¨‹å†…å†æ¬¡è°ƒç”¨min costæˆ–min timeæ–‡ä»¶*/
 //
 //extern GRAPH city_graph;
-//Status Output(int path[], int dist[], int src, int dest,int travel_strategy/*´«ÈëÃ¶¾ÙÀàÐÍ¡£*/)//´«²Î£¿£¿£¿£¿£¿
+//Status Output(int path[], int dist[], int src, int dest,int travel_strategy/*ä¼ å…¥æžšä¸¾ç±»åž‹ã€‚*/)//ä¼ å‚ï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿ
 //{
 //	if(travel_strategy==STRA_minCOST)
-//		printf("´Ó %sµ½ %sµÄ×îÉÙ»¨·ÑÎª£º%dÔª\n\n", city_graph.City_Name[src], city_graph.City_Name[dest], dist[dest]);
+//		printf("ä»Ž %såˆ° %sçš„æœ€å°‘èŠ±è´¹ä¸ºï¼š%då…ƒ\n\n", city_graph.City_Name[src], city_graph.City_Name[dest], dist[dest]);
 //	else if (travel_strategy == STRA_minTIME)
-//		printf("´Ó %sµ½ %s×î¶ÌºÄÊ±Îª£º%dÐ¡Ê±\n\n", city_graph.City_Name[src], city_graph.City_Name[dest], dist[dest]);
+//		printf("ä»Ž %såˆ° %sæœ€çŸ­è€—æ—¶ä¸ºï¼š%då°æ—¶\n\n", city_graph.City_Name[src], city_graph.City_Name[dest], dist[dest]);
 //	else if (travel_strategy == STRA_limTIME_minCOST)
-//		printf("´Ó %sµ½ %sµÄÏÞÖÆÊ±¼ä×îÉÙ·ÑÓÃÎª£º\n\n", city_graph.City_Name[src], city_graph.City_Name[dest], dist[dest]);
-//	/*×îºóÕâÌõelse»¹ÓÐÎÊÌâ£¬ÉÔºó¸Ä*/
+//		printf("ä»Ž %såˆ° %sçš„é™åˆ¶æ—¶é—´æœ€å°‘è´¹ç”¨ä¸ºï¼š\n\n", city_graph.City_Name[src], city_graph.City_Name[dest], dist[dest]);
+//	/*æœ€åŽè¿™æ¡elseè¿˜æœ‰é—®é¢˜ï¼Œç¨åŽæ”¹*/
 //	
 //	
-//	/*´òÓ¡Â·¾¶£¨Õ»£©*/
+//	/*æ‰“å°è·¯å¾„ï¼ˆæ ˆï¼‰*/
 //	int V = dest;
 //	SqStack stack;
 //	Init_Stack(&stack);
@@ -54,25 +54,25 @@
 //		Push(&stack, path[V]);
 //		V = path[V];
 //	}
-//	printf("Â·¾¶ÊÇ£º\n");
+//	printf("è·¯å¾„æ˜¯ï¼š\n");
 //
 //	int v1, v2;
 //	Pop(&stack, v1);
-//	while (stack.base != stack.top)//Õ»·Ç¿Õ
+//	while (stack.base != stack.top)//æ ˆéžç©º
 //	{
 //		Pop(&stack, v2);//?????
 //
-//		//±éÀúÒ»ÌõÁ´±íÒÔÕÒµ½³µÐÍ£¬Æðµã£¬ÖÕµã
-//		TransTable_NODE *currentPtr = NULL;
+//		//éåŽ†ä¸€æ¡é“¾è¡¨ä»¥æ‰¾åˆ°è½¦åž‹ï¼Œèµ·ç‚¹ï¼Œç»ˆç‚¹
+//		trans_t_Node *currentPtr = NULL;
 //		int vehicle_num = city_graph.pp_G[v1][v2].num_OfTheEgde;
 //		for (currentPtr = city_graph.pp_G[v1][v2].p_TransTable;
 //			currentPtr != NULL || currentPtr->number != vehicle_num;//??????
 //			currentPtr = city_graph.pp_G[v1][v2].p_TransTable->nextPtr);
-//		/*Ñ­»·ÍË³öºócurrentPtrÓ¦Ö¸Ïò¸Ãº½°à¡£*/
+//		/*å¾ªçŽ¯é€€å‡ºåŽcurrentPtråº”æŒ‡å‘è¯¥èˆªç­ã€‚*/
 //
-//		/*³ö·¢µ½´ïÊ±¼ä»¹Ã»¼ÓÉÏ*/
+//		/*å‡ºå‘åˆ°è¾¾æ—¶é—´è¿˜æ²¡åŠ ä¸Š*/
 //		if (currentPtr->number == vehicle_num)
-//			printf("³Ë×ø%dºÅ%s\t´Ó%s³ö·¢\tµ½´ï%s\n", vehicle_num, Vehicle_Name[currentPtr->transport], currentPtr->src, currentPtr->dest);
+//			printf("ä¹˜å%då·%s\tä»Ž%så‡ºå‘\tåˆ°è¾¾%s\n", vehicle_num, Vehicle_Name[currentPtr->transport], currentPtr->src, currentPtr->dest);
 //		else return ERROR;
 //		v1 = v2;
 //	}

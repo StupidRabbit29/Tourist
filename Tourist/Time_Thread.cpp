@@ -1,5 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include"main.h"
+ï»¿#include"main.h"
 #include<windows.h>
 #include<process.h>
 
@@ -8,7 +7,7 @@ extern bool Quit;
 extern GRAPH city_graph;
 extern PASSENGER *Passengers;
 
-//¼Ù¶¨×î¶à10¸öÂÃ¿Í£¬»º´æÃ¿¸öÂÃ¿ÍµÄµ±Ç°ÂÃĞĞµ½µÄµÚ¼¸¸ö³ÇÊĞ
+//å‡å®šæœ€å¤š10ä¸ªæ—…å®¢ï¼Œç¼“å­˜æ¯ä¸ªæ—…å®¢çš„å½“å‰æ—…è¡Œåˆ°çš„ç¬¬å‡ ä¸ªåŸå¸‚
 int Travelstate[10] = { 0 };
 
 Status Write_system_file();
@@ -29,7 +28,7 @@ unsigned __stdcall time(void* pArguments)
 			System_Time.date++;
 			System_Time.hour = 0;
 		}
-		if (System_Time.date == 31)//ÈÃÎÒÃÇ¼ÙÉèÃ¿¸öÔÂ¶¼30Ìì
+		if (System_Time.date == 31)//è®©æˆ‘ä»¬å‡è®¾æ¯ä¸ªæœˆéƒ½30å¤©
 		{
 			System_Time.month++;
 			System_Time.date = 1;
@@ -40,7 +39,7 @@ unsigned __stdcall time(void* pArguments)
 			System_Time.month = 1;
 		}
 
-		//¶ÔËùÓĞÂÃ¿ÍË¢ĞÂÆäÂÃĞĞ×´Ì¬
+		//å¯¹æ‰€æœ‰æ—…å®¢åˆ·æ–°å…¶æ—…è¡ŒçŠ¶æ€
 		PASSENGER *temp = Passengers;
 		int touristnum = 0;
 		while (temp != NULL)
@@ -54,7 +53,7 @@ unsigned __stdcall time(void* pArguments)
 
 	}
 
-	/*Ğ´ĞèÒª±£´æµÄÏµÍ³×´Ì¬*/
+	/*å†™éœ€è¦ä¿å­˜çš„ç³»ç»ŸçŠ¶æ€*/
 	Write_system_file();
 
 	_endthreadex(0);
@@ -72,7 +71,7 @@ bool operator<(const SYSTEM_TIME& A, const SYSTEM_TIME& B)
 		return false;
 }
 
-//Ë¢ĞÂÂÃ¿Í×´Ì¬
+//åˆ·æ–°æ—…å®¢çŠ¶æ€
 Status Refresh(PASSENGER *tourist, int touristnum)
 {
 	PathNode cur;
@@ -87,16 +86,16 @@ Status Refresh(PASSENGER *tourist, int touristnum)
 	while (!RefreshOK)
 	{
 		if (System_Time < cur.start_time)
-			//ÂÃ¿ÍÍ£ÁôÔÚµ±Ç°³ÇÊĞ
+			//æ—…å®¢åœç•™åœ¨å½“å‰åŸå¸‚
 		{
 			tourist->status = { System_Time , STAY_IN_CITY , cur.src, cur.dest };
 			RefreshOK = true;
 		}
 		else if ((System_Time.year - cur.start_time.year) * 360 * 24 + (System_Time.month - cur.start_time.month) * 30 * 24 +
 			(System_Time.date - cur.start_time.date) * 24 + (System_Time.hour - cur.start_time.hour) <= cur.time)
-			//ÂÃ¿Í³ö·¢Ç°ÍùÏÂÒ»¸ö³ÇÊĞ
+			//æ—…å®¢å‡ºå‘å‰å¾€ä¸‹ä¸€ä¸ªåŸå¸‚
 		{
-			Ptr_TransTable_NODE trans = city_graph.pp_G[cur.src][cur.dest].p_TransTable;
+			struct trans_t *trans = city_graph.pp_G[cur.src][cur.dest].p_TransTable;
 			while (trans != NULL)
 			{
 				if (trans->number == cur.number)
@@ -111,7 +110,7 @@ Status Refresh(PASSENGER *tourist, int touristnum)
 		}
 		else
 		{
-			//ÅĞ¶ÏÊÇ·ñ´ïµ½ÖÕµã
+			//åˆ¤æ–­æ˜¯å¦è¾¾åˆ°ç»ˆç‚¹
 			if (cur.dest == tourist->dest)
 			{
 				tourist->status= { System_Time , ARRIVE , cur.dest, cur.dest, 0 };
@@ -119,7 +118,7 @@ Status Refresh(PASSENGER *tourist, int touristnum)
 				break;
 			}
 
-			//ÂÃ¿ÍÒÑ¾­ÂÃĞĞµ½ÁËÏÂÒ»¸ö³ÇÊĞ
+			//æ—…å®¢å·²ç»æ—…è¡Œåˆ°äº†ä¸‹ä¸€ä¸ªåŸå¸‚
 			Travelstate[touristnum]++;
 			memset(str1, 0, sizeof(str1));
 			sprintf(str1, "No.%d", Travelstate[touristnum]);

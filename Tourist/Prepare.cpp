@@ -1,89 +1,91 @@
-#include"main.h"
-//×¼±¸º¯Êı£¬¶ÁÈ¡µØÍ¼º¯Êı£¬¶ÁÈ¡º½°à±íº¯Êı£¬Ê±¼äÏß³Ìº¯Êı
+ï»¿#include"main.h"
+//å‡†å¤‡å‡½æ•°ï¼Œè¯»å–åœ°å›¾å‡½æ•°ï¼Œè¯»å–èˆªç­è¡¨å‡½æ•°ï¼Œæ—¶é—´çº¿ç¨‹å‡½æ•°
 
-/*È«¾Ö±äÁ¿*/
+/*å…¨å±€å˜é‡*/
 GRAPH city_graph = { NULL, 0, NULL };
-FILE *fptr_input;//ÈÕÖ¾ÎÄ¼ş£¬¼ÇÂ¼ÓÃ»§ÊäÈëĞÅÏ¢
+FILE *fptr_input;//æ—¥å¿—æ–‡ä»¶ï¼Œè®°å½•ç”¨æˆ·è¾“å…¥ä¿¡æ¯
 
 Status Read_system_file();
 
-/*º¯Êı*/
-Status Read_Trans_Table();
+/*å‡½æ•°*/
+Status Read_trans_t();
+Status Read_Map(FILE *fptr);
+
 Status Prepare(void)
 {
-	//»Ö¸´ÉÏ´Î¹Ø±ÕµÄÏµÍ³
+	//æ¢å¤ä¸Šæ¬¡å…³é—­çš„ç³»ç»Ÿ
 	char ch;
-	printf("ÊÇ·ñ»Ö¸´ÉÏ´Î´ò¿ªµÄÏµÍ³£¿Y£¨´ò¿ª¾ÉÏµÍ³£©/N£¨´ò¿ªĞÂÏµÍ³£©\n");
+	printf("æ˜¯å¦æ¢å¤ä¸Šæ¬¡æ‰“å¼€çš„ç³»ç»Ÿï¼ŸYï¼ˆæ‰“å¼€æ—§ç³»ç»Ÿï¼‰/Nï¼ˆæ‰“å¼€æ–°ç³»ç»Ÿï¼‰\n");
 	scanf("%c", &ch);
 	while (ch != 'Y' && ch != 'N')
 	{
-		printf("ÊäÈë´íÎó£¬ÇëÊäÈëY»òN¡£\n");
+		printf("è¾“å…¥é”™è¯¯ï¼Œè¯·è¾“å…¥Yæˆ–Nã€‚\n");
 		scanf("%c", &ch);
 	}
 	if (ch == 'Y')
 	{
 		if (Read_system_file() == UNABLE)
 		{
-			printf("¶ÁÈ¡´æµµÊ§°Ü£¡´´½¨ĞÂÏµÍ³\n");
+			printf("è¯»å–å­˜æ¡£å¤±è´¥ï¼åˆ›å»ºæ–°ç³»ç»Ÿ\n");
 
-			//¶ÁÈ¡µØÍ¼¡¢º½°à
+			//è¯»å–åœ°å›¾ã€èˆªç­
 			FILE *fmap;
 			fopen_s(&fmap, "map.txt", "r");
 			if (Read_Map(fmap) == ERROR)
 			{
-				printf("¶ÁÈ¡µØÍ¼´íÎó\n");
+				printf("è¯»å–åœ°å›¾é”™è¯¯\n");
 				return ERROR;
 			}
 
-			//¶ÁÈ¡º½°à±í
-			Read_Trans_Table();
+			//è¯»å–èˆªç­è¡¨
+			Read_trans_t();
 		}
 			
 	}
 	else
 	{
-		//¶ÁÈ¡µØÍ¼¡¢º½°à
+		//è¯»å–åœ°å›¾ã€èˆªç­
 		FILE *fmap;
 		fopen_s(&fmap, "map.txt", "r");
 		if (Read_Map(fmap) == ERROR)
 		{
-			printf("¶ÁÈ¡µØÍ¼´íÎó\n");
+			printf("è¯»å–åœ°å›¾é”™è¯¯\n");
 			return ERROR;
 		}
 
-		//¶ÁÈ¡º½°à±í
-		Read_Trans_Table();
+		//è¯»å–èˆªç­è¡¨
+		Read_trans_t();
 
 	}
-	/*´ò¿ª£ºÈÕÖ¾ÎÄµµ2-ÓÃ»§ÊäÈëĞÅÏ¢*/
-	fptr_input = fopen("log_file_input", "w");//Ö»ÄÜĞ´ 
+	/*æ‰“å¼€ï¼šæ—¥å¿—æ–‡æ¡£2-ç”¨æˆ·è¾“å…¥ä¿¡æ¯*/
+	fptr_input = fopen("log_file_input", "w");//åªèƒ½å†™ 
 
 	return OK;
 }
 
-//¶ÁÈ¡µØÍ¼ĞÅÏ¢£¨³ÇÊĞÃû³Æ£¬Á¬Í¨ĞÔ£¬¾àÀë£©
+//è¯»å–åœ°å›¾ä¿¡æ¯ï¼ˆåŸå¸‚åç§°ï¼Œè¿é€šæ€§ï¼Œè·ç¦»ï¼‰
 Status Read_Map(FILE *fptr)
 {
-	//¶ÁÈ¡³ÇÊĞÊıÄ¿
+	//è¯»å–åŸå¸‚æ•°ç›®
 	fscanf(fptr, "%d", &city_graph.Graph_size);
 	fgetc(fptr);
 	if (city_graph.Graph_size == 0 || city_graph.Graph_size < MIN_NODE_NUM)
 		return ERROR;
 
-	//¶¯Ì¬ÉêÇë³ÇÊĞÃû³ÆÊı×é
+	//åŠ¨æ€ç”³è¯·åŸå¸‚åç§°æ•°ç»„
 	city_graph.City_Name = (char**)malloc(sizeof(char*)*city_graph.Graph_size);
 	if (city_graph.City_Name == NULL)
 		return ERROR;
 
-	//¶ÁÈ¡³ÇÊĞÃû³Æ
+	//è¯»å–åŸå¸‚åç§°
 	int i = 0, j = 0;
 	for (i = 0; i < city_graph.Graph_size; i++)
 	{
-		fscanf(fptr, "%s", &city_graph.City_Name[i]);
+		fscanf(fptr, "%s", city_graph.City_Name[i]);
 		fgetc(fptr);
 	}
 
-	//ÉêÇë³ÇÊĞµØÍ¼µÄÁÚ½Ó¾ØÕó
+	//ç”³è¯·åŸå¸‚åœ°å›¾çš„é‚»æ¥çŸ©é˜µ
 	city_graph.pp_G = (EDGE**)malloc(sizeof(EDGE*)*city_graph.Graph_size);
 	if (city_graph.pp_G == NULL)
 		return ERROR;
@@ -94,16 +96,17 @@ Status Read_Map(FILE *fptr)
 			return ERROR;
 	}
 
-	//¶ÁÈ¡ÈÎÒâÁ½¸ö³ÇÊĞ¼äµÄ¾àÀë
+	//è¯»å–ä»»æ„ä¸¤ä¸ªåŸå¸‚é—´çš„è·ç¦»
 	for (i = 0; i < city_graph.Graph_size; i++)
 	{
 		for (j = 0; j < city_graph.Graph_size; j++)
 		{
+			city_graph.pp_G[i][j].p_TransTable = NULL;
 			fscanf(fptr, "%d", &city_graph.pp_G[i][j].distance);
 		}
 	}
 
-	//¹Ø±Õ³ÇÊĞÎÄ¼ş
+	//å…³é—­åŸå¸‚æ–‡ä»¶
 	fclose(fptr);
 	return OK;
 }
