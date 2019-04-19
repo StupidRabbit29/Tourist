@@ -14,6 +14,7 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 {
 	/*读输入&初始化*/
 	/*需要修改！！！！！文件输入*/
+	cout << "Create_New_Passenger() called" << endl;
 	PASSENGER psg_temp;
 	printf("请输入ID：");
 	scanf_s("%s", &psg_temp.ID);//&有没有问题？
@@ -62,11 +63,13 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 	else
 		psg_temp.Time_Limited = NULL;
 
-	/*打开route.ini文件*/
-	char string_filename[500];//随便取的500
-	strcpy(string_filename, psg_temp.ID);
-	strcat(string_filename, "_route");
-	psg_temp.fptr_route=fopen(string_filename, "w+");
+	///*打开route.ini文件*/
+	//char string_filename[500];//随便取的500
+	//strcpy(string_filename, psg_temp.ID);
+	//strcat(string_filename, "_route");
+	//psg_temp.fptr_route=fopen(string_filename, "w+");
+	//if(!(psg_temp.fptr_route))
+	//	cout<<"route.ini"
 
 	
 
@@ -87,6 +90,7 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 	User = &psg_temp;//？？？？？？？？？？？？？？？？？？
 
 	/*计算路径*/
+	cout << "**********计算路径************" << endl;
 	switch (psg_temp.strategy)
 	{
 	case 0:
@@ -101,4 +105,5 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 	default:
 		break;
 	}
+	cout << "Create_New_Passenger() done " << endl;
 }
