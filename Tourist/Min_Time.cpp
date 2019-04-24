@@ -19,8 +19,11 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 	collected[src] = true;
 
 	//初始化dist数组
-	for (int i = 0; i < city_graph.Graph_size&&i != src; i++)
+	for (int i = 0; i < city_graph.Graph_size; i++)
 	{
+		if (i == src)
+			continue;
+
 		int min = MY_INFINITE;
 		int number = 0;
 		//遍历两个城市间的航班表，找到最快的通行方式
@@ -119,7 +122,7 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 }
 
 //计算给定两个城市间的最短路径，重载，记录路径
-Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH tourend, int& time)
+Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH& tourend, int& time)
 {
 	/*初始化*/
 	bool collected[MAX_NODE_NUM] = { false };//点是否被确认最短距离
@@ -131,8 +134,11 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH tourend, in
 	collected[src] = true;
 
 	//初始化dist和path数组
-	for (int i = 0; i < city_graph.Graph_size&&i!=src; i++)
+	for (int i = 0; i < city_graph.Graph_size; i++)
 	{
+		if (i == src)
+			continue;
+
 		int min = MY_INFINITE;
 		int number = 0;
 		//遍历两个城市间的航班表，找到最快的通行方式
@@ -239,10 +245,12 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH tourend, in
 
 	V = dest;
 
+	PATH next = NULL;
 	//将各段边添加到旅客的旅行线路中
 	while (V != src)
 	{
 		PATH temp = new PathNode;
+				
 		temp->dest = V;
 		temp->src = path[V][0];
 		temp->number = path[V][1];
@@ -254,12 +262,15 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH tourend, in
 		}
 		else
 		{
-			temp->next = NULL;
-			tourend = temp;
+			temp->next = next;
+			next = temp;
 		}
 
 		V = path[V][0];
 	}
+
+	if (tourend == NULL)
+		tourend = next;
 
 	return OK;
 }
@@ -382,7 +393,8 @@ Status Min_Time()
 		path_number *= i;
 
 	//初始化路线
-	int **Path = new int*[path_number];
+	int **Path= NULL;
+	Path = new int*[path_number];
 	for (int i = 0; i < path_number; i++)
 	{
 		Path[i] = new int[User->num_passby + 2]{ 0 };
@@ -428,9 +440,12 @@ Status Min_Time()
 	{
 		int temptime = 0;
 		//分段确定路线
-		Dijkstra_For_Min_Time(Path[mintimepath][i], Path[mintimepath][i + 1], tempstarttime, tour==NULL?tour:tourend,  temptime);
+		Dijkstra_For_Min_Time(Path[mintimepath][i], Path[mintimepath][i + 1], tempstarttime, tour==NULL?tour:tourend, temptime);
 		alltime += temptime;
 		tempstarttime = (User->start_time.hour + alltime) % 24;
+
+		if (tourend == NULL)
+			tourend = tour;
 		while (tourend->next != NULL)
 			tourend = tourend->next;
 	}
