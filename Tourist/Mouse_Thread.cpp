@@ -41,15 +41,18 @@ unsigned __stdcall mouse(void* pArguments)
 		{
 			//通过设置Quit关闭时间进程
 			Quit = true;
+			break;
 		}
 		case 1://用户注册
 		{
 			Create_New_Passenger(Passengers_tailPtr);
+			break;
 		}
 		case 2:
 		{
 			//用户登录
 			User_sign_in();
+			break;
 		}
 		case 3:
 		{
@@ -63,6 +66,8 @@ unsigned __stdcall mouse(void* pArguments)
 				Output_Status(temp);
 				temp = temp->next_passenger;
 			}
+
+			break;
 		}
 		default:
 		{

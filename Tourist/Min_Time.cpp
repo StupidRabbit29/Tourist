@@ -6,6 +6,7 @@ extern char *Vehicle_Name[3];
 
 void Write_route_file(PATH tour);
 Status Output_route(PATH tour);
+int pass_by_time(int V);
 
 //计算给定两个城市间的最短路径
 Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
@@ -28,21 +29,22 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 		int number = 0;
 		//遍历两个城市间的航班表，找到最快的通行方式
 		Ptr_trans_t_Node temp = city_graph.pp_G[src][i].p_TransTable;
+		int Passtime = pass_by_time(src);
 		while (temp)
 		{
-			if (temp->time_departure >= start_time)
+			if (temp->time_departure >= (start_time + Passtime) % 24)
 			//当日出发
-				if (temp->time_departure - start_time + temp->time_consumed < min)
+				if (temp->time_departure - (start_time + Passtime) % 24 + temp->time_consumed < min)
 				{
-					min = temp->time_departure - start_time + temp->time_consumed;
+					min = temp->time_departure - (start_time + Passtime) % 24 + temp->time_consumed;
 					number = temp->number;
 				}
 			
-			if(temp->time_departure < start_time)
+			if(temp->time_departure < (start_time + Passtime) % 24)
 			//第二天出发
-				if (temp->time_departure + 24 - start_time + temp->time_consumed < min)
+				if (temp->time_departure + 24 - (start_time + Passtime) % 24 + temp->time_consumed < min)
 				{
-					min = temp->time_departure +24 - start_time + temp->time_consumed;
+					min = temp->time_departure +24 - (start_time + Passtime) % 24 + temp->time_consumed;
 					number = temp->number;
 				}
 
@@ -80,6 +82,7 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 
 		V = minV;//收录该最小dist顶点
 		collected[V] = true;
+		int  Passtime = pass_by_time(V);
 
 		/*更新dist和path*/
 		for (int W = 0; W < city_graph.Graph_size; W++)
@@ -91,21 +94,21 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 				Ptr_trans_t_Node temp = city_graph.pp_G[V][W].p_TransTable;
 				while (temp)//遍历V到W的所有交通方式，寻找时间最短的一种
 				{
-					if (temp->time_departure >= (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24)
+					if (temp->time_departure >= (dist[V] % 24 + Passtime + start_time) % 24)
 						//旅客可以到达V的当日出发
-						if (temp->time_departure - (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24 + temp->time_consumed < min)
+						if (temp->time_departure - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed < min)
 						{
 							//旅行时间更短，刷新
-							min = temp->time_departure - (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24 + temp->time_consumed;
+							min = temp->time_departure - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed;
 							number = temp->number;
 						}
 
-					if (temp->time_departure < (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24)
+					if (temp->time_departure < (dist[V] % 24 + Passtime + start_time) % 24)
 						//旅客需要第二天出发
-						if (temp->time_departure + 24 - (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24 + temp->time_consumed < min)
+						if (temp->time_departure + 24 - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed < min)
 						{
 							//旅行时间更短，刷新
-							min = temp->time_departure + 24 - (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24 + temp->time_consumed;
+							min = temp->time_departure + 24 - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed;
 							number = temp->number;
 						}
 					temp = temp->nextPtr;
@@ -143,21 +146,22 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH& tourend, i
 		int number = 0;
 		//遍历两个城市间的航班表，找到最快的通行方式
 		Ptr_trans_t_Node temp = city_graph.pp_G[src][i].p_TransTable;
+		int Passtime = pass_by_time(src);
 		while (temp)
 		{
-			if (temp->time_departure >= start_time)
-			//当日出发
-				if (temp->time_departure - start_time + temp->time_consumed < min)
+			if (temp->time_departure >= (start_time + Passtime) % 24)
+				//当日出发
+				if (temp->time_departure - (start_time + Passtime) % 24 + temp->time_consumed < min)
 				{
-					min = temp->time_departure - start_time + temp->time_consumed;
+					min = temp->time_departure - (start_time + Passtime) % 24 + temp->time_consumed;
 					number = temp->number;
 				}
 
-			if (temp->time_departure < start_time)
-			//第二天出发
-				if (temp->time_departure + 24 - start_time + temp->time_consumed < min)
+			if (temp->time_departure < (start_time + Passtime) % 24)
+				//第二天出发
+				if (temp->time_departure + 24 - (start_time + Passtime) % 24 + temp->time_consumed < min)
 				{
-					min = temp->time_departure + 24 - start_time + temp->time_consumed;
+					min = temp->time_departure + 24 - (start_time + Passtime) % 24 + temp->time_consumed;
 					number = temp->number;
 				}
 
@@ -201,6 +205,7 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH& tourend, i
 
 		V = minV;//收录该最小dist顶点
 		collected[V] = true;
+		int  Passtime = pass_by_time(V);
 
 		/*更新dist和path*/
 		for (int W = 0; W < city_graph.Graph_size; W++)
@@ -212,21 +217,21 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH& tourend, i
 				Ptr_trans_t_Node temp = city_graph.pp_G[V][W].p_TransTable;
 				while (temp)//遍历V到W的所有交通方式，寻找时间最短的一种
 				{
-					if (temp->time_departure >= (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24)
+					if (temp->time_departure >= (dist[V] % 24 + Passtime + start_time) % 24)
 						//旅客可以到达V的当日出发
-						if (temp->time_departure - (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24 + temp->time_consumed < min)
+						if (temp->time_departure - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed < min)
 						{
 							//旅行时间更短，刷新
-							min = temp->time_departure - (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24 + temp->time_consumed;
+							min = temp->time_departure - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed;
 							number = temp->number;
 						}
 
-					if (temp->time_departure < (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24)
+					if (temp->time_departure < (dist[V] % 24 + Passtime + start_time) % 24)
 						//旅客需要第二天出发
-						if (temp->time_departure + 24 - (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24 + temp->time_consumed < min)
+						if (temp->time_departure + 24 - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed < min)
 						{
 							//旅行时间更短，刷新
-							min = temp->time_departure + 24 - (dist[V] % 24 + User->pass_by[1][V] + start_time) % 24 + temp->time_consumed;
+							min = temp->time_departure + 24 - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed;
 							number = temp->number;
 						}
 					temp = temp->nextPtr;
@@ -311,12 +316,19 @@ Status Finish_Path(PATH tour)
 	int arrive_pre = User->start_time.hour;
 	while (temp != NULL)
 	{
+		if (temp == tour)
+			temp->start_time = User->start_time;
+		else
+			temp->start_time = pre->start_time;
+
 		//遍历航班表，找到对应车次
 		Ptr_trans_t_Node trans = city_graph.pp_G[temp->src][temp->dest].p_TransTable;
 		while (trans != NULL)
 		{
 			if (trans->number == temp->number)
 				break;
+			else
+				trans = trans->nextPtr;
 		}
 
 		//添加在出发城市的等待时间
@@ -337,10 +349,10 @@ Status Finish_Path(PATH tour)
 		{
 			//到达出发城市后第二天出发
 			if (temp == tour)
-				temp->start_time.date = User->start_time.date + 1;
+				temp->start_time.date += 1;
 			else
 			{
-				temp->start_time.date = pre->start_time.date + 1;
+				temp->start_time.date += 1;
 				if (pre->time + wait > 24 - pre->start_time.hour)
 					temp->start_time.date += (pre->start_time.hour + pre->time + wait) / 24;
 			}
@@ -348,11 +360,8 @@ Status Finish_Path(PATH tour)
 		else
 		{
 			//到达出发城市后当天出发
-			if (temp == tour)
-				temp->start_time.date = User->start_time.date;
-			else
+			if (temp != tour)
 			{
-				temp->start_time.date = pre->start_time.date;
 				if (pre->time + wait > 24 - pre->start_time.hour)
 					temp->start_time.date += (pre->start_time.hour + pre->time + wait) / 24;
 			}
@@ -360,19 +369,15 @@ Status Finish_Path(PATH tour)
 
 		if (temp->start_time.date > 30)
 		{
-			temp->start_time.month = pre->start_time.month + 1;
-			temp->start_time.date -= 30;
+				temp->start_time.month += 1;
+				temp->start_time.date -= 30;
 		}
-		else
-			temp->start_time.month = pre->start_time.month;
 
 		if (temp->start_time.month > 12)
 		{
-			temp->start_time.year = pre->start_time.year + 1;
-			temp->start_time.month -= 12;
+				temp->start_time.year += 1;
+				temp->start_time.month -= 12;	
 		}
-		else
-			temp->start_time.year = pre->start_time.year;
 
 		arrive_pre = (temp->start_time.hour + temp->time) % 24;
 
@@ -464,7 +469,7 @@ Status Min_Time()
 	{
 		PATH cur = tour;
 		tour = tour->next;
-		delete tour;
+		delete cur;
 	}
 	return OK;
 }
@@ -496,4 +501,19 @@ Status Output_route(PATH tour)
 	}
 
 	return OK;
+}
+
+
+int pass_by_time(int V)
+{
+	for (int i = 0; i < User->num_passby; i++)
+	{
+		if (User->pass_by[0][i] == V)
+		{
+			return User->pass_by[1][i];
+			break;
+		}
+	}
+
+	return 0;
 }

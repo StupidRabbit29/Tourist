@@ -20,7 +20,7 @@ Status User_sign_in(void)
 	//读取用户输入的ID
 	char userID[20];
 	gets_s(userID);
-	getchar();
+	//getchar();
 	bool find_passenger = false;
 
 	//使用temp遍历旅客链表
