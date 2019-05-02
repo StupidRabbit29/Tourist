@@ -82,6 +82,28 @@ bool operator<(const SYSTEM_TIME& A, const SYSTEM_TIME& B)
 		return false;
 }
 
+SYSTEM_TIME operator+(const SYSTEM_TIME& A, int hour)
+{
+	SYSTEM_TIME temp = A;
+
+	temp.hour += hour;
+	if (temp.hour >= 24)
+	{
+		temp.date += temp.hour / 24;
+		temp.hour = temp.hour % 24;
+	}
+	if (temp.date >= 31)//让我们假设每个月都30天
+	{
+		temp.month += temp.date / 30;
+		temp.date = temp.date%30 + 1;
+	}
+	if (temp.month >= 13)
+	{
+		temp.year++;
+		temp.month = 1;
+	}
+}
+
 //刷新旅客状态
 Status Refresh(PASSENGER *tourist, int touristnum)
 {
