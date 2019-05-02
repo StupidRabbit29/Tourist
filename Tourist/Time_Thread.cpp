@@ -6,6 +6,7 @@ SYSTEM_TIME System_Time;
 extern bool Quit;
 extern GRAPH city_graph;
 extern PASSENGER *Passengers;
+bool inputing = false;
 
 //假定最多10个旅客，缓存每个旅客的当前旅行到的第几个城市
 int Travelstate[10] = { 0 };
@@ -22,34 +23,41 @@ unsigned __stdcall time(void* pArguments)
 	System_Time.hour = 0;
 	while (Quit == false)
 	{
-		Sleep(10000);
-		System_Time.hour++;
-		if (System_Time.hour == 24)
+		if (!inputing)
 		{
-			System_Time.date++;
-			System_Time.hour = 0;
-		}
-		if (System_Time.date == 31)//让我们假设每个月都30天
-		{
-			System_Time.month++;
-			System_Time.date = 1;
-		}
-		if (System_Time.month == 13)
-		{
-			System_Time.year++;
-			System_Time.month = 1;
-		}
+			Sleep(10000);
+			System_Time.hour++;
+			if (System_Time.hour == 24)
+			{
+				System_Time.date++;
+				System_Time.hour = 0;
+			}
+			if (System_Time.date == 31)//让我们假设每个月都30天
+			{
+				System_Time.month++;
+				System_Time.date = 1;
+			}
+			if (System_Time.month == 13)
+			{
+				System_Time.year++;
+				System_Time.month = 1;
+			}
 
-		//对所有旅客刷新其旅行状态
-		PASSENGER *temp = Passengers;
-		int touristnum = 0;
-		while (temp != NULL)
-		{
-			if (Travelstate[touristnum] != 0)
-				Refresh(temp, touristnum);
+			//对所有旅客刷新其旅行状态
+			PASSENGER *temp = Passengers;
+			int touristnum = 0;
+			while (temp != NULL)
+			{
+				if (Travelstate[touristnum] != 0)
+					Refresh(temp, touristnum);
 
-			touristnum++;
-			temp = temp->next_passenger;
+				touristnum++;
+				temp = temp->next_passenger;
+			}
+		}
+		else if (inputing)
+		{
+			Sleep(500);//休眠0.5s
 		}
 
 	}
@@ -72,6 +80,28 @@ bool operator<(const SYSTEM_TIME& A, const SYSTEM_TIME& B)
 		return true;
 	else
 		return false;
+}
+
+SYSTEM_TIME operator+(const SYSTEM_TIME& A, int hour)
+{
+	SYSTEM_TIME temp = A;
+
+	temp.hour += hour;
+	if (temp.hour >= 24)
+	{
+		temp.date += temp.hour / 24;
+		temp.hour = temp.hour % 24;
+	}
+	if (temp.date >= 31)//让我们假设每个月都30天
+	{
+		temp.month += temp.date / 30;
+		temp.date = temp.date%30 + 1;
+	}
+	if (temp.month >= 13)
+	{
+		temp.year++;
+		temp.month = 1;
+	}
 }
 
 //刷新旅客状态
