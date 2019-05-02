@@ -16,7 +16,7 @@ Status Output_Status(PASSENGER *psg);
 //用户登录
 Status User_sign_in(void)
 {
-	Write_user_file(2);
+	cout << "请输入用户名：" << endl;
 	//读取用户输入的ID
 	char userID[20];
 	gets_s(userID);
@@ -36,6 +36,7 @@ Status User_sign_in(void)
 		else
 		{
 			User = temp;
+			Write_user_file(2);
 			find_passenger = true;
 		}
 	}
@@ -100,13 +101,13 @@ Status Output_Status(PASSENGER *psg)
 	char *loca[5] = { "IN_CAR", "IN_TRAIN", "IN_AIRPLANE", "STAY_IN_CITY" , "ARRIVE" };
 	char str2[100] = { '\0' };
 
-	printf("旅客：【%s】", psg->ID);
+	printf("旅客：【%s】\t\t\t", psg->ID);
 	printf("时间：%d - %d - %d  %d : 00 : 00\n", psg->status.time.year, psg->status.time.month, psg->status.time.date, psg->status.time.hour);
-	printf("旅行状态：%s:\t\t", loca[(int)(psg->status.loca)]);
+	printf("旅行状态：%s:\t", loca[(int)(psg->status.loca)]);
 
 	memset(str2, 0, sizeof(str2));
 	if (psg->status.loca != STAY_IN_CITY)
-		sprintf(str2, "%s\t\t%s  ==》 %s", psg->status.name, city_graph.City_Name[psg->status.src], city_graph.City_Name[psg->status.dest]);
+		sprintf(str2, "%s\t%s  ==》 %s", psg->status.name, city_graph.City_Name[psg->status.src], city_graph.City_Name[psg->status.dest]);
 	else
 		sprintf(str2, "%s", psg->status.name);
 	printf("%s\n", str2);

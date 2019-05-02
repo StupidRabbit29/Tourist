@@ -9,6 +9,7 @@ void Change_User_Info(PASSENGER &psg)
 {
 	/*在修改前是否需要输出旅客当前状态？？*/
 
+
 	fprintf(fptr_input, "ID：%s  更改旅行计划\n", psg.ID);//用户输入写入input.txt文件
 
 	/*修改旅客信息及策略*/

@@ -28,6 +28,7 @@ unsigned __stdcall mouse(void* pArguments)
 		printf("请输入您的操作：\n");
 
 		cin >> choice;
+		getchar();
 		if (cin.fail())
 		{
 			cin.clear();

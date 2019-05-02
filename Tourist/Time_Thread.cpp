@@ -95,7 +95,7 @@ Status Refresh(PASSENGER *tourist, int touristnum)
 			RefreshOK = true;
 		}
 		else if ((System_Time.year - cur.start_time.year) * 360 * 24 + (System_Time.month - cur.start_time.month) * 30 * 24 +
-			(System_Time.date - cur.start_time.date) * 24 + (System_Time.hour - cur.start_time.hour) <= cur.time)
+			(System_Time.date - cur.start_time.date) * 24 + (System_Time.hour - cur.start_time.hour) < cur.time)
 			//旅客出发前往下一个城市
 		{
 			struct trans_t *trans = city_graph.pp_G[cur.src][cur.dest].p_TransTable;
