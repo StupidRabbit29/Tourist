@@ -92,16 +92,20 @@ SYSTEM_TIME operator+(const SYSTEM_TIME& A, int hour)
 		temp.date += temp.hour / 24;
 		temp.hour = temp.hour % 24;
 	}
-	if (temp.date >= 31)//让我们假设每个月都30天
+
+	while(temp.date >= 31)//让我们假设每个月都30天
 	{
-		temp.month += temp.date / 30;
-		temp.date = temp.date%30 + 1;
+		temp.month ++;
+		temp.date -=30;
 	}
-	if (temp.month >= 13)
+
+	while(temp.month >= 13)
 	{
 		temp.year++;
-		temp.month = 1;
+		temp.month -= 12;
 	}
+
+	return temp;
 }
 
 //刷新旅客状态

@@ -74,7 +74,12 @@ void Write_route_file(PATH tour)
 	char filename[20] = { ".\\User_Route.ini" };
 	char str1[100];
 
-	int number = 0;
+	int touristnum = 0;
+	PASSENGER *tempp = Passengers;
+	while (tempp != User)
+		touristnum++;
+
+	int number = Travelstate[touristnum];
 	PATH temp = tour;
 	while (temp != NULL)
 	{
@@ -86,11 +91,6 @@ void Write_route_file(PATH tour)
 
 		temp = temp->next;
 	}
-
-	int touristnum = 0;
-	PASSENGER *tempp = Passengers;
-	while (tempp != User)
-		touristnum++;
 
 	Travelstate[touristnum] = 1;
 }
