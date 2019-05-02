@@ -166,7 +166,7 @@ void Freememory(void)
 			{
 				Ptr_trans_t_Node pre = temp;
 				temp = temp->nextPtr;
-				free(temp);
+				free(pre);
 			}
 		}
 	}
