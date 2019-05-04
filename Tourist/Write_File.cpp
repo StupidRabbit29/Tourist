@@ -123,9 +123,9 @@ Status Write_system_file()
 			WritePrivateProfileStringA("Passenger", "User", str1, ".\\System_File.ini");
 		}
 		memset(str1, 0, sizeof(str1));
-		sprintf(str1, "旅客No.%d", i);
+		sprintf(str1, "No.%d", i);
 		
-		WritePrivateProfileStructA("Passenger", str1, &temp, sizeof(PASSENGER), ".\\System_File.ini");
+		WritePrivateProfileStructA("Passenger", str1, temp, sizeof(PASSENGER), ".\\System_File.ini");
 		temp = temp->next_passenger;
 	}
 
@@ -155,21 +155,21 @@ Status Read_system_file()
 	//逐个读取旅客信息
 	if (number > 0)
 	{
-		PASSENGER *temp = Passengers;
+		PASSENGER **temp = &Passengers;
 		Passengers = (PASSENGER*)malloc(sizeof(PASSENGER));
-		GetPrivateProfileStructA("Passenger", "旅客No.1", &Passengers, sizeof(PASSENGER), ".\\System_File.ini");
+		GetPrivateProfileStructA("Passenger", "No.1", Passengers, sizeof(PASSENGER), ".\\System_File.ini");
 		int i = 2;
 		char str1[100];
 		for (; i <= number; i++)
 		{
 			memset(str1, 0, sizeof(str1));
-			sprintf(str1, "旅客No.%d", i);
-			temp->next_passenger = (PASSENGER*)malloc(sizeof(PASSENGER));
-			GetPrivateProfileStructA("Passenger", str1, temp->next_passenger, sizeof(PASSENGER), ".\\System_File.ini");
-			temp = temp->next_passenger;
+			sprintf(str1, "No.%d", i);
+			(*temp)->next_passenger = (PASSENGER*)malloc(sizeof(PASSENGER));
+			GetPrivateProfileStructA("Passenger", str1, (*temp)->next_passenger, sizeof(PASSENGER), ".\\System_File.ini");
+			temp = &((*temp)->next_passenger);
 		}
 
-		Passengers_tailPtr = temp;
+		Passengers_tailPtr = *temp;
 		User = NULL;
 	}
 	else
