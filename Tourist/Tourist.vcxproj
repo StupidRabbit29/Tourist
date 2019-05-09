@@ -136,6 +136,7 @@
     <None Include="..\Document\System_File.ini" />
     <None Include="..\Document\User_File.ini" />
     <None Include="..\Document\User_Route.ini" />
+    <None Include="MainWindow.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

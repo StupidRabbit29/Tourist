@@ -49,5 +49,6 @@
     <None Include="..\Document\Status_File.ini" />
     <None Include="..\Document\System_File.ini" />
     <None Include="..\Document\User_Route.ini" />
+    <None Include="MainWindow.ui" />
   </ItemGroup>
 </Project>
