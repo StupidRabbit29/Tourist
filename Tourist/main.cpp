@@ -28,5 +28,6 @@ int main()
 
 	cout << "Program End" << endl;
 	system("pause");
+
 	return 0;
 }

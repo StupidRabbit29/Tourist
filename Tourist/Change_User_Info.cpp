@@ -8,6 +8,7 @@ extern int Travelstate[10];
 extern PASSENGER *Passengers;
 void Min_Cost();
 Status Min_Time();
+SYSTEM_TIME operator+(const SYSTEM_TIME& A, int hour);
 
 void Change_User_Info(PASSENGER &psg)
 {
@@ -23,6 +24,7 @@ void Change_User_Info(PASSENGER &psg)
 	if (psg.status.loca == STAY_IN_CITY)
 	{
 		psg.start_time = System_Time;
+		WritePrivateProfileSectionA(psg.ID, "", ".\\User_Route.ini");
 	}
 	else
 	{
@@ -46,7 +48,14 @@ void Change_User_Info(PASSENGER &psg)
 		int hours = cur.time-(System_Time.year - cur.start_time.year) * 360 * 24 + (System_Time.month - cur.start_time.month) * 30 * 24 +
 			(System_Time.date - cur.start_time.date) * 24 + (System_Time.hour - cur.start_time.hour);
 
+		psg.start_time = System_Time + hours;
 
+		WritePrivateProfileSectionA(psg.ID, "", ".\\User_Route.ini");
+		memset(str1, 0, sizeof(str1));
+		sprintf(str1, "No.1");
+		WritePrivateProfileStructA(psg.ID, str1, &cur, sizeof(PathNode), ".\\User_Route.ini");
+
+		Travelstate[touristnum] = 1;
 	}
 
 	int choice;

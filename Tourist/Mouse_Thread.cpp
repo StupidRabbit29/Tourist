@@ -4,7 +4,7 @@
 
 extern bool Quit;
 extern PASSENGER *Passengers, *Passengers_tailPtr, *User;//User当前系统使用者
-
+extern bool inputing;
 void Create_New_Passenger(PASSENGER *tailPtr);
 Status User_sign_in(void);
 Status Output_Status(PASSENGER *psg);
@@ -28,6 +28,7 @@ unsigned __stdcall mouse(void* pArguments)
 		printf("请输入您的操作：\n");
 
 		cin >> choice;
+		getchar();
 		if (cin.fail())
 		{
 			cin.clear();
@@ -45,13 +46,17 @@ unsigned __stdcall mouse(void* pArguments)
 		}
 		case 1://用户注册
 		{
+			inputing = true;
 			Create_New_Passenger(Passengers_tailPtr);
+			inputing = false;
 			break;
 		}
 		case 2:
 		{
 			//用户登录
+			inputing = true;
 			User_sign_in();
+			inputing = false;
 			break;
 		}
 		case 3:

@@ -116,7 +116,5 @@ typedef struct pathnode
 	int number;//旅行者搭乘的车次
 	SYSTEM_TIME start_time;//开始时间
 	int time;//耗费时间
-	//int start_date;//开始天数
-	//PathNode *next;//下一条路径
 	struct pathnode *next;
 }PathNode, *PATH;
