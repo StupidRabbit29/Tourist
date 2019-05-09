@@ -13,6 +13,7 @@
     <ClCompile Include="Time_Thread.cpp" />
     <ClCompile Include="Min_Time.cpp" />
     <ClCompile Include="Min_Cost.cpp" />
+    <ClCompile Include="mainwindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -34,6 +35,7 @@
     <ClCompile Include="Sign_up.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClInclude Include="mainwindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">

@@ -113,6 +113,7 @@
   <ItemGroup>
     <ClCompile Include="Change_User_Info.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="Min_Cost.cpp" />
     <ClCompile Include="Min_Time.cpp" />
     <ClCompile Include="Mouse_Thread.cpp" />
@@ -126,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
+    <ClInclude Include="mainwindow.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Document\map.txt" />
