@@ -7,12 +7,6 @@ extern PASSENGER *User;
 extern SYSTEM_TIME System_Time;
 extern GRAPH city_graph;
 
-void Change_User_Info(PASSENGER &psg);
-void Write_user_file(int choice);
-Status Output_Status(PASSENGER *psg);
-
-/*函数*/
-
 //用户登录
 Status User_sign_in(void)
 {

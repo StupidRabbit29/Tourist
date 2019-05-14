@@ -5,10 +5,6 @@
 bool Quit = false;
 extern SYSTEM_TIME System_Time;
 
-Status Prepare(void);
-unsigned __stdcall mouse(void* pArguments);
-unsigned __stdcall time(void* pArguments);
-
 int main()
 {
 	//准备函数

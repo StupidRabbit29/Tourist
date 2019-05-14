@@ -11,7 +11,7 @@ extern int Travelstate[10];
 //写入状态函数
 void Write_status_file(PASSENGER &psg)
 {
-	//将User的状态结构体写入fptr指向的文件
+	//将User的状态结构体写入文件
 	char str2[100] = { '\0' };
 	char *loca[4] = { "CAR", "TRAIN", "AIRPLANE", "STAY_IN_CITY" };
 
@@ -74,13 +74,18 @@ void Write_route_file(PATH tour)
 	char filename[20] = { ".\\User_Route.ini" };
 	char str1[100];
 
+	//找到用户旅游的状态
 	int touristnum = 0;
 	PASSENGER *tempp = Passengers;
 	while (tempp != User)
+	{
 		touristnum++;
-
+		tempp = tempp->next_passenger;
+	}
 	int number = Travelstate[touristnum];
 	PATH temp = tour;
+	
+	//将path写入文档
 	while (temp != NULL)
 	{
 		number++;
@@ -97,9 +102,19 @@ void Write_route_file(PATH tour)
 
 Status Write_system_file()
 {
+	if (DEBUG)
+		cout << "Called Write_system_file()" << endl;
+
+	//基本信息
 	WritePrivateProfileStringA("able_or_unable", "able", "1", ".\\System_File.ini");
 	WritePrivateProfileStructA("System_Time", "time", &System_Time, sizeof(SYSTEM_TIME), ".\\System_File.ini");
+	/*WritePrivateProfileStructA("GRAPH", "graph", &city_graph, sizeof(GRAPH), ".\\System_File.ini");
 
+	char size[10] = { '\0' };
+	sprintf(size, "%d", city_graph.Graph_size);
+	WritePrivateProfileStringA("GRAPH", "graph_size", size, ".\\System_File.ini");*/
+
+	//统计旅客数量
 	int number = 0;
 	PASSENGER *temp = Passengers;
 	while (temp != NULL)
@@ -112,6 +127,7 @@ Status Write_system_file()
 	sprintf(str1, "%d", number);
 	WritePrivateProfileStringA("Passenger", "number", str1, ".\\System_File.ini");
 
+	//逐个将旅客信息写入文档
 	int i = 0;
 	temp = Passengers;
 	for (i=1;i<=number;i++)
@@ -122,14 +138,12 @@ Status Write_system_file()
 			sprintf(str1, "%d", i);
 			WritePrivateProfileStringA("Passenger", "User", str1, ".\\System_File.ini");
 		}
+
 		memset(str1, 0, sizeof(str1));
 		sprintf(str1, "No.%d", i);
-		
 		WritePrivateProfileStructA("Passenger", str1, temp, sizeof(PASSENGER), ".\\System_File.ini");
 		temp = temp->next_passenger;
 	}
-
-	WritePrivateProfileStructA("GRAPH", "graph", &city_graph, sizeof(GRAPH), ".\\System_File.ini");
 
 	return OK;
 }
@@ -149,15 +163,30 @@ Status Read_system_file()
 
 	//读取系统时间
 	GetPrivateProfileStructA("System_Time", "time", &System_Time, sizeof(SYSTEM_TIME), ".\\System_File.ini");
+	////读取地图信息
+	//int graph_size = GetPrivateProfileIntA("GRAPH", "graph_size", 0, ".\\System_File.ini");
+
+	////需要申请内存？
+	////动态申请城市名称数组
+	//city_graph.City_Name = (char**)malloc(sizeof(char*)*city_graph.Graph_size);
+	//for (int i = 0; i < graph_size; i++)
+	//{
+	//	city_graph.City_Name[i] = new char[20];
+	//}
+
+	//GetPrivateProfileStructA("GRAPH", "graph", &city_graph, sizeof(GRAPH), ".\\System_File.ini");
 
 	int number=GetPrivateProfileIntA("Passenger", "number", 0, ".\\System_File.ini");
 
 	//逐个读取旅客信息
 	if (number > 0)
 	{
+		//读取第一个旅客
 		PASSENGER **temp = &Passengers;
 		Passengers = (PASSENGER*)malloc(sizeof(PASSENGER));
 		GetPrivateProfileStructA("Passenger", "No.1", Passengers, sizeof(PASSENGER), ".\\System_File.ini");
+		
+		//读取后续旅客
 		int i = 2;
 		char str1[100];
 		for (; i <= number; i++)
@@ -179,9 +208,6 @@ Status Read_system_file()
 		User = NULL;
 	}
 	
-	//读取地图信息
-	GetPrivateProfileStructA("GRAPH", "graph", &city_graph, sizeof(GRAPH), ".\\System_File.ini");
-
 	cout << "Read system_file successfully" << endl;
 	return OK;
 }

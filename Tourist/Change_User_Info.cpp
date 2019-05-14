@@ -8,7 +8,6 @@ extern int Travelstate[10];
 extern PASSENGER *Passengers;
 void Min_Cost();
 Status Min_Time();
-SYSTEM_TIME operator+(const SYSTEM_TIME& A, int hour);
 
 void Change_User_Info(PASSENGER &psg)
 {

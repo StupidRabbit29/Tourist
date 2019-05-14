@@ -11,10 +11,6 @@ bool inputing = false;
 //假定最多10个旅客，缓存每个旅客的当前旅行到的第几个城市
 int Travelstate[10] = { 0 };
 
-Status Write_system_file();
-Status Refresh(PASSENGER *tourist, int touristnum);
-void Freememory(void);
-
 unsigned __stdcall time(void* pArguments)
 {
 	System_Time.year = 2019;

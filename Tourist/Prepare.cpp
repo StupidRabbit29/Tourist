@@ -6,12 +6,6 @@ GRAPH city_graph = { NULL, 0, NULL };
 FILE *fptr_input;//日志文件，记录用户输入信息
 extern PASSENGER *Passengers;
 
-/*函数*/
-void Read_trans_t();
-Status Read_Map(FILE *fptr);
-Status Read_system_file();
-
-
 Status Prepare(void)
 {
 	if (DEBUG)
@@ -26,55 +20,31 @@ Status Prepare(void)
 		printf("输入错误，请输入Y或N。\n");
 		scanf("%c", &ch);
 	}
+
+	//判断是否正确读取到了内存
 	if (ch == 'Y')
-	{
 		if (Read_system_file() == UNABLE)
-		{
 			printf("读取存档失败！创建新系统\n");
 
-			//读取地图、航班
-			FILE *fmap;
-			fopen_s(&fmap, "map.txt", "r");
-
-			if (fmap == NULL)
-				cout << "Open file map.txt ERROR!" << endl;
-			else
-			{
-				if (Read_Map(fmap) == ERROR)
-				{
-					printf("读取地图错误\n");
-					return ERROR;
-				}
-			}
-
-			fopen_s(&fptr_input, "User_input.txt", "w");
-			//读取航班表
-			Read_trans_t();
-		}
-			
-	}
+	//读取地图
+	FILE *fmap;
+	fopen_s(&fmap, "map.txt", "r");
+	if (fmap == NULL)
+		cout << "Open file map.txt ERROR!" << endl;
 	else
 	{
-		//读取地图、航班
-		FILE *fmap;
-		fopen_s(&fmap, "map.txt", "r");
-
-		if (fmap == NULL)
-			cout << "Open file map.txt ERROR!" << endl;
-		else
+		if (Read_Map(fmap) == ERROR)
 		{
-			if (Read_Map(fmap) == ERROR)
-			{
-				printf("读取地图错误\n");
-				return ERROR;
-			}
-		}	
-
-		fopen_s(&fptr_input, "User_input.txt", "w");
-		//读取航班表
-		Read_trans_t();
-
+			printf("读取地图错误\n");
+			return ERROR;
+		}
 	}
+
+	fopen_s(&fptr_input, "User_input.txt", "w");
+
+	//读取航班表
+	Read_trans_t();
+
 	/*打开：日志文档2-用户输入信息*/
 	//fptr_input = fopen("log_file_input", "w");//只能写 
 
@@ -97,6 +67,9 @@ Status Read_Map(FILE *fptr)
 
 	//动态申请城市名称数组
 	city_graph.City_Name = (char**)malloc(sizeof(char*)*city_graph.Graph_size);
+	if (city_graph.City_Name == NULL)
+		return ERROR;
+
 	for (int i = 0; i < city_graph.Graph_size; i++)
 	{
 		city_graph.City_Name[i] = new char[20];
@@ -105,9 +78,7 @@ Status Read_Map(FILE *fptr)
 		else
 			return ERROR;
 	}
-	if (city_graph.City_Name == NULL)
-		return ERROR;
-
+	
 	//读取城市名称
 	int i = 0, j = 0;
 	for (i = 0; i < city_graph.Graph_size; i++)

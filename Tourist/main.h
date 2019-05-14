@@ -118,3 +118,39 @@ typedef struct pathnode
 	int time;//耗费时间
 	struct pathnode *next;
 }PathNode, *PATH;
+
+
+/*函数声明*/
+unsigned __stdcall mouse(void* pArguments);
+unsigned __stdcall time(void* pArguments);
+
+Status Prepare(void);
+Status Read_Map(FILE *fptr);
+void Read_trans_t();
+
+void Create_New_Passenger(PASSENGER *tailPtr);
+Status User_sign_in(void);
+void Min_Cost();
+Status Min_Time();
+Status Output_route(PATH tour);
+Status Finish_Path(PATH tour);
+Status Output_Status(PASSENGER *psg);
+void Change_User_Info(PASSENGER &psg);
+Status Refresh(PASSENGER *tourist, int touristnum);
+
+void Write_status_file(PASSENGER &psg);
+void Write_user_file(int choice);
+void Write_route_file(PATH tour);
+Status Write_system_file();
+Status Read_system_file();
+
+SYSTEM_TIME operator+(const SYSTEM_TIME& A, int hour);
+int pass_by_time(int V);
+
+void Freememory(void);
+
+
+
+
+
+

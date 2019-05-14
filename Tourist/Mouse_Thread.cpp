@@ -5,9 +5,6 @@
 extern bool Quit;
 extern PASSENGER *Passengers, *Passengers_tailPtr, *User;//User当前系统使用者
 extern bool inputing;
-void Create_New_Passenger(PASSENGER *tailPtr);
-Status User_sign_in(void);
-Status Output_Status(PASSENGER *psg);
 
 unsigned __stdcall mouse(void* pArguments)
 {

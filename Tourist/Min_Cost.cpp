@@ -5,10 +5,6 @@ extern GRAPH city_graph;
 extern PASSENGER *User;//User当前系统使用者
 //dist即为weight，或者说是cost
 
-void Write_route_file(PATH tour);
-Status Output_route(PATH tour);
-Status Finish_Path(PATH tour);
-
 void Init_Graph_MinCost()//遍历整个图，将其边初的权重始化
 {
 	int min_cost, num_of_the_MinCostEdge;

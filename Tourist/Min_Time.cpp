@@ -4,10 +4,6 @@ extern GRAPH city_graph;
 extern PASSENGER *User;
 extern char *Vehicle_Name[3];
 
-void Write_route_file(PATH tour);
-Status Output_route(PATH tour);
-int pass_by_time(int V);
-
 //计算给定两个城市间的最短路径
 Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 {
@@ -314,6 +310,8 @@ Status Finish_Path(PATH tour)
 	PATH temp = tour;
 	PATH pre = NULL;
 	int arrive_pre = User->start_time.hour;
+
+	//遍历路径
 	while (temp != NULL)
 	{
 		if (temp == tour)
@@ -332,15 +330,8 @@ Status Finish_Path(PATH tour)
 		}
 
 		//添加在出发城市的等待时间
-		int wait = 0;
-		for (int i = 0; i < User->num_passby; i++)
-			if (User->pass_by[0][i] == temp->src)
-			{
-				//arrive_pre += User->pass_by[1][i];
-				wait = User->pass_by[1][i];
-				break;
-			}
-
+		int wait = pass_by_time(temp->src);
+		
 		temp->start_time.hour = trans->time_departure;//旅客出发时间为对应交通工具出发时间
 		temp->time = trans->time_consumed;//旅程耗费时间等于交通工具耗时
 		//确定出发日期
@@ -367,13 +358,13 @@ Status Finish_Path(PATH tour)
 			}
 		}
 
-		if (temp->start_time.date > 30)
+		while (temp->start_time.date > 30)
 		{
 				temp->start_time.month += 1;
 				temp->start_time.date -= 30;
 		}
 
-		if (temp->start_time.month > 12)
+		while (temp->start_time.month > 12)
 		{
 				temp->start_time.year += 1;
 				temp->start_time.month -= 12;	
@@ -394,7 +385,7 @@ Status Min_Time()
 	//确定路线数量
 	int path_number = 1;
 	int pcity_num = User->num_passby;
-	for (int i = 2; i <= User->num_passby; i++)
+	for (int i = 2; i <= pcity_num; i++)
 		path_number *= i;
 
 	//初始化路线

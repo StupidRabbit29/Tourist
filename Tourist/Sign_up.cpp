@@ -7,10 +7,6 @@ PASSENGER *Passengers = NULL, *Passengers_tailPtr = NULL, *User;//User当前系�
 extern FILE *fptr_input;
 extern SYSTEM_TIME System_Time;
 
-void Write_user_file(int choice);
-void Min_Cost();
-Status Min_Time();
-
 void Create_New_Passenger(PASSENGER *tailPtr)
 {
 	/*读输入&初始化*/
