@@ -13,10 +13,6 @@ int Travelstate[10] = { 0 };
 
 unsigned __stdcall time(void* pArguments)
 {
-	System_Time.year = 2019;
-	System_Time.month = 3;
-	System_Time.date = 23;
-	System_Time.hour = 0;
 	while (Quit == false)
 	{
 		if (!inputing)
@@ -44,7 +40,7 @@ unsigned __stdcall time(void* pArguments)
 			int touristnum = 0;
 			while (temp != NULL)
 			{
-				if (Travelstate[touristnum] != 0)
+				if (temp->status.loca != ARRIVE && Travelstate[touristnum] != 0)
 					Refresh(temp, touristnum);
 
 				touristnum++;

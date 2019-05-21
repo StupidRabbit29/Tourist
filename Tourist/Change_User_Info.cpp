@@ -14,7 +14,7 @@ void Change_User_Info(PASSENGER &psg)
 	/*在修改前是否需要输出旅客当前状态？？*/
 
 	//判断旅客是否到达终点
-
+	
 	fprintf(fptr_input, "ID：%s  更改旅行计划\n", psg.ID);//用户输入写入input.txt文件
 
 	/*修改旅客信息及策略*/
@@ -44,8 +44,8 @@ void Change_User_Info(PASSENGER &psg)
 
 		GetPrivateProfileStructA(psg.ID, str1, &cur, sizeof(PathNode), ".\\User_Route.ini");
 
-		int hours = cur.time-(System_Time.year - cur.start_time.year) * 360 * 24 + (System_Time.month - cur.start_time.month) * 30 * 24 +
-			(System_Time.date - cur.start_time.date) * 24 + (System_Time.hour - cur.start_time.hour);
+		int hours = cur.time-((System_Time.year - cur.start_time.year) * 360 * 24 + (System_Time.month - cur.start_time.month) * 30 * 24 +
+			(System_Time.date - cur.start_time.date) * 24 + (System_Time.hour - cur.start_time.hour));
 
 		psg.start_time = System_Time + hours;
 
@@ -74,25 +74,26 @@ void Change_User_Info(PASSENGER &psg)
 	if (choice == 1)
 	{
 		printf("请输入途经城市数量：");
-		cout << "";
+		//cout << "";
 		int cnt = 0, i;
 		scanf_s("%d", &cnt);
 		psg.num_passby = cnt;
 		fprintf(fptr_input, "途经城市数量：%d\n途经城市编号：", cnt);//用户输入写入input.txt文件
 		printf("请输入途经城市编号：");
-		cout << "";
+		//cout << "";
+		int stay_in_city = -1;
 		bool stay = false;
 		for (i = 0; i < cnt; i++)
 		{
 			scanf_s("%d", &psg.pass_by[0][i]);
 			fprintf(fptr_input, "%d ", psg.pass_by[0][i]);//用户输入写入input.txt文件
 			printf("是否需要在该地停留（Y=1/N=0）：");
-			cout << "";
-			scanf_s("%d", &stay);
-			if (stay == true)
+			//cout << "";
+			scanf_s("%d", &stay_in_city);
+			if (stay_in_city == 1)
 			{
 				printf("请输入停留时间（单位：小时）：");
-				cout << "";
+				//cout << "";
 				scanf_s("%d", &psg.pass_by[1][i]);
 			}
 			else

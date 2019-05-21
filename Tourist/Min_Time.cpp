@@ -1,8 +1,10 @@
 ﻿#include"main.h"
 
+int countP;
 extern GRAPH city_graph;
 extern PASSENGER *User;
 extern char *Vehicle_Name[3];
+
 
 //计算给定两个城市间的最短路径
 Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
@@ -279,13 +281,12 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH& tourend, i
 //全排列，对于旅客要途径的结点进行全排列，以便逐个遍历
 void Permutation(int k, int n, int a[], int **A)
 {
-	static int count = 0;
 	if (k == n - 1)
 	{
 		for (int i = 0; i < n; i++)
-			A[count][i+1] = a[i];
+			A[countP][i+1] = a[i];
 
-		count++;
+		countP++;
 	}
 	else
 	{
@@ -398,6 +399,7 @@ Status Min_Time()
 		Path[i][User->num_passby + 1] = User->dest;
 	}
 
+	countP = 0;
 	//通过全排列，生成所有路线
 	Permutation(0, pcity_num, User->pass_by[0], Path);
 

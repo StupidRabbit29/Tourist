@@ -67,7 +67,19 @@ Status User_sign_in(void)
 				else if (choice == 2)
 				{
 					//调用打印旅客信息的函数
+					PASSENGER *temp = Passengers;
+					int touristnum = 0;
+					while (temp != NULL)
+					{
+						if (temp == User)
+							break;
+						else
+							touristnum++;
 
+						temp = temp->next_passenger;
+					}
+
+					Refresh(User, touristnum);
 					Output_Status(User);
 				}
 				else
@@ -96,7 +108,12 @@ Status Output_Status(PASSENGER *psg)
 	char str2[100] = { '\0' };
 
 	printf("旅客：【%s】\t\t\t", psg->ID);
-	printf("时间：%d - %d - %d  %d : 00 : 00\n", psg->status.time.year, psg->status.time.month, psg->status.time.date, psg->status.time.hour);
+
+	if(psg->status.loca==ARRIVE)
+		printf("时间：%d - %d - %d  %d : 00 : 00\n", System_Time.year, System_Time.month, System_Time.date, System_Time.hour);
+	else
+		printf("时间：%d - %d - %d  %d : 00 : 00\n", psg->status.time.year, psg->status.time.month, psg->status.time.date, psg->status.time.hour);
+	
 	printf("旅行状态：%s:\t", loca[(int)(psg->status.loca)]);
 
 	memset(str2, 0, sizeof(str2));

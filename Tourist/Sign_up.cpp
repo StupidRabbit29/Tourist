@@ -6,6 +6,7 @@ PASSENGER *Passengers = NULL, *Passengers_tailPtr = NULL, *User;//User当前系�
 
 extern FILE *fptr_input;
 extern SYSTEM_TIME System_Time;
+extern int Travelstate[10];
 
 void Create_New_Passenger(PASSENGER *tailPtr)
 {
@@ -109,5 +110,19 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 	default:
 		break;
 	}
+
+	PASSENGER *temp = Passengers;
+	int touristnum = 0;
+	while (temp != NULL)
+	{
+		if (temp == User)
+			break;
+		else
+			touristnum ++;
+
+		temp = temp->next_passenger;
+	}
+	Travelstate[touristnum] = 1;
+
 	cout << "Create_New_Passenger() done " << endl;
 }

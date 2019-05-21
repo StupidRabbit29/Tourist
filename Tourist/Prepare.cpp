@@ -5,6 +5,7 @@
 GRAPH city_graph = { NULL, 0, NULL };
 FILE *fptr_input;//日志文件，记录用户输入信息
 extern PASSENGER *Passengers;
+extern SYSTEM_TIME System_Time;
 
 Status Prepare(void)
 {
@@ -23,8 +24,17 @@ Status Prepare(void)
 
 	//判断是否正确读取到了内存
 	if (ch == 'Y')
+	{
 		if (Read_system_file() == UNABLE)
 			printf("读取存档失败！创建新系统\n");
+	}
+	else
+	{
+		System_Time.year = 2019;
+		System_Time.month = 3;
+		System_Time.date = 23;
+		System_Time.hour = 0;
+	}
 
 	//读取地图
 	FILE *fmap;

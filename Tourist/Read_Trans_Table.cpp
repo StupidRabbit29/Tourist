@@ -55,6 +55,9 @@ void Read_trans_t()
 
 		string temp_string;
 		f_trans >> temp_string;
+		//可用strcpy
+		//strcpy(currentptr->name, temp_string.c_str());
+
 		for (int i=0; i < temp_string.size(); i++)
 		{
 			currentptr->name[i] = temp_string[i];
