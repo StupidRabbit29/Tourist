@@ -165,7 +165,7 @@ void Min_Cost()
 		/*待改：调用函数将结果写入文件？*/
 		/*改为链表*/
 		PATH headptr = NULL, currentptr=NULL, tailptr=NULL;
-		for (int col = 0; col < path.size()/*?*/; col++)//遍历cost最小的一行
+		for (int col = 1/*0号为总花费*/; col < path.size()-1/*?*/; col++)//遍历cost最小的一行
 		{
 			currentptr = (PATH)malloc(sizeof(PathNode));
 			currentptr->src = path.at(col);
