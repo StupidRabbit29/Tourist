@@ -32,17 +32,17 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 		{
 			if (temp->time_departure >= (start_time + Passtime) % 24)
 			//当日出发
-				if (temp->time_departure - (start_time + Passtime) % 24 + temp->time_consumed < min)
+				if (temp->time_departure - (start_time + Passtime) % 24 + temp->time_consumed + Passtime < min)
 				{
-					min = temp->time_departure - (start_time + Passtime) % 24 + temp->time_consumed;
+					min = temp->time_departure - (start_time + Passtime) % 24 + temp->time_consumed + Passtime;
 					number = temp->number;
 				}
 			
 			if(temp->time_departure < (start_time + Passtime) % 24)
 			//第二天出发
-				if (temp->time_departure + 24 - (start_time + Passtime) % 24 + temp->time_consumed < min)
+				if (temp->time_departure + 24 - (start_time + Passtime) % 24 + temp->time_consumed + Passtime < min)
 				{
-					min = temp->time_departure +24 - (start_time + Passtime) % 24 + temp->time_consumed;
+					min = temp->time_departure +24 - (start_time + Passtime) % 24 + temp->time_consumed + Passtime;
 					number = temp->number;
 				}
 
@@ -94,19 +94,19 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, int& time)
 				{
 					if (temp->time_departure >= (dist[V] % 24 + Passtime + start_time) % 24)
 						//旅客可以到达V的当日出发
-						if (temp->time_departure - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed < min)
+						if (temp->time_departure - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed + Passtime < min)
 						{
 							//旅行时间更短，刷新
-							min = temp->time_departure - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed;
+							min = temp->time_departure - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed + Passtime;
 							number = temp->number;
 						}
 
 					if (temp->time_departure < (dist[V] % 24 + Passtime + start_time) % 24)
 						//旅客需要第二天出发
-						if (temp->time_departure + 24 - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed < min)
+						if (temp->time_departure + 24 - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed + Passtime < min)
 						{
 							//旅行时间更短，刷新
-							min = temp->time_departure + 24 - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed;
+							min = temp->time_departure + 24 - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed + Passtime;
 							number = temp->number;
 						}
 					temp = temp->nextPtr;
@@ -149,17 +149,17 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH& tourend, i
 		{
 			if (temp->time_departure >= (start_time + Passtime) % 24)
 				//当日出发
-				if (temp->time_departure - (start_time + Passtime) % 24 + temp->time_consumed < min)
+				if (temp->time_departure - (start_time + Passtime) % 24 + temp->time_consumed + Passtime < min)
 				{
-					min = temp->time_departure - (start_time + Passtime) % 24 + temp->time_consumed;
+					min = temp->time_departure - (start_time + Passtime) % 24 + temp->time_consumed + Passtime;
 					number = temp->number;
 				}
 
 			if (temp->time_departure < (start_time + Passtime) % 24)
 				//第二天出发
-				if (temp->time_departure + 24 - (start_time + Passtime) % 24 + temp->time_consumed < min)
+				if (temp->time_departure + 24 - (start_time + Passtime) % 24 + temp->time_consumed + Passtime < min)
 				{
-					min = temp->time_departure + 24 - (start_time + Passtime) % 24 + temp->time_consumed;
+					min = temp->time_departure + 24 - (start_time + Passtime) % 24 + temp->time_consumed + Passtime;
 					number = temp->number;
 				}
 
@@ -217,19 +217,19 @@ Status Dijkstra_For_Min_Time(int src, int dest, int start_time, PATH& tourend, i
 				{
 					if (temp->time_departure >= (dist[V] % 24 + Passtime + start_time) % 24)
 						//旅客可以到达V的当日出发
-						if (temp->time_departure - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed < min)
+						if (temp->time_departure - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed + Passtime < min)
 						{
 							//旅行时间更短，刷新
-							min = temp->time_departure - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed;
+							min = temp->time_departure - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed + Passtime;
 							number = temp->number;
 						}
 
 					if (temp->time_departure < (dist[V] % 24 + Passtime + start_time) % 24)
 						//旅客需要第二天出发
-						if (temp->time_departure + 24 - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed < min)
+						if (temp->time_departure + 24 - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed + Passtime < min)
 						{
 							//旅行时间更短，刷新
-							min = temp->time_departure + 24 - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed;
+							min = temp->time_departure + 24 - (dist[V] % 24 + Passtime + start_time) % 24 + temp->time_consumed + Passtime;
 							number = temp->number;
 						}
 					temp = temp->nextPtr;
