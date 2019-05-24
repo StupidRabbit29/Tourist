@@ -105,7 +105,7 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 		Min_Time();
 		break;
 	case 2:
-		//待改
+		Min_Time_Limited_Time();
 		break;
 	default:
 		break;

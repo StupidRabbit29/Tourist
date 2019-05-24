@@ -132,6 +132,7 @@ void Create_New_Passenger(PASSENGER *tailPtr);
 Status User_sign_in(void);
 void Min_Cost();
 Status Min_Time();
+Status Min_Time_Limited_Time();
 Status Output_route(PATH tour);
 Status Finish_Path(PATH tour);
 Status Output_Status(PASSENGER *psg);
@@ -146,7 +147,7 @@ Status Read_system_file();
 
 SYSTEM_TIME operator+(const SYSTEM_TIME& A, int hour);
 int pass_by_time(int V);
-
+void Permutation(int k, int n, int a[], int **A);
 void Freememory(void);
 
 

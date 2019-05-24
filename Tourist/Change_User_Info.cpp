@@ -58,19 +58,39 @@ void Change_User_Info(PASSENGER &psg)
 	}
 
 	int choice;
-	//printf("是否更改终点（Y=1/N=0）：");
 	cout << "是否更改终点（Y=1/N=0）：";
 	scanf_s("%d",&choice);
-	if (choice == 1)
+	bool Get = false;
+	while (!Get)
 	{
-		//printf("请输入终点编号：");
-		cout << "请输入终点编号：";
-		scanf_s("%d", &psg.dest);
-		fprintf(fptr_input, "终点编号：%d\n", psg.dest);//用户输入写入input.txt文件
+		if (choice == 1)
+		{
+			cout << "请输入终点编号：";
+			scanf_s("%d", &psg.dest);
+			if (psg.src == psg.dest)
+				cout << "终点不能与起点相同！\n";
+			else
+				Get = true;
+			fprintf(fptr_input, "终点编号：%d\n", psg.dest);//用户输入写入input.txt文件
+		}
+		else
+		{
+			if (psg.src == psg.dest)
+			{
+				cout << "终点与起点相同，必须输入终点！\n";
+				choice = 1;
+			}
+			else
+				Get = true;
+		}
+
 	}
-	//printf("是否更改途经城市（Y=1/N=0）：");
+
 	cout << "是否更改途经城市（Y=1/N=0）：";
 	scanf_s("%d", &choice);
+	for (int i = 0; i < MAX_NODE_NUM; i++)
+		psg.pass_by[0][i] = psg.pass_by[1][i] = -1;
+
 	if (choice == 1)
 	{
 		printf("请输入途经城市数量：");
@@ -100,6 +120,9 @@ void Change_User_Info(PASSENGER &psg)
 				psg.pass_by[1][i] = 0;
 		}
 	}
+	else
+		psg.num_passby = 0;
+
 	//printf("是否更改旅行策略（Y=1/N=0）：");
 	cout << "是否更改旅行策略（Y=1/N=0）：";
 	scanf_s("%d", &choice);
@@ -110,6 +133,7 @@ void Change_User_Info(PASSENGER &psg)
 		scanf_s("%d", &psg.strategy);
 		fprintf(fptr_input, "\n旅行策略编号：%d\n", psg.strategy);//用户输入写入input.txt文件
 	}
+
 	if (choice == 1 && psg.strategy == STRA_limTIME_minCOST)
 	{
 		//printf("请输入限制时间：");
@@ -130,7 +154,7 @@ void Change_User_Info(PASSENGER &psg)
 		Min_Time();
 		break;
 	case 2:
-		//待改
+		Min_Time_Limited_Time();
 		break;
 	default:
 		break;

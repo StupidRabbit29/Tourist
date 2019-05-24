@@ -13,6 +13,7 @@
     <ClCompile Include="Time_Thread.cpp" />
     <ClCompile Include="Min_Time.cpp" />
     <ClCompile Include="Min_Cost.cpp" />
+    <ClCompile Include="Min_Cost_Limited_Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />

@@ -354,7 +354,7 @@ Status Finish_Path(PATH tour)
 			//到达出发城市后当天出发
 			if (temp != tour)
 			{
-				if (pre->time + wait > 24 - pre->start_time.hour)
+				if (pre->time + wait >= 24 - pre->start_time.hour)
 					temp->start_time.date += (pre->start_time.hour + pre->time + wait) / 24;
 			}
 		}
@@ -488,7 +488,7 @@ Status Output_route(PATH tour)
 		cout << "No." << number << " " << city_graph.City_Name[temp->src]
 			<< "----->" << city_graph.City_Name[temp->dest] << " "
 			<< trans->name << "  发车时间：" << temp->start_time.year << "-" << temp->start_time.month
-			<< "-" << temp->start_time.date << " " << temp->start_time.hour << ":00:00" << endl;
+			<< "-" << temp->start_time.date << " " << temp->start_time.hour << ":00:00" << "\t旅行时长:" << temp->time << endl;
 
 		temp = temp->next;
 	}
