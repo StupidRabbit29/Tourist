@@ -146,10 +146,11 @@ Status Write_system_file();
 Status Read_system_file();
 
 SYSTEM_TIME operator+(const SYSTEM_TIME& A, int hour);
+int operator-(const SYSTEM_TIME& A, const SYSTEM_TIME& B);
 int pass_by_time(int V);
 void Permutation(int k, int n, int a[], int **A);
 void Freememory(void);
-
+int Calculate_Time(PATH tour);
 
 
 

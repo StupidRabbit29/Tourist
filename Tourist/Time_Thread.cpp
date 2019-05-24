@@ -100,6 +100,15 @@ SYSTEM_TIME operator+(const SYSTEM_TIME& A, int hour)
 	return temp;
 }
 
+int operator-(const SYSTEM_TIME& A, const SYSTEM_TIME& B)
+{
+	return 
+		(A.year - B.year) * 12 * 30 * 24 +
+		(A.month - B.month) * 30 * 24 +
+		(A.date - B.date) * 24 +
+		(A.hour - B.hour);
+}
+
 //刷新旅客状态
 Status Refresh(PASSENGER *tourist, int touristnum)
 {

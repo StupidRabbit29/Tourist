@@ -224,6 +224,136 @@ Status Dijkstra_For_Min_Cost_Limited_Time(int src, int dest, PATH& tourend, int&
 	return OK;
 }
 
+int Calculate_Time(PATH tour)
+{
+	PATH temp = tour;
+	while (temp->next != NULL)
+		temp = temp->next;
+	
+	//返回旅程花费的总时间
+	return (temp->start_time - User->start_time) + temp->time;
+}
+
+Status Limited_Time(PATH tour)
+{
+	//初始化变量
+	int pcity_num = User->num_passby;
+	Ptr_trans_t_Node *citynode = new Ptr_trans_t_Node[pcity_num + 1];
+	bool *Fastest = new bool[pcity_num + 1]{ false };
+	int start_time = User->start_time.hour;
+
+	PATH temp = tour;
+	for (int i = 0; i < pcity_num + 1; i++)
+	{
+		citynode[i] = city_graph.pp_G[temp->src][temp->dest].p_TransTable;
+		temp = temp->next;
+	}
+
+	//将旅程中的旅行结点逐渐替换为更快的旅行方式
+	int time = Calculate_Time(tour);
+
+	if (time < User->Time_Limited)
+		return ERROR;
+
+	while (true)
+	{
+		int salve = MY_INFINITE;//可节省的时间
+		PATH changenode = NULL;//本次替换的结点
+		PATH pre = NULL;//前一结点
+		Ptr_trans_t_Node before = NULL;//替换前的交通工具
+		Ptr_trans_t_Node now = NULL;//替换后的交通工具
+
+		//寻找替换结点
+		temp = tour;
+		int i = 0;
+		//先处理第一段路线
+		if (Fastest[i] == false)
+		{
+			int cost = 0;//本路段原花费
+			int mincost = MY_INFINITE;//比原花费大的最小花费
+			int time = (temp->start_time - User->start_time) + temp->time;//本路段耗时
+			Ptr_trans_t_Node ttemp = citynode[i];//遍历交通工具用
+			Ptr_trans_t_Node beforenode;//替换前的交通工具
+			Ptr_trans_t_Node changeto = NULL;//将要替换为的交通工具
+			while (true)
+			{
+				if (ttemp->number != temp->number)
+					ttemp = ttemp->nextPtr;
+				else
+				{
+					beforenode = ttemp;
+					ttemp = citynode[i];
+					break;
+				}
+			}
+			cost = beforenode->cost;
+			while (ttemp != NULL)
+			{
+				if (ttemp->number != temp->number && ttemp->cost <= mincost && ttemp->cost>=cost)
+				{
+					if (ttemp->time_departure >= start_time)
+						//当日出发
+					{
+						if (ttemp->time_departure - start_time + ttemp->time_consumed < time)
+						{
+							changeto = ttemp;
+							mincost = ttemp->cost;
+							time = ttemp->time_departure - start_time + ttemp->time_consumed;
+						}
+					}
+					else
+						//次日出发
+					{
+						if (ttemp->time_departure + 24 - start_time + ttemp->time_consumed < time)
+						{
+							changeto = ttemp;
+							mincost = ttemp->cost;
+							time = ttemp->time_departure + 24 - start_time + ttemp->time_consumed;
+						}
+					}
+				}
+				
+				ttemp = ttemp->nextPtr;
+			}
+			//暂存可能替换的结点的信息
+			if (changeto != NULL && changeto != beforenode)
+			{
+				salve = beforenode->cost - changeto->cost;
+				changenode = temp;
+				pre = temp;
+				before = beforenode;
+				now = changeto;
+			}
+		}
+		//处理后续路段
+		temp = temp->next;
+		i++;
+		while (temp != NULL)
+		{
+			if (Fastest[i] == false)
+			{
+
+			}
+
+			temp = temp->next;
+			i++;
+		}
+
+		//替换
+
+
+
+		//计算时间是否合格
+
+
+		//处理Fastest
+
+
+	}
+
+	return OK;
+}
+
 //旅客限制时间最小花费旅行策略
 Status Min_Time_Limited_Time()
 {
