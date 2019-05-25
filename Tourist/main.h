@@ -116,6 +116,7 @@ typedef struct pathnode
 	int number;//旅行者搭乘的车次
 	SYSTEM_TIME start_time;//开始时间
 	int time;//耗费时间
+	int cost;//花费
 	struct pathnode *next;
 }PathNode, *PATH;
 
@@ -151,6 +152,7 @@ int pass_by_time(int V);
 void Permutation(int k, int n, int a[], int **A);
 void Freememory(void);
 int Calculate_Time(PATH tour);
+int Calculate_Cost(PATH tour);
 
 
 

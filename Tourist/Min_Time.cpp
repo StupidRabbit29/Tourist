@@ -335,6 +335,7 @@ Status Finish_Path(PATH tour)
 		
 		temp->start_time.hour = trans->time_departure;//旅客出发时间为对应交通工具出发时间
 		temp->time = trans->time_consumed;//旅程耗费时间等于交通工具耗时
+		temp->cost = trans->cost;
 		//确定出发日期
 		//int inter = pre->start_time.hour + pre->time + wait;
 		if ((arrive_pre+wait)%24 > trans->time_departure)
@@ -451,6 +452,9 @@ Status Min_Time()
 	//补全路线链表中的内容
 	Finish_Path(tour);
 	
+	cout << "旅途总时长：" << Calculate_Time(tour) << endl
+		<< "旅途总花费：" << Calculate_Cost(tour) << endl;
+
 	Output_route(tour);
 	Write_route_file(tour);
 

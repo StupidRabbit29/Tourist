@@ -290,6 +290,9 @@ void Min_Cost()
 		//补全路线链表中的内容
 		Finish_Path(headptr);
 
+		cout << "旅途总时长：" << Calculate_Time(headptr) << endl
+			<< "旅途总花费：" << Calculate_Cost(headptr) << endl;
+
 		Output_route(headptr);
 		Write_route_file(headptr);
 

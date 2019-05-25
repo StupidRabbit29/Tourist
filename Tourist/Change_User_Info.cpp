@@ -16,17 +16,18 @@ void Change_User_Info(PASSENGER &psg)
 	//判断旅客是否到达终点
 	
 	fprintf(fptr_input, "ID：%s  更改旅行计划\n", psg.ID);//用户输入写入input.txt文件
-
-	/*修改旅客信息及策略*/
-	/*修改起点为目前城市*/
-	psg.src = psg.status.dest;
+	
+	//判断旅客位置
 	if (psg.status.loca == STAY_IN_CITY)
 	{
+		psg.src = psg.status.src;/*修改起点为目前城市*/
 		psg.start_time = System_Time;
 		WritePrivateProfileSectionA(psg.ID, "", ".\\User_Route.ini");
 	}
-	else
+	else if(psg.status.loca != ARRIVE)
 	{
+		psg.src = psg.status.dest;
+
 		PASSENGER *temp = Passengers;
 		int touristnum = 0;
 		while (temp != NULL)
@@ -44,8 +45,7 @@ void Change_User_Info(PASSENGER &psg)
 
 		GetPrivateProfileStructA(psg.ID, str1, &cur, sizeof(PathNode), ".\\User_Route.ini");
 
-		int hours = cur.time-((System_Time.year - cur.start_time.year) * 360 * 24 + (System_Time.month - cur.start_time.month) * 30 * 24 +
-			(System_Time.date - cur.start_time.date) * 24 + (System_Time.hour - cur.start_time.hour));
+		int hours = cur.time-(System_Time-cur.start_time);
 
 		psg.start_time = System_Time + hours;
 
@@ -56,7 +56,10 @@ void Change_User_Info(PASSENGER &psg)
 
 		Travelstate[touristnum] = 1;
 	}
+	else
+		psg.src = psg.status.dest;
 
+	/*修改旅客信息及策略*/
 	int choice;
 	cout << "是否更改终点（Y=1/N=0）：";
 	scanf_s("%d",&choice);

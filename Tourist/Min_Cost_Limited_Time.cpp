@@ -233,6 +233,18 @@ int Calculate_Time(PATH tour)
 	//返回旅程花费的总时间
 	return (temp->start_time - User->start_time) + temp->time;
 }
+int Calculate_Cost(PATH tour)
+{
+	int cost = 0;
+	PATH temp = tour;
+	while (temp->next != NULL)
+	{
+		cost += temp->cost;
+		temp = temp->next;
+	}
+
+	return cost;
+}
 
 Status Limited_Time(PATH tour)
 {
@@ -240,7 +252,7 @@ Status Limited_Time(PATH tour)
 	int pcity_num = User->num_passby;
 	Ptr_trans_t_Node *citynode = new Ptr_trans_t_Node[pcity_num + 1];
 	bool *Fastest = new bool[pcity_num + 1]{ false };
-	int start_time = User->start_time.hour;
+	//int start_time = User->start_time.hour;
 
 	PATH temp = tour;
 	for (int i = 0; i < pcity_num + 1; i++)
@@ -252,103 +264,127 @@ Status Limited_Time(PATH tour)
 	//将旅程中的旅行结点逐渐替换为更快的旅行方式
 	int time = Calculate_Time(tour);
 
-	if (time < User->Time_Limited)
+	if (time <= User->Time_Limited)
 		return ERROR;
 
 	while (true)
 	{
-		int salve = MY_INFINITE;//可节省的时间
+		int salve = MY_INFINITE;//本次替换可节省的时间
 		PATH changenode = NULL;//本次替换的结点
 		PATH pre = NULL;//前一结点
 		Ptr_trans_t_Node before = NULL;//替换前的交通工具
 		Ptr_trans_t_Node now = NULL;//替换后的交通工具
+		int start_time;
 
 		//寻找替换结点
 		temp = tour;
 		int i = 0;
-		//先处理第一段路线
-		if (Fastest[i] == false)
-		{
-			int cost = 0;//本路段原花费
-			int mincost = MY_INFINITE;//比原花费大的最小花费
-			int time = (temp->start_time - User->start_time) + temp->time;//本路段耗时
-			Ptr_trans_t_Node ttemp = citynode[i];//遍历交通工具用
-			Ptr_trans_t_Node beforenode;//替换前的交通工具
-			Ptr_trans_t_Node changeto = NULL;//将要替换为的交通工具
-			while (true)
-			{
-				if (ttemp->number != temp->number)
-					ttemp = ttemp->nextPtr;
-				else
-				{
-					beforenode = ttemp;
-					ttemp = citynode[i];
-					break;
-				}
-			}
-			cost = beforenode->cost;
-			while (ttemp != NULL)
-			{
-				if (ttemp->number != temp->number && ttemp->cost <= mincost && ttemp->cost>=cost)
-				{
-					if (ttemp->time_departure >= start_time)
-						//当日出发
-					{
-						if (ttemp->time_departure - start_time + ttemp->time_consumed < time)
-						{
-							changeto = ttemp;
-							mincost = ttemp->cost;
-							time = ttemp->time_departure - start_time + ttemp->time_consumed;
-						}
-					}
-					else
-						//次日出发
-					{
-						if (ttemp->time_departure + 24 - start_time + ttemp->time_consumed < time)
-						{
-							changeto = ttemp;
-							mincost = ttemp->cost;
-							time = ttemp->time_departure + 24 - start_time + ttemp->time_consumed;
-						}
-					}
-				}
-				
-				ttemp = ttemp->nextPtr;
-			}
-			//暂存可能替换的结点的信息
-			if (changeto != NULL && changeto != beforenode)
-			{
-				salve = beforenode->cost - changeto->cost;
-				changenode = temp;
-				pre = temp;
-				before = beforenode;
-				now = changeto;
-			}
-		}
-		//处理后续路段
-		temp = temp->next;
-		i++;
+		
+		//遍历所有路段
 		while (temp != NULL)
 		{
 			if (Fastest[i] == false)
 			{
+				int cost = 0;//本路段原花费
+				int mincost = MY_INFINITE;//比原花费大的最小花费
+				start_time = (pre == NULL ? User->start_time.hour : (pre->start_time.hour + pre->time)%24);
+				int time;
+				if(pre==NULL)//本路段耗时
+					time = (temp->start_time - User->start_time) + temp->time;
+				else
+					time = (temp->start_time - pre->start_time) + temp->time - pre->time;
+				Ptr_trans_t_Node ttemp = citynode[i];//遍历交通工具用
+				Ptr_trans_t_Node beforenode;//替换前的交通工具
+				Ptr_trans_t_Node changeto = NULL;//将要替换为的交通工具
+				//找到原交通工具
+				while (true)
+				{
+					if (ttemp->number != temp->number)
+						ttemp = ttemp->nextPtr;
+					else
+					{
+						beforenode = ttemp;
+						ttemp = citynode[i];
+						break;
+					}
+				}
+				cost = beforenode->cost;
 
+				//逐个查看可选交通工具，是否更快，且价格增长较小
+				int passtime = pass_by_time(temp->src);
+				while (ttemp != NULL)
+				{
+					if (ttemp->number != temp->number && ttemp->cost <= mincost && ttemp->cost >= cost)
+					{
+						if (ttemp->time_departure >= (start_time+passtime)%24)
+							//当日出发
+						{
+							if (ttemp->time_departure - (start_time + passtime) % 24 + ttemp->time_consumed + passtime< time)
+							{
+								changeto = ttemp;
+								mincost = ttemp->cost;
+								//time = ttemp->time_departure - (pre == NULL ? start_time : (pre->start_time.hour + pre->time)) + ttemp->time_consumed + passtime;
+							}
+						}
+						else
+							//次日出发
+						{
+							if (ttemp->time_departure + 24 - (start_time + passtime) % 24 + ttemp->time_consumed + passtime< time)
+							{
+								changeto = ttemp;
+								mincost = ttemp->cost;
+								//time = ttemp->time_departure + 24 - (pre == NULL ? start_time : (pre->start_time.hour + pre->time)) + ttemp->time_consumed + passtime;
+							}
+						}
+					}
+
+					ttemp = ttemp->nextPtr;
+				}
+				//暂存可能替换的结点的信息
+				if (changeto != NULL && changeto != beforenode)
+				{
+					if (salve > changeto->cost - beforenode->cost)
+					{
+						salve = changeto->cost - beforenode->cost;
+						changenode = temp;
+						before = beforenode;
+						now = changeto;
+					}
+				}
+
+				if (changeto == NULL)
+					Fastest[i] = true;
 			}
 
+			pre = temp;
 			temp = temp->next;
 			i++;
 		}
 
 		//替换
-
-
-
+		if (now != NULL)
+		{
+			changenode->number = now->number;
+			Finish_Path(tour);
+		}
+		
 		//计算时间是否合格
+		int time = Calculate_Time(tour);
 
+		if (time <= User->Time_Limited)
+			break;
 
 		//处理Fastest
+		bool finish = true;
+		for (int i = 0; i < pcity_num + 1; i++)
+			if (Fastest[i] == false)
+				finish = false;
 
-
+		if (finish == true)
+		{
+			cout << "未找到路线！" << endl;
+			break;
+		}
 	}
 
 	return OK;
@@ -420,6 +456,12 @@ Status Min_Time_Limited_Time()
 
 	//补全路线链表中的内容
 	Finish_Path(tour);
+
+	if (Calculate_Time(tour) > User->Time_Limited)
+		Limited_Time(tour);
+
+	cout << "旅途总时长：" << Calculate_Time(tour) << endl
+		<< "旅途总花费：" << Calculate_Cost(tour) << endl;
 
 	Output_route(tour);
 	Write_route_file(tour);
