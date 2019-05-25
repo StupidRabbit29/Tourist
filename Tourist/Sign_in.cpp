@@ -120,7 +120,7 @@ Status Output_Status(PASSENGER *psg)
 	if (psg->status.loca != STAY_IN_CITY)
 		sprintf(str2, "%s\t%s  ==》 %s", psg->status.name, city_graph.City_Name[psg->status.src], city_graph.City_Name[psg->status.dest]);
 	else
-		sprintf(str2, "%s", psg->status.name);
+		sprintf(str2, "%s", city_graph.City_Name[psg->status.src]);
 	printf("%s\n", str2);
 
 	return OK;
