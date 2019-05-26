@@ -2,11 +2,11 @@
 #include<windows.h>
 #include<process.h>
 
-SYSTEM_TIME System_Time;
+SYSTEM_TIME System_Time;//系统时间
 extern bool Quit;
 extern GRAPH city_graph;
 extern PASSENGER *Passengers;
-bool inputing = false;
+bool inputing = false;//暂停系统时间标志
 
 //假定最多10个旅客，缓存每个旅客的当前旅行到的第几个城市
 int Travelstate[10] = { 0 };

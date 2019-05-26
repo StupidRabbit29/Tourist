@@ -6,8 +6,6 @@ extern FILE *fptr_input;
 extern SYSTEM_TIME System_Time;
 extern int Travelstate[10];
 extern PASSENGER *Passengers;
-void Min_Cost();
-Status Min_Time();
 
 void Change_User_Info(PASSENGER &psg)
 {

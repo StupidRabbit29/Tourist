@@ -2,7 +2,7 @@
 #include<windows.h>
 #include<process.h>
 
-bool Quit = false;
+bool Quit = false;//退出系统
 extern SYSTEM_TIME System_Time;
 
 int main()

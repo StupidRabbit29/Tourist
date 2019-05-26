@@ -2,7 +2,7 @@
 //准备函数，读取地图函数，读取航班表函数，时间线程函数
 
 /*全局变量*/
-GRAPH city_graph = { NULL, 0, NULL };
+GRAPH city_graph = { NULL, 0, NULL };//地图
 FILE *fptr_input;//日志文件，记录用户输入信息
 extern PASSENGER *Passengers;
 extern SYSTEM_TIME System_Time;

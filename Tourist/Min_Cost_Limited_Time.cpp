@@ -1,29 +1,29 @@
-#include"main.h"
+ï»¿#include"main.h"
 
 extern int countP;
 extern GRAPH city_graph;
 extern PASSENGER *User;
 extern char *Vehicle_Name[3];
 
-//¼ÆËã¸ø¶¨Á½¸ö³ÇÊĞ¼äµÄ×î¶ÌÂ·¾¶
+//è®¡ç®—ç»™å®šä¸¤ä¸ªåŸå¸‚é—´çš„æœ€çŸ­è·¯å¾„
 Status Dijkstra_For_Min_Cost_Limited_Time(int src, int dest, int& cost)
 {
-	/*³õÊ¼»¯*/
-	bool collected[MAX_NODE_NUM] = { false };//µãÊÇ·ñ±»È·ÈÏ×î¶Ì¾àÀë
-	int dist[MAX_NODE_NUM];//¸÷³ÇÊĞµ½ÆğµãµÄ¾àÀë
+	/*åˆå§‹åŒ–*/
+	bool collected[MAX_NODE_NUM] = { false };//ç‚¹æ˜¯å¦è¢«ç¡®è®¤æœ€çŸ­è·ç¦»
+	int dist[MAX_NODE_NUM];//å„åŸå¸‚åˆ°èµ·ç‚¹çš„è·ç¦»
 
-	//ÊÕÂ¼Æğµãsrc
+	//æ”¶å½•èµ·ç‚¹src
 	dist[src] = 0;
 	collected[src] = true;
 
-	//³õÊ¼»¯distÊı×é
+	//åˆå§‹åŒ–distæ•°ç»„
 	for (int i = 0; i < city_graph.Graph_size; i++)
 	{
 		if (i == src)
 			continue;
 
 		int min = MY_INFINITE;
-		//±éÀúÁ½¸ö³ÇÊĞ¼äµÄº½°à±í£¬ÕÒµ½×î¿ìµÄÍ¨ĞĞ·½Ê½
+		//éå†ä¸¤ä¸ªåŸå¸‚é—´çš„èˆªç­è¡¨ï¼Œæ‰¾åˆ°æœ€å¿«çš„é€šè¡Œæ–¹å¼
 		Ptr_trans_t_Node temp = city_graph.pp_G[src][i].p_TransTable;
 		while (temp)
 		{
@@ -33,10 +33,10 @@ Status Dijkstra_For_Min_Cost_Limited_Time(int src, int dest, int& cost)
 			temp = temp->nextPtr;
 		}
 
-		if (min < MY_INFINITE) //½« ´Ósrc³öµÄ±ß¸³Öµ
+		if (min < MY_INFINITE) //å°† ä»srcå‡ºçš„è¾¹èµ‹å€¼
 			dist[i] = min;
 		else
-			dist[i] = MY_INFINITE;//½«distÊı×éÔªËØ³õÊ¼»¯ÎªÎŞÇî;¶ÔÎ´±»ÊÕÂ¼µÄ£¬dist[v]ÎªÆğµãµ½Ô´µãµÄ×î¶Ì¾àÀë
+			dist[i] = MY_INFINITE;//å°†distæ•°ç»„å…ƒç´ åˆå§‹åŒ–ä¸ºæ— ç©·;å¯¹æœªè¢«æ”¶å½•çš„ï¼Œdist[v]ä¸ºèµ·ç‚¹åˆ°æºç‚¹çš„æœ€çŸ­è·ç¦»
 
 	}
 
@@ -45,10 +45,10 @@ Status Dijkstra_For_Min_Cost_Limited_Time(int src, int dest, int& cost)
 	int minV, mindist;
 	while (!collected[dest])
 	{
-		/*ÊÕÂ¼Î´ÊÕÂ¼¶¥µãÖĞdist×îĞ¡Õß*/
+		/*æ”¶å½•æœªæ”¶å½•é¡¶ç‚¹ä¸­distæœ€å°è€…*/
 		mindist = MY_INFINITE;
 		minV = -1;
-		for (int V = 0; V < city_graph.Graph_size; V++)//±éÀúdistÊı×é£¬ÕÒµ½dist×îĞ¡µÄ½Úµã
+		for (int V = 0; V < city_graph.Graph_size; V++)//éå†distæ•°ç»„ï¼Œæ‰¾åˆ°distæœ€å°çš„èŠ‚ç‚¹
 		{
 			if (collected[V] == false)
 			{
@@ -60,19 +60,19 @@ Status Dijkstra_For_Min_Cost_Limited_Time(int src, int dest, int& cost)
 			}
 		}
 
-		if (minV == -1) break;//ÈôÕâÑùµÄ¶¥µã²»´æÔÚ£¬break£¨ÒÑÊÕÂ¼ËùÓĞ¶¥µã»òÍ¼²»Á¬Í¨£©
+		if (minV == -1) break;//è‹¥è¿™æ ·çš„é¡¶ç‚¹ä¸å­˜åœ¨ï¼Œbreakï¼ˆå·²æ”¶å½•æ‰€æœ‰é¡¶ç‚¹æˆ–å›¾ä¸è¿é€šï¼‰
 
-		V = minV;//ÊÕÂ¼¸Ã×îĞ¡dist¶¥µã
+		V = minV;//æ”¶å½•è¯¥æœ€å°disté¡¶ç‚¹
 		collected[V] = true;
 
-		/*¸üĞÂdistºÍpath*/
+		/*æ›´æ–°distå’Œpath*/
 		for (int W = 0; W < city_graph.Graph_size; W++)
 		{
 			if (collected[W] == false && city_graph.pp_G[V][W].p_TransTable)
 			{
 				int min = MY_INFINITE;
 				Ptr_trans_t_Node temp = city_graph.pp_G[V][W].p_TransTable;
-				while (temp)//±éÀúVµ½WµÄËùÓĞ½»Í¨·½Ê½£¬Ñ°ÕÒÊ±¼ä×î¶ÌµÄÒ»ÖÖ
+				while (temp)//éå†Våˆ°Wçš„æ‰€æœ‰äº¤é€šæ–¹å¼ï¼Œå¯»æ‰¾æ—¶é—´æœ€çŸ­çš„ä¸€ç§
 				{
 					if (temp->cost < min)
 						min = temp->cost;
@@ -80,8 +80,8 @@ Status Dijkstra_For_Min_Cost_Limited_Time(int src, int dest, int& cost)
 					temp = temp->nextPtr;
 				}
 
-				if (dist[V] + min < dist[W])//Èç¹ûVµ½WÓĞÒ»Ìõ¸ü¶ÌµÄ±ß ²¢ÇÒW½ÚµãÎ´±»ÊÕÂ¼µ½pathÖĞ
-					dist[W] = dist[V] + min;//Æğµãµ½WµÄ¾àÀëµÈÓÚÆğµãµ½WµÄ¾àÀë+VW±ßµÄ¾àÀë
+				if (dist[V] + min < dist[W])//å¦‚æœVåˆ°Wæœ‰ä¸€æ¡æ›´çŸ­çš„è¾¹ å¹¶ä¸”WèŠ‚ç‚¹æœªè¢«æ”¶å½•åˆ°pathä¸­
+					dist[W] = dist[V] + min;//èµ·ç‚¹åˆ°Wçš„è·ç¦»ç­‰äºèµ·ç‚¹åˆ°Wçš„è·ç¦»+VWè¾¹çš„è·ç¦»
 			}
 		}
 	}
@@ -90,19 +90,19 @@ Status Dijkstra_For_Min_Cost_Limited_Time(int src, int dest, int& cost)
 	return OK;
 }
 
-//¼ÆËã¸ø¶¨Á½¸ö³ÇÊĞ¼äµÄ×î¶ÌÂ·¾¶£¬ÖØÔØ£¬¼ÇÂ¼Â·¾¶
+//è®¡ç®—ç»™å®šä¸¤ä¸ªåŸå¸‚é—´çš„æœ€çŸ­è·¯å¾„ï¼Œé‡è½½ï¼Œè®°å½•è·¯å¾„
 Status Dijkstra_For_Min_Cost_Limited_Time(int src, int dest, PATH& tourend, int& cost)
 {
-	/*³õÊ¼»¯*/
-	bool collected[MAX_NODE_NUM] = { false };//µãÊÇ·ñ±»È·ÈÏ×î¶Ì¾àÀë
-	int dist[MAX_NODE_NUM];//¸÷³ÇÊĞµ½ÆğµãµÄ¾àÀë
-	int path[MAX_NODE_NUM][2];//path[0]´æ³ÇÊĞ£¬¼ÇÂ¼Â·¾¶, path[1]´æ²»Í¬³ÇÊĞ¼äµÄÂÃĞĞ³µ´Î
+	/*åˆå§‹åŒ–*/
+	bool collected[MAX_NODE_NUM] = { false };//ç‚¹æ˜¯å¦è¢«ç¡®è®¤æœ€çŸ­è·ç¦»
+	int dist[MAX_NODE_NUM];//å„åŸå¸‚åˆ°èµ·ç‚¹çš„è·ç¦»
+	int path[MAX_NODE_NUM][2];//path[0]å­˜åŸå¸‚ï¼Œè®°å½•è·¯å¾„, path[1]å­˜ä¸åŒåŸå¸‚é—´çš„æ—…è¡Œè½¦æ¬¡
 
-	//ÊÕÂ¼Æğµãsrc
+	//æ”¶å½•èµ·ç‚¹src
 	dist[src] = 0;
 	collected[src] = true;
 
-	//³õÊ¼»¯distºÍpathÊı×é
+	//åˆå§‹åŒ–distå’Œpathæ•°ç»„
 	for (int i = 0; i < city_graph.Graph_size; i++)
 	{
 		if (i == src)
@@ -110,7 +110,7 @@ Status Dijkstra_For_Min_Cost_Limited_Time(int src, int dest, PATH& tourend, int&
 
 		int min = MY_INFINITE;
 		int number = 0;
-		//±éÀúÁ½¸ö³ÇÊĞ¼äµÄº½°à±í£¬ÕÒµ½×î¿ìµÄÍ¨ĞĞ·½Ê½
+		//éå†ä¸¤ä¸ªåŸå¸‚é—´çš„èˆªç­è¡¨ï¼Œæ‰¾åˆ°æœ€å¿«çš„é€šè¡Œæ–¹å¼
 		Ptr_trans_t_Node temp = city_graph.pp_G[src][i].p_TransTable;
 		int Passtime = pass_by_time(src);
 		while (temp)
@@ -124,7 +124,7 @@ Status Dijkstra_For_Min_Cost_Limited_Time(int src, int dest, PATH& tourend, int&
 			temp = temp->nextPtr;
 		}
 
-		if (min < MY_INFINITE) //½« ´Ósrc³öµÄ±ß¸³Öµ
+		if (min < MY_INFINITE) //å°† ä»srcå‡ºçš„è¾¹èµ‹å€¼
 		{
 			dist[i] = min;
 			path[i][0] = src;
@@ -132,8 +132,8 @@ Status Dijkstra_For_Min_Cost_Limited_Time(int src, int dest, PATH& tourend, int&
 		}
 		else
 		{
-			dist[i] = MY_INFINITE;//½«distÊı×éÔªËØ³õÊ¼»¯ÎªÎŞÇî;¶ÔÎ´±»ÊÕÂ¼µÄ£¬dist[v]ÎªÆğµãµ½Ô´µãµÄ×î¶Ì¾àÀë
-			path[i][0] = -1;//½«pathÊı×éÔªËØ³õÊ¼»¯Îª-1£¬pathÊı×éÔªËØÎªÆğµãµ½½ÚµãiµÄÂ·¾¶µÄÉÏÒ»¸ö½Úµã
+			dist[i] = MY_INFINITE;//å°†distæ•°ç»„å…ƒç´ åˆå§‹åŒ–ä¸ºæ— ç©·;å¯¹æœªè¢«æ”¶å½•çš„ï¼Œdist[v]ä¸ºèµ·ç‚¹åˆ°æºç‚¹çš„æœ€çŸ­è·ç¦»
+			path[i][0] = -1;//å°†pathæ•°ç»„å…ƒç´ åˆå§‹åŒ–ä¸º-1ï¼Œpathæ•°ç»„å…ƒç´ ä¸ºèµ·ç‚¹åˆ°èŠ‚ç‚¹içš„è·¯å¾„çš„ä¸Šä¸€ä¸ªèŠ‚ç‚¹
 		}
 	}
 
@@ -142,10 +142,10 @@ Status Dijkstra_For_Min_Cost_Limited_Time(int src, int dest, PATH& tourend, int&
 	int minV, mindist;
 	while (!collected[dest])
 	{
-		/*ÊÕÂ¼Î´ÊÕÂ¼¶¥µãÖĞdist×îĞ¡Õß*/
+		/*æ”¶å½•æœªæ”¶å½•é¡¶ç‚¹ä¸­distæœ€å°è€…*/
 		mindist = MY_INFINITE;
 		minV = -1;
-		for (int V = 0; V < city_graph.Graph_size; V++)//±éÀúdistÊı×é£¬ÕÒµ½dist×îĞ¡µÄ½Úµã
+		for (int V = 0; V < city_graph.Graph_size; V++)//éå†distæ•°ç»„ï¼Œæ‰¾åˆ°distæœ€å°çš„èŠ‚ç‚¹
 		{
 			if (collected[V] == false)
 			{
@@ -157,12 +157,12 @@ Status Dijkstra_For_Min_Cost_Limited_Time(int src, int dest, PATH& tourend, int&
 			}
 		}
 
-		if (minV == -1) break;//ÈôÕâÑùµÄ¶¥µã²»´æÔÚ£¬break£¨ÒÑÊÕÂ¼ËùÓĞ¶¥µã»òÍ¼²»Á¬Í¨£©
+		if (minV == -1) break;//è‹¥è¿™æ ·çš„é¡¶ç‚¹ä¸å­˜åœ¨ï¼Œbreakï¼ˆå·²æ”¶å½•æ‰€æœ‰é¡¶ç‚¹æˆ–å›¾ä¸è¿é€šï¼‰
 
-		V = minV;//ÊÕÂ¼¸Ã×îĞ¡dist¶¥µã
+		V = minV;//æ”¶å½•è¯¥æœ€å°disté¡¶ç‚¹
 		collected[V] = true;
 
-		/*¸üĞÂdistºÍpath*/
+		/*æ›´æ–°distå’Œpath*/
 		for (int W = 0; W < city_graph.Graph_size; W++)
 		{
 			if (collected[W] == false && city_graph.pp_G[V][W].p_TransTable)
@@ -170,7 +170,7 @@ Status Dijkstra_For_Min_Cost_Limited_Time(int src, int dest, PATH& tourend, int&
 				int min = MY_INFINITE;
 				int number = 0;
 				Ptr_trans_t_Node temp = city_graph.pp_G[V][W].p_TransTable;
-				while (temp)//±éÀúVµ½WµÄËùÓĞ½»Í¨·½Ê½£¬Ñ°ÕÒÊ±¼ä×î¶ÌµÄÒ»ÖÖ
+				while (temp)//éå†Våˆ°Wçš„æ‰€æœ‰äº¤é€šæ–¹å¼ï¼Œå¯»æ‰¾æ—¶é—´æœ€çŸ­çš„ä¸€ç§
 				{
 					if (temp->cost < min)
 					{
@@ -181,10 +181,10 @@ Status Dijkstra_For_Min_Cost_Limited_Time(int src, int dest, PATH& tourend, int&
 					temp = temp->nextPtr;
 				}
 
-				if (dist[V] + min < dist[W])//Èç¹ûVµ½WÓĞÒ»Ìõ¸ü¶ÌµÄ±ß ²¢ÇÒW½ÚµãÎ´±»ÊÕÂ¼µ½pathÖĞ
+				if (dist[V] + min < dist[W])//å¦‚æœVåˆ°Wæœ‰ä¸€æ¡æ›´çŸ­çš„è¾¹ å¹¶ä¸”WèŠ‚ç‚¹æœªè¢«æ”¶å½•åˆ°pathä¸­
 				{
-					dist[W] = dist[V] + min;//Æğµãµ½WµÄ¾àÀëµÈÓÚÆğµãµ½WµÄ¾àÀë+VW±ßµÄ¾àÀë
-					path[W][0] = V;//Â·¾¶ÖĞWµÄÉÏÒ»¸ö½ÚµãÊÇV
+					dist[W] = dist[V] + min;//èµ·ç‚¹åˆ°Wçš„è·ç¦»ç­‰äºèµ·ç‚¹åˆ°Wçš„è·ç¦»+VWè¾¹çš„è·ç¦»
+					path[W][0] = V;//è·¯å¾„ä¸­Wçš„ä¸Šä¸€ä¸ªèŠ‚ç‚¹æ˜¯V
 					path[W][1] = number;
 				}
 			}
@@ -195,7 +195,7 @@ Status Dijkstra_For_Min_Cost_Limited_Time(int src, int dest, PATH& tourend, int&
 	V = dest;
 
 	PATH next = NULL;
-	//½«¸÷¶Î±ßÌí¼Óµ½ÂÃ¿ÍµÄÂÃĞĞÏßÂ·ÖĞ
+	//å°†å„æ®µè¾¹æ·»åŠ åˆ°æ—…å®¢çš„æ—…è¡Œçº¿è·¯ä¸­
 	while (V != src)
 	{
 		PATH temp = new PathNode;
@@ -230,7 +230,7 @@ int Calculate_Time(PATH tour)
 	while (temp->next != NULL)
 		temp = temp->next;
 	
-	//·µ»ØÂÃ³Ì»¨·ÑµÄ×ÜÊ±¼ä
+	//è¿”å›æ—…ç¨‹èŠ±è´¹çš„æ€»æ—¶é—´
 	return (temp->start_time - User->start_time) + temp->time;
 }
 int Calculate_Cost(PATH tour)
@@ -248,7 +248,7 @@ int Calculate_Cost(PATH tour)
 
 Status Limited_Time(PATH tour)
 {
-	//³õÊ¼»¯±äÁ¿
+	//åˆå§‹åŒ–å˜é‡
 	int pcity_num = User->num_passby;
 	Ptr_trans_t_Node *citynode = new Ptr_trans_t_Node[pcity_num + 1];
 	bool *Fastest = new bool[pcity_num + 1]{ false };
@@ -261,7 +261,7 @@ Status Limited_Time(PATH tour)
 		temp = temp->next;
 	}
 
-	//½«ÂÃ³ÌÖĞµÄÂÃĞĞ½áµãÖğ½¥Ìæ»»Îª¸ü¿ìµÄÂÃĞĞ·½Ê½
+	//å°†æ—…ç¨‹ä¸­çš„æ—…è¡Œç»“ç‚¹é€æ¸æ›¿æ¢ä¸ºæ›´å¿«çš„æ—…è¡Œæ–¹å¼
 	int time = Calculate_Time(tour);
 
 	if (time <= User->Time_Limited)
@@ -269,34 +269,34 @@ Status Limited_Time(PATH tour)
 
 	while (true)
 	{
-		int salve = MY_INFINITE;//±¾´ÎÌæ»»¿É½ÚÊ¡µÄÊ±¼ä
-		PATH changenode = NULL;//±¾´ÎÌæ»»µÄ½áµã
-		PATH pre = NULL;//Ç°Ò»½áµã
-		Ptr_trans_t_Node before = NULL;//Ìæ»»Ç°µÄ½»Í¨¹¤¾ß
-		Ptr_trans_t_Node now = NULL;//Ìæ»»ºóµÄ½»Í¨¹¤¾ß
+		int salve = MY_INFINITE;//æœ¬æ¬¡æ›¿æ¢å¯èŠ‚çœçš„æ—¶é—´
+		PATH changenode = NULL;//æœ¬æ¬¡æ›¿æ¢çš„ç»“ç‚¹
+		PATH pre = NULL;//å‰ä¸€ç»“ç‚¹
+		Ptr_trans_t_Node before = NULL;//æ›¿æ¢å‰çš„äº¤é€šå·¥å…·
+		Ptr_trans_t_Node now = NULL;//æ›¿æ¢åçš„äº¤é€šå·¥å…·
 		int start_time;
 
-		//Ñ°ÕÒÌæ»»½áµã
+		//å¯»æ‰¾æ›¿æ¢ç»“ç‚¹
 		temp = tour;
 		int i = 0;
 		
-		//±éÀúËùÓĞÂ·¶Î
+		//éå†æ‰€æœ‰è·¯æ®µ
 		while (temp != NULL)
 		{
 			if (Fastest[i] == false)
 			{
-				int cost = 0;//±¾Â·¶ÎÔ­»¨·Ñ
-				int mincost = MY_INFINITE;//±ÈÔ­»¨·Ñ´óµÄ×îĞ¡»¨·Ñ
+				int cost = 0;//æœ¬è·¯æ®µåŸèŠ±è´¹
+				int mincost = MY_INFINITE;//æ¯”åŸèŠ±è´¹å¤§çš„æœ€å°èŠ±è´¹
 				start_time = (pre == NULL ? User->start_time.hour : (pre->start_time.hour + pre->time)%24);
 				int time;
-				if(pre==NULL)//±¾Â·¶ÎºÄÊ±
+				if(pre==NULL)//æœ¬è·¯æ®µè€—æ—¶
 					time = (temp->start_time - User->start_time) + temp->time;
 				else
 					time = (temp->start_time - pre->start_time) + temp->time - pre->time;
-				Ptr_trans_t_Node ttemp = citynode[i];//±éÀú½»Í¨¹¤¾ßÓÃ
-				Ptr_trans_t_Node beforenode;//Ìæ»»Ç°µÄ½»Í¨¹¤¾ß
-				Ptr_trans_t_Node changeto = NULL;//½«ÒªÌæ»»ÎªµÄ½»Í¨¹¤¾ß
-				//ÕÒµ½Ô­½»Í¨¹¤¾ß
+				Ptr_trans_t_Node ttemp = citynode[i];//éå†äº¤é€šå·¥å…·ç”¨
+				Ptr_trans_t_Node beforenode;//æ›¿æ¢å‰çš„äº¤é€šå·¥å…·
+				Ptr_trans_t_Node changeto = NULL;//å°†è¦æ›¿æ¢ä¸ºçš„äº¤é€šå·¥å…·
+				//æ‰¾åˆ°åŸäº¤é€šå·¥å…·
 				while (true)
 				{
 					if (ttemp->number != temp->number)
@@ -310,14 +310,14 @@ Status Limited_Time(PATH tour)
 				}
 				cost = beforenode->cost;
 
-				//Öğ¸ö²é¿´¿ÉÑ¡½»Í¨¹¤¾ß£¬ÊÇ·ñ¸ü¿ì£¬ÇÒ¼Û¸ñÔö³¤½ÏĞ¡
+				//é€ä¸ªæŸ¥çœ‹å¯é€‰äº¤é€šå·¥å…·ï¼Œæ˜¯å¦æ›´å¿«ï¼Œä¸”ä»·æ ¼å¢é•¿è¾ƒå°
 				int passtime = pass_by_time(temp->src);
 				while (ttemp != NULL)
 				{
 					if (ttemp->number != temp->number && ttemp->cost <= mincost && ttemp->cost >= cost)
 					{
 						if (ttemp->time_departure >= (start_time+passtime)%24)
-							//µ±ÈÕ³ö·¢
+							//å½“æ—¥å‡ºå‘
 						{
 							if (ttemp->time_departure - (start_time + passtime) % 24 + ttemp->time_consumed + passtime< time)
 							{
@@ -327,7 +327,7 @@ Status Limited_Time(PATH tour)
 							}
 						}
 						else
-							//´ÎÈÕ³ö·¢
+							//æ¬¡æ—¥å‡ºå‘
 						{
 							if (ttemp->time_departure + 24 - (start_time + passtime) % 24 + ttemp->time_consumed + passtime< time)
 							{
@@ -340,7 +340,7 @@ Status Limited_Time(PATH tour)
 
 					ttemp = ttemp->nextPtr;
 				}
-				//Ôİ´æ¿ÉÄÜÌæ»»µÄ½áµãµÄĞÅÏ¢
+				//æš‚å­˜å¯èƒ½æ›¿æ¢çš„ç»“ç‚¹çš„ä¿¡æ¯
 				if (changeto != NULL && changeto != beforenode)
 				{
 					if (salve > changeto->cost - beforenode->cost)
@@ -361,20 +361,20 @@ Status Limited_Time(PATH tour)
 			i++;
 		}
 
-		//Ìæ»»
+		//æ›¿æ¢
 		if (now != NULL)
 		{
 			changenode->number = now->number;
 			Finish_Path(tour);
 		}
 		
-		//¼ÆËãÊ±¼äÊÇ·ñºÏ¸ñ
+		//è®¡ç®—æ—¶é—´æ˜¯å¦åˆæ ¼
 		int time = Calculate_Time(tour);
 
 		if (time <= User->Time_Limited)
 			break;
 
-		//´¦ÀíFastest
+		//å¤„ç†Fastest
 		bool finish = true;
 		for (int i = 0; i < pcity_num + 1; i++)
 			if (Fastest[i] == false)
@@ -382,7 +382,7 @@ Status Limited_Time(PATH tour)
 
 		if (finish == true)
 		{
-			cout << "Î´ÕÒµ½Â·Ïß£¡" << endl;
+			cout << "æœªæ‰¾åˆ°è·¯çº¿ï¼" << endl;
 			break;
 		}
 	}
@@ -390,16 +390,16 @@ Status Limited_Time(PATH tour)
 	return OK;
 }
 
-//ÂÃ¿ÍÏŞÖÆÊ±¼ä×îĞ¡»¨·ÑÂÃĞĞ²ßÂÔ
+//æ—…å®¢é™åˆ¶æ—¶é—´æœ€å°èŠ±è´¹æ—…è¡Œç­–ç•¥
 Status Min_Time_Limited_Time()
 {
-	//È·¶¨Â·ÏßÊıÁ¿
+	//ç¡®å®šè·¯çº¿æ•°é‡
 	int path_number = 1;
 	int pcity_num = User->num_passby;
 	for (int i = 2; i <= pcity_num; i++)
 		path_number *= i;
 
-	//³õÊ¼»¯Â·Ïß
+	//åˆå§‹åŒ–è·¯çº¿
 	int **Path = NULL;
 	Path = new int*[path_number];
 	for (int i = 0; i < path_number; i++)
@@ -410,20 +410,20 @@ Status Min_Time_Limited_Time()
 	}
 
 	countP = 0;
-	//Í¨¹ıÈ«ÅÅÁĞ£¬Éú³ÉËùÓĞÂ·Ïß
+	//é€šè¿‡å…¨æ’åˆ—ï¼Œç”Ÿæˆæ‰€æœ‰è·¯çº¿
 	Permutation(0, pcity_num, User->pass_by[0], Path);
 
-	//Çó³ö»¨·Ñ×îÉÙµÄÂ·Ïß
+	//æ±‚å‡ºèŠ±è´¹æœ€å°‘çš„è·¯çº¿
 	int mincostpath = 0;
 	int mincost = MY_INFINITE;
-	//±éÀúËùÓĞµÄÂÃĞĞÂ·ÏßÇó½â
+	//éå†æ‰€æœ‰çš„æ—…è¡Œè·¯çº¿æ±‚è§£
 	for (int i = 0; i < path_number; i++)
 	{
 		int allcost = 0;
 		for (int j = 0; j < pcity_num + 1; j++)
 		{
 			int tempcost = 0;
-			//¶ÔÃ¿ÌõÂ·ÏßÖğ¶ÎÇó½âÊ±¼ä
+			//å¯¹æ¯æ¡è·¯çº¿é€æ®µæ±‚è§£æ—¶é—´
 			Dijkstra_For_Min_Cost_Limited_Time(Path[i][j], Path[i][j + 1], tempcost);
 			allcost += tempcost;
 		}
@@ -435,7 +435,7 @@ Status Min_Time_Limited_Time()
 		}
 	}
 
-	//ÕÒµ½×î¿ìµÄÂ·Ïßºó£¬ÖØÓÃDijkstra¼ÇÂ¼Â·Ïß£¬Ê¹ÓÃÁ´±í´æ´¢Â·Ïß
+	//æ‰¾åˆ°æœ€å¿«çš„è·¯çº¿åï¼Œé‡ç”¨Dijkstraè®°å½•è·¯çº¿ï¼Œä½¿ç”¨é“¾è¡¨å­˜å‚¨è·¯çº¿
 	PATH tour = NULL;
 	PATH tourend = tour;
 
@@ -444,7 +444,7 @@ Status Min_Time_Limited_Time()
 	for (int i = 0; i < pcity_num + 1; i++)
 	{
 		int tempcost = 0;
-		//·Ö¶ÎÈ·¶¨Â·Ïß
+		//åˆ†æ®µç¡®å®šè·¯çº¿
 		Dijkstra_For_Min_Cost_Limited_Time(Path[mincostpath][i], Path[mincostpath][i + 1], tour == NULL ? tour : tourend, tempcost);
 		allcost += tempcost;
 
@@ -454,14 +454,14 @@ Status Min_Time_Limited_Time()
 			tourend = tourend->next;
 	}
 
-	//²¹È«Â·ÏßÁ´±íÖĞµÄÄÚÈİ
+	//è¡¥å…¨è·¯çº¿é“¾è¡¨ä¸­çš„å†…å®¹
 	Finish_Path(tour);
 
 	if (Calculate_Time(tour) > User->Time_Limited)
 		Limited_Time(tour);
 
-	cout << "ÂÃÍ¾×ÜÊ±³¤£º" << Calculate_Time(tour) << endl
-		<< "ÂÃÍ¾×Ü»¨·Ñ£º" << Calculate_Cost(tour) << endl;
+	cout << "æ—…é€”æ€»æ—¶é•¿ï¼š" << Calculate_Time(tour) << endl
+		<< "æ—…é€”æ€»èŠ±è´¹ï¼š" << Calculate_Cost(tour) << endl;
 
 	Output_route(tour);
 	Write_route_file(tour);
