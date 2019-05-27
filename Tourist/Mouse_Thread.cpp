@@ -25,6 +25,7 @@ unsigned __stdcall mouse(void* pArguments)
 		printf("                      3:\t查询用户状态！\n");	
 		printf("**************************************************************************\n");
 		printf("请输入您的操作：\n");
+		sprintf()
 
 		cin >> choice;
 		getchar();

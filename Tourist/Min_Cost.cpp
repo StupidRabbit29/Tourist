@@ -22,7 +22,7 @@ void Init_Graph_MinCost()//遍历整个图，将其边初的权重始化
 				//currentPtr = city_graph.pp_G[row][col].p_TransTable->nextPtr)
 				currentPtr = currentPtr->nextPtr)
 			{
-				if (city_graph.pp_G[row][col].p_TransTable->cost < min_cost)
+				if (currentPtr->cost < min_cost)
 				{
 					min_cost = city_graph.pp_G[row][col].p_TransTable->cost;
 					num_of_the_MinCostEdge = city_graph.pp_G[row][col].p_TransTable->number;
