@@ -18,7 +18,7 @@ using namespace std;
 #define MAX_NODE_NUM 200 //最大城市数量
 #define MIN_NODE_NUM 10 //最小城市数量
 
-const bool DEBUG = true;//debug标志
+const bool DEBUG = false;//debug标志
 
 /*枚举类型*/
 enum Vehicle { CAR, TRAIN, AIRPLANE };//交通工具

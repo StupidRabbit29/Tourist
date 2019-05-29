@@ -237,7 +237,7 @@ int Calculate_Cost(PATH tour)
 {
 	int cost = 0;
 	PATH temp = tour;
-	while (temp->next != NULL)
+	while (temp != NULL)
 	{
 		cost += temp->cost;
 		temp = temp->next;

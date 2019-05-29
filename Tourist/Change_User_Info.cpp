@@ -55,9 +55,14 @@ void Change_User_Info(PASSENGER &psg)
 		Travelstate[touristnum] = 1;
 	}
 	else
+	{
 		psg.src = psg.status.dest;
+		psg.start_time = System_Time;
+	}
 
 	/*修改旅客信息及策略*/
+	cout << "当前所在位置：" << psg.src << endl;
+
 	int choice;
 	cout << "是否更改终点（Y=1/N=0）：";
 	scanf_s("%d",&choice);
@@ -87,25 +92,25 @@ void Change_User_Info(PASSENGER &psg)
 
 	}
 
-	cout << "是否更改途经城市（Y=1/N=0）：";
-	scanf_s("%d", &choice);
+	/*cout << "是否更改途经城市（Y=1/N=0）：";
+	scanf_s("%d", &choice);*/
 	for (int i = 0; i < MAX_NODE_NUM; i++)
 		psg.pass_by[0][i] = psg.pass_by[1][i] = -1;
 
-	if (choice == 1)
-	{
+	//if (choice == 1)
+	//{
 		printf("请输入途经城市数量：");
 		//cout << "";
 		int cnt = 0, i;
 		scanf_s("%d", &cnt);
 		psg.num_passby = cnt;
 		fprintf(fptr_input, "途经城市数量：%d\n途经城市编号：", cnt);//用户输入写入input.txt文件
-		printf("请输入途经城市编号：");
 		//cout << "";
 		int stay_in_city = -1;
 		bool stay = false;
 		for (i = 0; i < cnt; i++)
 		{
+			printf("请输入途经城市编号：");
 			scanf_s("%d", &psg.pass_by[0][i]);
 			fprintf(fptr_input, "%d ", psg.pass_by[0][i]);//用户输入写入input.txt文件
 			printf("是否需要在该地停留（Y=1/N=0）：");
@@ -116,13 +121,14 @@ void Change_User_Info(PASSENGER &psg)
 				printf("请输入停留时间（单位：小时）：");
 				//cout << "";
 				scanf_s("%d", &psg.pass_by[1][i]);
+				stay_in_city = -1;
 			}
 			else
 				psg.pass_by[1][i] = 0;
 		}
-	}
-	else
-		psg.num_passby = 0;
+	//}
+	//else
+		//psg.num_passby = 0;
 
 	//printf("是否更改旅行策略（Y=1/N=0）：");
 	cout << "是否更改旅行策略（Y=1/N=0）：";
@@ -160,5 +166,7 @@ void Change_User_Info(PASSENGER &psg)
 	default:
 		break;
 	}
-	cout << " Change_User_Info() done " << endl;
+
+	if(DEBUG)
+		cout << " Change_User_Info() done " << endl;
 }

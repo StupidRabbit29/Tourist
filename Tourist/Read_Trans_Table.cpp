@@ -70,5 +70,7 @@ void Read_trans_t()
 
 
 	}
-	cout << "Read_trans_t()" << endl;
+
+	if(DEBUG)
+		cout << "Read_trans_t()" << endl;
 }

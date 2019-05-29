@@ -175,5 +175,6 @@ void Freememory(void)
 		free(pre);
 	}
 
-	cout << "Free memory successfully" << endl;
+	if(DEBUG)
+		cout << "Free memory successfully" << endl;
 }

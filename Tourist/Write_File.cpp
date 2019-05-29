@@ -208,6 +208,7 @@ Status Read_system_file()
 		User = NULL;
 	}
 	
-	cout << "Read system_file successfully" << endl;
+	if(DEBUG)
+		cout << "Read system_file successfully" << endl;
 	return OK;
 }

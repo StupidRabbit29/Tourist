@@ -22,7 +22,8 @@ int main()
 	WaitForSingleObject(time_thread, MY_INFINITE);
 	CloseHandle(time_thread);
 
-	cout << "Program End" << endl;
+	if(DEBUG)
+		cout << "Program End" << endl;
 	system("pause");
 
 	return 0;

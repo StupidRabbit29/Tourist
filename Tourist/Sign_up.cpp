@@ -12,7 +12,8 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 {
 	/*读输入&初始化*/
 	/*需要修改！！！！！文件输入*/
-	cout << "Create_New_Passenger() called" << endl;
+	if(DEBUG)
+		cout << "Create_New_Passenger() called" << endl;
 	
 	PASSENGER *psg_temp;
 	psg_temp = (PASSENGER*)malloc(sizeof(PASSENGER));
@@ -124,5 +125,6 @@ void Create_New_Passenger(PASSENGER *tailPtr)
 	}
 	Travelstate[touristnum] = 1;
 
-	cout << "Create_New_Passenger() done " << endl;
+	if(DEBUG)
+		cout << "Create_New_Passenger() done " << endl;
 }
