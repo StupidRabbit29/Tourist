@@ -13,7 +13,7 @@ void Write_status_file(PASSENGER &psg)
 {
 	//将User的状态结构体写入文件
 	char str2[100] = { '\0' };
-	char *loca[4] = { "CAR", "TRAIN", "AIRPLANE", "STAY_IN_CITY" };
+	char *loca[5] = { "IN_CAR", "IN_TRAIN", "IN_AIRPLANE", "STAY_IN_CITY", "ARRIVE" };
 
 	//旅客旅行时刻
 	memset(str2, 0, sizeof(str2));

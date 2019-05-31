@@ -53,11 +53,13 @@ void Change_User_Info(PASSENGER &psg)
 		WritePrivateProfileStructA(psg.ID, str1, &cur, sizeof(PathNode), ".\\User_Route.ini");
 
 		Travelstate[touristnum] = 1;
+		//psg.status.loca = STAY_IN_CITY;
 	}
 	else
 	{
 		psg.src = psg.status.dest;
 		psg.start_time = System_Time;
+		psg.status.loca = STAY_IN_CITY;
 	}
 
 	/*修改旅客信息及策略*/

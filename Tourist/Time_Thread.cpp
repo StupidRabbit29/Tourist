@@ -43,6 +43,8 @@ unsigned __stdcall time(void* pArguments)
 				if (temp->status.loca != ARRIVE && Travelstate[touristnum] != 0)
 					Refresh(temp, touristnum);
 
+				Write_status_file(*temp);
+
 				touristnum++;
 				temp = temp->next_passenger;
 			}
